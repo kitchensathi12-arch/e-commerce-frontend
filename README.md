@@ -8,11 +8,4 @@ Whether it’s mixer grinders, gas stoves, cookers, or genuine spare parts, we a
 
 
 
-## this is only for developer
-
-1. github token to install npm private package
-
-```bash
- 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
-```
     
