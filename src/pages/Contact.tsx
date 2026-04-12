@@ -27,7 +27,7 @@ const Contact = () => {
         <div className="relative z-10">
           <p className="text-red-200 text-xs uppercase tracking-widest mb-3 font-medium">Get In Touch</p>
           <h1 className="text-4xl font-bold mb-3 tracking-tight">Contact Us</h1>
-          <p className="text-red-100 text-sm max-w-md mx-auto leading-relaxed">We're here to help. Reach out to us anytime and we'll get back to you as soon as possible.</p>
+          <p className="text-red-100 text-sm max-w-md mx-auto leading-relaxed">We are here to help. Reach out to us anytime and we'll get back to you as soon as possible.</p>
         </div>
       </section>
 
