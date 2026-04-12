@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from 'react';
 
 interface Option {
   label: string;
@@ -18,18 +18,7 @@ interface SelectFieldProps {
   className?: string;
 }
 
-const SelectField: FC<SelectFieldProps> = ({
-  label,
-  name,
-  value,
-  onChange,
-  options,
-  placeholder = "Select an option",
-  required = false,
-  disabled = false,
-  error,
-  className = "",
-}) => {
+const SelectField: FC<SelectFieldProps> = ({ label, name, value, onChange, options, placeholder = 'Select an option', required = false, disabled = false, error, className = '' }) => {
   return (
     <div className="w-full">
       {label && (
@@ -44,8 +33,8 @@ const SelectField: FC<SelectFieldProps> = ({
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
         className={`w-full px-4 py-2.5 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition 
-        ${error ? "border-red-500" : "border-gray-300"} 
-        ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"} 
+        ${error ? 'border-red-500' : 'border-gray-300'} 
+        ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'} 
         ${className}`}
       >
         <option value="" disabled>
@@ -59,9 +48,7 @@ const SelectField: FC<SelectFieldProps> = ({
         ))}
       </select>
 
-      {error && (
-        <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>}
     </div>
   );
 };

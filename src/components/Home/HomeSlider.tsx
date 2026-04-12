@@ -1,35 +1,39 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getActiveBanners } from "@/services/BannerServices";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getActiveBanners } from '@/services/BannerServices';
 
 const HomeSlider = () => {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["active-banners"],
+    queryKey: ['active-banners'],
     queryFn: getActiveBanners,
   });
 
   const slides = data?.data || [];
 
-  const goTo = useCallback((index: number) => {
-    if (isTransitioning || index === current || !slides.length) return;
-    setPrev(current);
-    setIsTransitioning(true);
-    setCurrent(index);
-    setProgress(0);
-    setTimeout(() => {
-      setPrev(null);
-      setIsTransitioning(false);
-    }, 950);
-  }, [current, isTransitioning, slides.length]);
+  const goTo = useCallback(
+    (index: number) => {
+      if (isTransitioning || index === current || !slides.length) return;
+      setPrev(current);
+      setIsTransitioning(true);
+      setCurrent(index);
+      setProgress(0);
+      setTimeout(() => {
+        setPrev(null);
+        setIsTransitioning(false);
+      }, 950);
+    },
+    [current, isTransitioning, slides.length]
+  );
 
   const goNext = useCallback(() => {
     if (!slides.length) return;
@@ -63,17 +67,16 @@ const HomeSlider = () => {
   // Keyboard Navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") goNext();
-      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') goPrev();
     };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, [goNext, goPrev]);
 
   if (isLoading) {
     return (
-      <section className="relative w-full flex items-center justify-center bg-[#f8f5f0]" 
-               style={{ height: "min(87vh, 720px)", minHeight: "500px" }}>
+      <section className="relative w-full flex items-center justify-center bg-[#f8f5f0]" style={{ height: 'min(87vh, 720px)', minHeight: '500px' }}>
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-4 border-[#1a1208]/10 border-t-[#1a1208] rounded-full animate-spin" />
           <p className="text-xs tracking-[0.3em] uppercase text-[#1a1208]/40 font-medium">Loading premium collection...</p>
@@ -229,46 +232,22 @@ const HomeSlider = () => {
         }
       `}</style>
 
-      <section
-        className="sl-root"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={() => setIsPaused(true)}
-        onTouchEnd={() => setIsPaused(false)}
-      >
+      <section className="sl-root" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onTouchStart={() => setIsPaused(true)} onTouchEnd={() => setIsPaused(false)}>
         {/* Background Images */}
         {slides.map((slide: any, i: number) => (
           <div key={i}>
-            {prev === i && (
-              <div 
-                className="sl-bg sl-bg-out" 
-                style={{ backgroundImage: `url(${slide.image})` }} 
-              />
-            )}
-            {current === i && (
-              <div 
-                className={`sl-bg ${isTransitioning ? "sl-bg-in" : ""}`}
-                style={{ backgroundImage: `url(${slide.image})` }}
-              />
-            )}
+            {prev === i && <div className="sl-bg sl-bg-out" style={{ backgroundImage: `url(${slide.image})` }} />}
+            {current === i && <div className={`sl-bg ${isTransitioning ? 'sl-bg-in' : ''}`} style={{ backgroundImage: `url(${slide.image})` }} />}
           </div>
         ))}
 
         {/* Content */}
         <div className="sl-content">
-          {slides[current]?.tag && (
-            <div className="sl-tag">{slides[current].tag}</div>
-          )}
+          {slides[current]?.tag && <div className="sl-tag">{slides[current].tag}</div>}
 
-          <h1 className="sl-title">
-            {slides[current]?.title || ""}
-          </h1>
+          <h1 className="sl-title">{slides[current]?.title || ''}</h1>
 
-          {slides[current]?.subtitle && (
-            <p className="sl-subtitle">
-              {slides[current].subtitle}
-            </p>
-          )}
+          {slides[current]?.subtitle && <p className="sl-subtitle">{slides[current].subtitle}</p>}
 
           {slides[current]?.buttonText && (
             <button
@@ -281,7 +260,7 @@ const HomeSlider = () => {
               }}
             >
               {slides[current].buttonText}
-              <span style={{ fontSize: "18px", lineHeight: 1 }}>→</span>
+              <span style={{ fontSize: '18px', lineHeight: 1 }}>→</span>
             </button>
           )}
         </div>
@@ -292,8 +271,8 @@ const HomeSlider = () => {
             <button
               key={i}
               className={`sl-dot ${i === current ? 'active' : ''}`}
-              style={{ 
-                width: i === current ? "64px" : "28px" 
+              style={{
+                width: i === current ? '64px' : '28px',
               }}
               onClick={() => goTo(i)}
               aria-label={`Go to slide ${i + 1}`}

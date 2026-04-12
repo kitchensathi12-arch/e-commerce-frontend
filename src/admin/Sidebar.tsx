@@ -1,19 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
-import type { JSX } from "react/jsx-runtime";
-import {
-  LayoutDashboard,
-  Package,
-  FolderTree,
-  Tags,
-  ShoppingCart,
-  Image as ImageIcon,
-  LogOut,
-  X,
-  ChevronRight,
-  Trash2,
-} from "lucide-react";
+import { Link, NavLink } from 'react-router-dom';
+import type { JSX } from 'react/jsx-runtime';
+import { LayoutDashboard, Package, FolderTree, Tags, ShoppingCart, Image as ImageIcon, LogOut, X, ChevronRight, Trash2 } from 'lucide-react';
 
-import Logo from "../assets/Images/Logos/Logo.jpg";
+import Logo from '../assets/Images/Logos/Logo.jpg';
 
 interface NavItem {
   label: string;
@@ -30,13 +19,13 @@ interface SidebarProps {
 }
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", to: "/dashboard", end: true, icon: <LayoutDashboard size={18} /> },
-  { label: "Products", to: "/products", icon: <Package size={18} /> },
-  { label: "Categories", to: "/categories", icon: <FolderTree size={18} /> },
-  { label: "Brands", to: "/brands", icon: <Tags size={18} /> },
-  { label: "Orders", to: "/orders", badge: 12, icon: <ShoppingCart size={18} /> },
-  { label: "Banners", to: "/banners", icon: <ImageIcon size={18} /> },
-  { label: "Bin", to: "/bin", icon: <Trash2 size={18} /> },
+  { label: 'Dashboard', to: '/dashboard', end: true, icon: <LayoutDashboard size={18} /> },
+  { label: 'Products', to: '/products', icon: <Package size={18} /> },
+  { label: 'Categories', to: '/categories', icon: <FolderTree size={18} /> },
+  { label: 'Brands', to: '/brands', icon: <Tags size={18} /> },
+  { label: 'Orders', to: '/orders', badge: 12, icon: <ShoppingCart size={18} /> },
+  { label: 'Banners', to: '/banners', icon: <ImageIcon size={18} /> },
+  { label: 'Bin', to: '/bin', icon: <Trash2 size={18} /> },
 ];
 
 const Sidebar = ({ open, onClose, onLogout }: SidebarProps): JSX.Element => {
@@ -327,12 +316,9 @@ const Sidebar = ({ open, onClose, onLogout }: SidebarProps): JSX.Element => {
       `}</style>
 
       {/* Mobile overlay */}
-      {open && (
-        <div className="sb-overlay" onClick={onClose} />
-      )}
+      {open && <div className="sb-overlay" onClick={onClose} />}
 
-      <aside className={`sb-aside ${open ? "sb-open" : ""}`}>
-
+      <aside className={`sb-aside ${open ? 'sb-open' : ''}`}>
         {/* ── Header ── */}
         <div className="sb-header">
           <Link to="/admin" className="sb-logo-wrap" onClick={onClose}>
@@ -349,18 +335,10 @@ const Sidebar = ({ open, onClose, onLogout }: SidebarProps): JSX.Element => {
         {/* ── Navigation ── */}
         <nav className="sb-nav">
           {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              onClick={onClose}
-              className={({ isActive }) => `sb-link${isActive ? " active" : ""}`}
-            >
+            <NavLink key={item.to} to={item.to} end={item.end} onClick={onClose} className={({ isActive }) => `sb-link${isActive ? ' active' : ''}`}>
               <span className="sb-link-icon">{item.icon}</span>
               <span className="sb-link-label">{item.label}</span>
-              {item.badge !== undefined && (
-                <span className="sb-badge">{item.badge}</span>
-              )}
+              {item.badge !== undefined && <span className="sb-badge">{item.badge}</span>}
               <ChevronRight size={14} className="sb-chevron" />
             </NavLink>
           ))}
@@ -380,13 +358,15 @@ const Sidebar = ({ open, onClose, onLogout }: SidebarProps): JSX.Element => {
           {/* Logout */}
           <button
             className="sb-logout-btn"
-            onClick={() => { onLogout(); onClose(); }}
+            onClick={() => {
+              onLogout();
+              onClose();
+            }}
           >
             <LogOut size={17} />
             <span>Logout</span>
           </button>
         </div>
-
       </aside>
     </>
   );

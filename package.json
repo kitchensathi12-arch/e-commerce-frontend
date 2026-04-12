@@ -11,7 +11,7 @@
     "update": "npm uni @kitchensathi12-arch/ecommerce-types && npm i @kitchensathi12-arch/ecommerce-types"
   },
   "dependencies": {
-    "@kitchensathi12-arch/ecommerce-types": "^0.1.0",
+    "@kitchensathi12-arch/ecommerce-types": "^0.1.1",
     "@react-oauth/google": "^0.13.4",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-query": "^5.90.21",

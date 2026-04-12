@@ -1,13 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <footer
-      style={{ fontFamily: "'DM Sans', 'Segoe UI', sans-serif" }}
-      className="bg-[#1a1a1a] text-white"
-    >
+    <footer style={{ fontFamily: "'DM Sans', 'Segoe UI', sans-serif" }} className="bg-[#1a1a1a] text-white">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
         .footer-link {
@@ -86,26 +83,20 @@ const Footer = () => {
       <div
         className="footer-grid"
         style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "60px 24px 40px",
-          display: "grid",
-          gridTemplateColumns: "1.8fr 1.2fr 1fr 1fr",
-          gap: "40px",
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '60px 24px 40px',
+          display: 'grid',
+          gridTemplateColumns: '1.8fr 1.2fr 1fr 1fr',
+          gap: '40px',
         }}
       >
         {/* Col 1: Brand + Subscribe + Social */}
         <div>
-          <p style={{ fontSize: "20px", fontWeight: "700", color: "#fff", marginBottom: "16px" }}>
-            Shreenathji Enterprise
-          </p>
-          <p style={{ color: "#b0b0b0", fontSize: "13.5px", marginBottom: "10px", fontWeight: "500" }}>
-            Subscribe
-          </p>
-          <p style={{ color: "#909090", fontSize: "13px", marginBottom: "14px", lineHeight: "1.5" }}>
-            Get 10% off your first order
-          </p>
-          <div style={{ position: "relative", marginBottom: "28px" }}>
+          <p style={{ fontSize: '20px', fontWeight: '700', color: '#fff', marginBottom: '16px' }}>Shreenathji Enterprise</p>
+          <p style={{ color: '#b0b0b0', fontSize: '13.5px', marginBottom: '10px', fontWeight: '500' }}>Subscribe</p>
+          <p style={{ color: '#909090', fontSize: '13px', marginBottom: '14px', lineHeight: '1.5' }}>Get 10% off your first order</p>
+          <div style={{ position: 'relative', marginBottom: '28px' }}>
             <input type="email" placeholder="Enter your email" className="subscribe-input" />
             <button className="subscribe-btn" aria-label="Subscribe">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -116,28 +107,28 @@ const Footer = () => {
           </div>
 
           {/* Social Icons */}
-          <div style={{ display: "flex", gap: "12px" }}>
+          <div style={{ display: 'flex', gap: '12px' }}>
             <a href="#" className="social-btn" aria-label="Facebook">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
             <a href="#" className="social-btn" aria-label="X">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
             <a href="#" className="social-btn" aria-label="Instagram">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
               </svg>
             </a>
             <a href="#" className="social-btn" aria-label="LinkedIn">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
-                <circle cx="4" cy="4" r="2"/>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
           </div>
@@ -146,15 +137,18 @@ const Footer = () => {
         {/* Col 2: Support */}
         <div>
           <p className="footer-heading">Support</p>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "14px" }}>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <li>
-              <span style={{ color: "#909090", fontSize: "13px", lineHeight: "1.6" }}>
-                No.11-8-664/5, Zahir Towers,<br/> Near Rao & Rao Circle,<br/> Maidan 4th Cross Road,<br/> Maidan Road, Mangalore-575001, Karnataka
+              <span style={{ color: '#909090', fontSize: '13px', lineHeight: '1.6' }}>
+                No.11-8-664/5, Zahir Towers,
+                <br /> Near Rao & Rao Circle,
+                <br /> Maidan 4th Cross Road,
+                <br /> Maidan Road, Mangalore-575001, Karnataka
               </span>
             </li>
             <li>
               <a href="mailto:Chouhanbanna410@gmail.com" className="footer-link">
-                Chouhanbanna410@gmail.com 
+                Chouhanbanna410@gmail.com
               </a>
             </li>
             <li>
@@ -168,13 +162,13 @@ const Footer = () => {
         {/* Col 3: Account */}
         <div>
           <p className="footer-heading">Account</p>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "14px" }}>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
-              { label: "My Account", path: "/account" },
-              { label: "Login / Register", path: "/login" },
-              { label: "Cart", path: "/cart" },
-              { label: "Wishlist", path: "/wishlist" },
-              { label: "Shop", path: "/shop" },
+              { label: 'My Account', path: '/account' },
+              { label: 'Login / Register', path: '/login' },
+              { label: 'Cart', path: '/cart' },
+              { label: 'Wishlist', path: '/wishlist' },
+              { label: 'Shop', path: '/shop' },
             ].map((item) => (
               <li key={item.label}>
                 <button className="footer-link" onClick={() => navigate(item.path)}>
@@ -188,13 +182,13 @@ const Footer = () => {
         {/* Col 4: Quick Link */}
         <div>
           <p className="footer-heading">Quick Link</p>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "14px" }}>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
-              { label: "Privacy Policy", path: "/privacy-policy" },
-              { label: "Terms Of Use", path: "/terms" },
-              { label: "FAQ", path: "/faq" },
-              { label: "Contact", path: "/contact" },
-              { label: "About Us", path: "/about" },
+              { label: 'Privacy Policy', path: '/privacy-policy' },
+              { label: 'Terms Of Use', path: '/terms' },
+              { label: 'FAQ', path: '/faq' },
+              { label: 'Contact', path: '/contact' },
+              { label: 'About Us', path: '/about' },
             ].map((item) => (
               <li key={item.label}>
                 <button className="footer-link" onClick={() => navigate(item.path)}>
@@ -207,15 +201,15 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <hr className="divider" style={{ margin: "0 24px" }} />
+      <hr className="divider" style={{ margin: '0 24px' }} />
       <div
         style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "18px 24px",
-          textAlign: "center",
-          color: "#777",
-          fontSize: "13px",
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '18px 24px',
+          textAlign: 'center',
+          color: '#777',
+          fontSize: '13px',
         }}
       >
         © Copyright Shreenathji Enterprise {new Date().getFullYear()}. All rights reserved.

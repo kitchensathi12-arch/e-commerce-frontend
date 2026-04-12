@@ -1,23 +1,12 @@
 import { useState, useEffect, type FC } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {
-  ShoppingCart,
-  User,
-  Menu,
-  X,
-  Search,
-  ChevronDown,
-  ClipboardList,
-} from 'lucide-react';
+import { ShoppingCart, User, Menu, X, Search, ChevronDown, ClipboardList } from 'lucide-react';
 import Logo from '../../assets/Images/Logos/Logo.jpg';
 import { AuthStore } from '@/store/store';
 import { useMutation } from '@tanstack/react-query';
 import { logoutUser } from '@/services/AuthServices';
 
-const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
-  cartCount = 0,
-  userName = 'User'
-}) => {
+const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, userName = 'User' }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -58,9 +47,7 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
     { label: 'Contact Us', to: '/contact' },
   ];
 
-  const firstLetter = user?.username
-    ? user.username.charAt(0).toUpperCase()
-    : "U";
+  const firstLetter = user?.username ? user.username.charAt(0).toUpperCase() : 'U';
 
   return (
     <>
@@ -203,71 +190,50 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
       `}</style>
 
       <div className="top-bar">
-        Summer Sale For All Kitchen Appliances - Up to 50% OFF!{' '}
-        <a href="#">Shop Now</a>
+        Summer Sale For All Kitchen Appliances - Up to 50% OFF! <a href="#">Shop Now</a>
       </div>
 
       <header className="nb-root">
         <div className="nb-inner">
-
           <Link to="/" className="nb-logo">
             <img src={Logo} alt="Logo" />
           </Link>
 
           <nav className="nb-nav hidden md:flex">
             {navLinks.map((l) => (
-              <Link key={l.to} to={l.to}>{l.label}</Link>
+              <Link key={l.to} to={l.to}>
+                {l.label}
+              </Link>
             ))}
           </nav>
 
           <div className={`nb-search hidden md:flex ${searchFocused ? 'focused' : ''}`}>
             <Search size={18} color="#999" />
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-            />
+            <input type="text" placeholder="What are you looking for?" onFocus={() => setSearchFocused(true)} onBlur={() => setSearchFocused(false)} />
           </div>
 
           <div className="nb-actions">
-
             <Link to="/cart" className="nb-cart">
               <ShoppingCart size={22} />
-              {cartCount > 0 && (
-                <span className="nb-cart-badge">{cartCount}</span>
-              )}
+              {cartCount > 0 && <span className="nb-cart-badge">{cartCount}</span>}
             </Link>
 
             <div className="hidden md:flex items-center">
               {!user ? (
-                <button
-                  onClick={() => navigate('/login')}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-[#e63939] text-white rounded-full text-sm font-medium hover:bg-red-700 transition"
-                >
+                <button onClick={() => navigate('/login')} className="flex items-center gap-2 px-5 py-2.5 bg-[#e63939] text-white rounded-full text-sm font-medium hover:bg-red-700 transition">
                   <User size={16} /> Login
                 </button>
               ) : (
                 <div style={{ position: 'relative' }}>
-                  <button
-                    onClick={() => setProfileOpen(!profileOpen)}
-                    className="flex items-center gap-2"
-                  >
-                    <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-semibold">
-                      {firstLetter}
-                    </div>
-                    <span className="font-medium text-sm">
-                      {user?.role === "admin" ? "Admin" : userName}
-                    </span>
+                  <button onClick={() => setProfileOpen(!profileOpen)} className="flex items-center gap-2">
+                    <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-semibold">{firstLetter}</div>
+                    <span className="font-medium text-sm">{user?.role === 'admin' ? 'Admin' : userName}</span>
                     <ChevronDown size={14} />
                   </button>
 
                   {profileOpen && (
                     <>
-                      <div
-                        style={{ position: 'fixed', inset: 0, zIndex: 100 }}
-                        onClick={() => setProfileOpen(false)}
-                      />
+                      <div style={{ position: 'fixed', inset: 0, zIndex: 100 }} onClick={() => setProfileOpen(false)} />
                       <div className="profile-dropdown">
                         <Link to="/account" className="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-50">
                           <User size={15} /> Profile
@@ -277,11 +243,8 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
                           <ClipboardList size={15} /> Orders
                         </Link>
 
-                        {user?.role === "admin" && (
-                          <Link
-                            to="/dashboard"
-                            className="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-50 text-blue-600 font-medium"
-                          >
+                        {user?.role === 'admin' && (
+                          <Link to="/dashboard" className="flex items-center gap-3 px-5 py-3 text-sm hover:bg-gray-50 text-blue-600 font-medium">
                             Admin Panel
                           </Link>
                         )}
@@ -310,7 +273,6 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
       {mobileOpen && (
         <div className="mobile-drawer md:hidden">
           <div className="px-5 py-5 space-y-5">
-
             <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
               <Search size={16} color="#999" />
               <input type="text" placeholder="What are you looking for?" className="bg-transparent text-sm outline-none w-full" />
@@ -338,11 +300,8 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({
                   <ClipboardList size={17} /> Orders
                 </Link>
 
-                {user?.role === "admin" && (
-                  <Link
-                    to="/dashboard"
-                    className="mobile-link text-blue-600 font-medium"
-                  >
+                {user?.role === 'admin' && (
+                  <Link to="/dashboard" className="mobile-link text-blue-600 font-medium">
                     Admin Panel
                   </Link>
                 )}

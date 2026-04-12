@@ -1,11 +1,12 @@
-"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { ShoppingCart, Trash2 } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
-import type { IWishlistDetails } from "@kitchensathi12-arch/ecommerce-types";
-import { emptyWishlist, getWishlistItems, removeWishlistItem } from "@/services/Whislist";
-import { addToCart } from "@/services/CartServices";
+import { useState, useEffect, useCallback } from 'react';
+import { ShoppingCart, Trash2 } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import type { IWishlistDetails } from '@kitchensathi12-arch/ecommerce-types';
+import { emptyWishlist, getWishlistItems, removeWishlistItem } from '@/services/Whislist';
+import { addToCart } from '@/services/CartServices';
 
 export default function Wishlist() {
   const [items, setItems] = useState<(IWishlistDetails & { _id: string })[]>([]);
@@ -22,7 +23,7 @@ export default function Wishlist() {
       const res = await getWishlistItems();
       setItems(res.data as unknown as (IWishlistDetails & { _id: string })[]);
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to load wishlist.");
+      setError(err?.response?.data?.message || 'Failed to load wishlist.');
     } finally {
       setLoading(false);
     }
@@ -32,10 +33,10 @@ export default function Wishlist() {
   const { mutate: handleAddToCart, isPending: isCartPending } = useMutation({
     mutationFn: addToCart,
     onSuccess: () => {
-      console.log("Added to cart");
+      console.log('Added to cart');
     },
     onError: (err: any) => {
-      alert(err?.response?.data?.message || "Failed to add to cart.");
+      alert(err?.response?.data?.message || 'Failed to add to cart.');
     },
   });
 
@@ -54,19 +55,19 @@ export default function Wishlist() {
       }, 350);
     } catch (err: any) {
       setRemovingId(null);
-      alert(err?.response?.data?.message || "Failed to remove item.");
+      alert(err?.response?.data?.message || 'Failed to remove item.');
     }
   };
 
   // ── Empty wishlist ──
   const handleEmptyWishlist = async () => {
-    if (!confirm("Are you sure you want to empty the wishlist?")) return;
+    if (!confirm('Are you sure you want to empty the wishlist?')) return;
     setEmptyingWishlist(true);
     try {
       await emptyWishlist();
       setItems([]);
     } catch (err: any) {
-      alert(err?.response?.data?.message || "Failed to empty wishlist.");
+      alert(err?.response?.data?.message || 'Failed to empty wishlist.');
     } finally {
       setEmptyingWishlist(false);
     }
@@ -244,12 +245,8 @@ export default function Wishlist() {
         {/* Header */}
         <div className="wl-header">
           <p className="wl-title">Wishlist ({items.length})</p>
-          <button
-            className="wl-move-btn"
-            onClick={handleEmptyWishlist}
-            disabled={emptyingWishlist || items.length === 0}
-          >
-            {emptyingWishlist ? "Clearing..." : "Empty Wishlist"}
+          <button className="wl-move-btn" onClick={handleEmptyWishlist} disabled={emptyingWishlist || items.length === 0}>
+            {emptyingWishlist ? 'Clearing...' : 'Empty Wishlist'}
           </button>
         </div>
 
@@ -285,35 +282,21 @@ export default function Wishlist() {
                 const mrp = (p as any)?.product_mrp_price ?? 0;
                 const discount = (p as any)?.product_discount ?? 0;
                 const imageUrl = (p as any)?.product_images?.image_url;
-                const name = (p as any)?.product_name ?? "Product";
+                const name = (p as any)?.product_name ?? 'Product';
 
                 return (
-                  <div
-                    key={String(item._id)}
-                    className={`wl-card${removingId === String(item._id) ? " removing" : ""}`}
-                  >
+                  <div key={String(item._id)} className={`wl-card${removingId === String(item._id) ? ' removing' : ''}`}>
                     <div className="wl-img-wrap">
                       {/* Discount Badge */}
-                      {discount > 0 && (
-                        <span className="wl-badge">-{discount}%</span>
-                      )}
+                      {discount > 0 && <span className="wl-badge">-{discount}%</span>}
 
                       {/* Delete */}
-                      <button
-                        className="wl-delete"
-                        onClick={() => removeItem(String(item._id))}
-                        disabled={removingId === String(item._id)}
-                        title="Remove from wishlist"
-                      >
+                      <button className="wl-delete" onClick={() => removeItem(String(item._id))} disabled={removingId === String(item._id)} title="Remove from wishlist">
                         <Trash2 size={15} color="#333" />
                       </button>
 
                       {/* Image */}
-                      {imageUrl ? (
-                        <img src={imageUrl} alt={name} />
-                      ) : (
-                        <span style={{ fontSize: "4rem" }}>📦</span>
-                      )}
+                      {imageUrl ? <img src={imageUrl} alt={name} /> : <span style={{ fontSize: '4rem' }}>📦</span>}
 
                       {/* Add to Cart overlay */}
                       {/* Add to Cart overlay */}
@@ -326,27 +309,21 @@ export default function Wishlist() {
                           handleAddToCart({
                             product_id: String(productId),
                             qty: 1,
-                            currency: "INR",
+                            currency: 'INR',
                           });
                         }}
                         disabled={isCartPending}
                       >
                         <ShoppingCart size={15} />
-                        {isCartPending ? "Adding..." : "Add To Cart"}
+                        {isCartPending ? 'Adding...' : 'Add To Cart'}
                       </button>
                     </div>
 
                     <div className="wl-info">
                       <p className="wl-name">{name}</p>
                       <div className="wl-prices">
-                        <span className="wl-sale">
-                          ₹{price.toLocaleString("en-IN")}
-                        </span>
-                        {mrp > price && (
-                          <span className="wl-original">
-                            ₹{mrp.toLocaleString("en-IN")}
-                          </span>
-                        )}
+                        <span className="wl-sale">₹{price.toLocaleString('en-IN')}</span>
+                        {mrp > price && <span className="wl-original">₹{mrp.toLocaleString('en-IN')}</span>}
                       </div>
                     </div>
                   </div>

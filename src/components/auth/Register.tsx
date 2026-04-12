@@ -9,7 +9,6 @@ import { registerUser } from '@/services/AuthServices';
 import toast from 'react-hot-toast';
 import { type AxiosError } from 'axios';
 
-
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

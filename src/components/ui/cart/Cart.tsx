@@ -1,14 +1,13 @@
-"use client";
-
-import { emptyCart, getCartItems, removeCartItem } from "@/services/CartServices";
-import { useState, useEffect, useCallback } from "react";
-import type { ICartDetails } from "@kitchensathi12-arch/ecommerce-types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { emptyCart, getCartItems, removeCartItem } from '@/services/CartServices';
+import { useState, useEffect, useCallback } from 'react';
+import type { ICartDetails } from '@kitchensathi12-arch/ecommerce-types';
 
 export default function Cart() {
   const [items, setItems] = useState<ICartDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [coupon, setCoupon] = useState("");
+  const [coupon, setCoupon] = useState('');
   const [couponApplied, setCouponApplied] = useState(false);
   const [removingId, setRemovingId] = useState<string | null>(null);
   const [emptyingCart, setEmptyingCart] = useState(false);
@@ -21,7 +20,7 @@ export default function Cart() {
       const res = await getCartItems();
       setItems(res.data as unknown as ICartDetails[]);
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to load cart.");
+      setError(err?.response?.data?.message || 'Failed to load cart.');
     } finally {
       setLoading(false);
     }
@@ -42,19 +41,19 @@ export default function Cart() {
       }, 400);
     } catch (err: any) {
       setRemovingId(null);
-      alert(err?.response?.data?.message || "Failed to remove item.");
+      alert(err?.response?.data?.message || 'Failed to remove item.');
     }
   };
 
   // ── Empty cart ──
   const handleEmptyCart = async () => {
-    if (!confirm("Are you sure you want to empty the cart?")) return;
+    if (!confirm('Are you sure you want to empty the cart?')) return;
     setEmptyingCart(true);
     try {
       await emptyCart();
       setItems([]);
     } catch (err: any) {
-      alert(err?.response?.data?.message || "Failed to empty cart.");
+      alert(err?.response?.data?.message || 'Failed to empty cart.');
     } finally {
       setEmptyingCart(false);
     }
@@ -62,24 +61,16 @@ export default function Cart() {
 
   // ── Coupon ──
   const applyCoupon = () => {
-    if (coupon.trim().toUpperCase() === "SAVE10") {
+    if (coupon.trim().toUpperCase() === 'SAVE10') {
       setCouponApplied(true);
     } else {
-      alert("Invalid coupon code. Try SAVE10");
+      alert('Invalid coupon code. Try SAVE10');
     }
   };
 
-  const subtotal = items.reduce(
-    (sum, i) =>
-      sum + ((i.product_id?.product_selling_price ?? 0) * (i.qty ?? 0)),
-    0
-  );
+  const subtotal = items.reduce((sum, i) => sum + (i.product_id?.product_selling_price ?? 0) * (i.qty ?? 0), 0);
 
-  const totalMRP = items.reduce(
-    (sum, i) =>
-      sum + ((i.product_id?.product_mrp_price ?? 0) * (i.qty ?? 0)),
-    0
-  );
+  const totalMRP = items.reduce((sum, i) => sum + (i.product_id?.product_mrp_price ?? 0) * (i.qty ?? 0), 0);
   const mrpDiscount = totalMRP - subtotal;
   const couponDiscount = couponApplied ? Math.round(subtotal * 0.1) : 0;
   const total = subtotal - couponDiscount;
@@ -264,11 +255,12 @@ export default function Cart() {
         {/* Header */}
         <header className="cart-header">
           <h1>🛒 Shopping Cart</h1>
-          <span className="cart-badge">{items.length} Item{items.length !== 1 ? "s" : ""}</span>
+          <span className="cart-badge">
+            {items.length} Item{items.length !== 1 ? 's' : ''}
+          </span>
         </header>
 
         <div className="cart-layout">
-
           {/* ── Left ── */}
           <div>
             {loading && (
@@ -285,18 +277,14 @@ export default function Cart() {
               </div>
             )}
 
-            {!loading && !error && mrpDiscount > 0 && (
-              <div className="savings-banner">
-                🎉 You're saving ₹{mrpDiscount.toLocaleString("en-IN")} on MRP on this order!
-              </div>
-            )}
+            {!loading && !error && mrpDiscount > 0 && <div className="savings-banner">🎉 You're saving ₹{mrpDiscount.toLocaleString('en-IN')} on MRP on this order!</div>}
 
             {!loading && !error && items.length > 0 && (
               <div className="table-header">
                 <div>Product</div>
                 <div>Price</div>
                 <div>Quantity</div>
-                <div style={{ textAlign: "right" }}>Subtotal</div>
+                <div style={{ textAlign: 'right' }}>Subtotal</div>
               </div>
             )}
 
@@ -308,72 +296,54 @@ export default function Cart() {
               </div>
             )}
 
-            {!loading && !error && items.map((item) => {
-              const p = item.product_id ?? {};
-              return (
-                <div
-                  key={String(item._id)}
-                  className={`cart-item${removingId === String(item._id) ? " removing" : ""}`}
-                >
-                  <div className="product-cell">
-                    <div className="product-img-wrap">
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeItem(String(item._id))}
-                        disabled={removingId === String(item._id)}
-                        title="Remove item"
-                      >
-                        ✕
-                      </button>
-                      {(p.product_images as any)?.image_url ? (
-                        <img src={(p.product_images as any).image_url} alt={p.product_name} />
-                      ) : (
-                        <span className="img-placeholder">📦</span>
-                      )}
-                    </div>
-                    <div className="product-info">
-                      <div className="product-name">{p?.product_name || "Unknown Product"}</div>
-                      <div className="product-meta">
-                        {p.brand?.brand_name} · {p.category?.name}
+            {!loading &&
+              !error &&
+              items.map((item) => {
+                const p = item.product_id ?? {};
+                return (
+                  <div key={String(item._id)} className={`cart-item${removingId === String(item._id) ? ' removing' : ''}`}>
+                    <div className="product-cell">
+                      <div className="product-img-wrap">
+                        <button className="remove-btn" onClick={() => removeItem(String(item._id))} disabled={removingId === String(item._id)} title="Remove item">
+                          ✕
+                        </button>
+                        {(p.product_images as any)?.image_url ? <img src={(p.product_images as any).image_url} alt={p.product_name} /> : <span className="img-placeholder">📦</span>}
                       </div>
-                      {(p.product_discount ?? 0) > 0 && (
-                        <span className="discount-badge">{p.product_discount}% OFF</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="selling-price">
-                      ₹{(p.product_selling_price ?? 0).toLocaleString("en-IN")}
-                    </div>
-                    {(p.product_mrp_price ?? 0) > (p.product_selling_price ?? 0) && (
-                      <div className="mrp-price">
-                        ₹{(p.product_mrp_price ?? 0).toLocaleString("en-IN")}
+                      <div className="product-info">
+                        <div className="product-name">{p?.product_name || 'Unknown Product'}</div>
+                        <div className="product-meta">
+                          {p.brand?.brand_name} · {p.category?.name}
+                        </div>
+                        {(p.product_discount ?? 0) > 0 && <span className="discount-badge">{p.product_discount}% OFF</span>}
                       </div>
-                    )}
-                  </div>
+                    </div>
 
-                  <div>
-                    <div className="qty-num">{String(item.qty).padStart(2, "0")}</div>
-                  </div>
+                    <div>
+                      <div className="selling-price">₹{(p.product_selling_price ?? 0).toLocaleString('en-IN')}</div>
+                      {(p.product_mrp_price ?? 0) > (p.product_selling_price ?? 0) && <div className="mrp-price">₹{(p.product_mrp_price ?? 0).toLocaleString('en-IN')}</div>}
+                    </div>
 
-                  <div className="subtotal-cell">
-                    ₹{((p.product_selling_price ?? 0) * item.qty).toLocaleString("en-IN")}
+                    <div>
+                      <div className="qty-num">{String(item.qty).padStart(2, '0')}</div>
+                    </div>
+
+                    <div className="subtotal-cell">₹{((p.product_selling_price ?? 0) * item.qty).toLocaleString('en-IN')}</div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
 
             {!loading && (
               <div className="bottom-row">
-                <button className="btn-outline" onClick={() => (window.location.href = "/")}>
+                <button className="btn-outline" onClick={() => (window.location.href = '/')}>
                   ← Return To Shop
                 </button>
-                <div style={{ display: "flex", gap: "12px" }}>
-                  <button className="btn-outline" onClick={fetchCart}>↺ Refresh</button>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <button className="btn-outline" onClick={fetchCart}>
+                    ↺ Refresh
+                  </button>
                   {items.length > 0 && (
                     <button className="btn-red" onClick={handleEmptyCart} disabled={emptyingCart}>
-                      {emptyingCart ? "Clearing..." : "🗑 Empty Cart"}
+                      {emptyingCart ? 'Clearing...' : '🗑 Empty Cart'}
                     </button>
                   )}
                 </div>
@@ -383,15 +353,9 @@ export default function Cart() {
             {!loading && !error && items.length > 0 && (
               <div>
                 <div className="coupon-row">
-                  <input
-                    className="coupon-input"
-                    placeholder="Enter coupon code (try SAVE10)"
-                    value={coupon}
-                    onChange={(e) => setCoupon(e.target.value)}
-                    disabled={couponApplied}
-                  />
+                  <input className="coupon-input" placeholder="Enter coupon code (try SAVE10)" value={coupon} onChange={(e) => setCoupon(e.target.value)} disabled={couponApplied} />
                   <button className="btn-red" onClick={applyCoupon} disabled={couponApplied}>
-                    {couponApplied ? "Applied ✓" : "Apply Coupon"}
+                    {couponApplied ? 'Applied ✓' : 'Apply Coupon'}
                   </button>
                 </div>
                 {couponApplied && <div className="coupon-success">🎉 Coupon applied! 10% off.</div>}
@@ -405,22 +369,22 @@ export default function Cart() {
             <div className="total-body">
               <div className="total-row">
                 <span className="total-label">MRP Total</span>
-                <span className="total-value">₹{totalMRP.toLocaleString("en-IN")}</span>
+                <span className="total-value">₹{totalMRP.toLocaleString('en-IN')}</span>
               </div>
               {mrpDiscount > 0 && (
                 <div className="total-row">
                   <span className="total-label">Product Discount</span>
-                  <span className="total-value discount">−₹{mrpDiscount.toLocaleString("en-IN")}</span>
+                  <span className="total-value discount">−₹{mrpDiscount.toLocaleString('en-IN')}</span>
                 </div>
               )}
               <div className="total-row">
                 <span className="total-label">Subtotal</span>
-                <span className="total-value">₹{subtotal.toLocaleString("en-IN")}</span>
+                <span className="total-value">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
               {couponApplied && (
                 <div className="total-row">
                   <span className="total-label">Coupon (SAVE10)</span>
-                  <span className="total-value coupon">−₹{couponDiscount.toLocaleString("en-IN")}</span>
+                  <span className="total-value coupon">−₹{couponDiscount.toLocaleString('en-IN')}</span>
                 </div>
               )}
               <div className="total-row">
@@ -433,7 +397,7 @@ export default function Cart() {
               </div>
               <div className="grand-total-row">
                 <span className="grand-label">Total</span>
-                <span className="grand-value">₹{total.toLocaleString("en-IN")}</span>
+                <span className="grand-value">₹{total.toLocaleString('en-IN')}</span>
               </div>
               <button className="checkout-btn" disabled={items.length === 0 || loading}>
                 Proceed to Checkout →
@@ -441,7 +405,6 @@ export default function Cart() {
               <div className="security-note">🛡️ Secure & Encrypted Checkout</div>
             </div>
           </div>
-
         </div>
       </div>
     </>

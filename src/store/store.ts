@@ -1,5 +1,5 @@
-import type { IAuthDocument } from "@kitchensathi12-arch/ecommerce-types";
-import { create } from "zustand";
+import type { IAuthDocument } from '@kitchensathi12-arch/ecommerce-types';
+import { create } from 'zustand';
 
 export interface IAuthStore {
   user: IAuthDocument | null;

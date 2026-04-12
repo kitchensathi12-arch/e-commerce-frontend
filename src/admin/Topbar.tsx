@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Menu } from 'lucide-react';
 
 interface TopbarProps {
   onMenuClick?: () => void;
@@ -13,29 +13,26 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setProfileOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const handleProfileNavigate = () => {
     setProfileOpen(false);
-    navigate("/admin/profile");
+    navigate('/admin/profile');
   };
 
   const handleGoToWebsite = () => {
-    window.open("/", "_blank");
+    window.open('/', '_blank');
   };
 
   return (
@@ -224,14 +221,9 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
       `}</style>
 
       <header className="topbar">
-
         {/* ── Left: Hamburger + Title ── */}
         <div className="tb-left">
-          <button
-            className="tb-hamburger"
-            onClick={onMenuClick}
-            aria-label="Open menu"
-          >
+          <button className="tb-hamburger" onClick={onMenuClick} aria-label="Open menu">
             <Menu size={18} />
           </button>
           <span className="tb-title">Dashboard</span>
@@ -239,11 +231,9 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
 
         {/* ── Right: Website btn + Profile ── */}
         <div className="tb-right">
-
           {/* Go to Website */}
           <button className="go-website-btn" onClick={handleGoToWebsite}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="2" y1="12" x2="22" y2="12" />
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -252,23 +242,38 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
           </button>
 
           {/* Profile Dropdown */}
-          <div style={{ position: "relative" }} ref={dropdownRef}>
+          <div style={{ position: 'relative' }} ref={dropdownRef}>
             <div className="tb-avatar-wrap" onClick={() => setProfileOpen(!profileOpen)}>
-              <div style={{
-                width: 32, height: 32, borderRadius: 10,
-                background: "linear-gradient(135deg, #3b5bdb, #7950f2)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 13, fontWeight: 800, color: "white",
-              }}>
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 10,
+                  background: 'linear-gradient(135deg, #3b5bdb, #7950f2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 13,
+                  fontWeight: 800,
+                  color: 'white',
+                }}
+              >
                 A
               </div>
               <span className="admin-name">Admin</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round"
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#9ca3af"
+                strokeWidth="2.5"
+                strokeLinecap="round"
                 style={{
-                  transform: profileOpen ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "transform 0.2s ease",
-                }}>
+                  transform: profileOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease',
+                }}
+              >
                 <polyline points="6 9 12 15 18 9" />
               </svg>
             </div>
@@ -276,26 +281,33 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
             {profileOpen && (
               <div className="profile-dropdown">
                 <div className="profile-info" onClick={handleProfileNavigate}>
-                  <div style={{
-                    width: 45, height: 45, borderRadius: 14,
-                    background: "linear-gradient(135deg, #3b5bdb, #7950f2)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 16, fontWeight: 700, color: "white",
-                  }}>
+                  <div
+                    style={{
+                      width: 45,
+                      height: 45,
+                      borderRadius: 14,
+                      background: 'linear-gradient(135deg, #3b5bdb, #7950f2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 16,
+                      fontWeight: 700,
+                      color: 'white',
+                    }}
+                  >
                     A
                   </div>
                   <div>
                     <div style={{ fontWeight: 700, fontSize: 14 }}>Admin</div>
-                    <div style={{ fontSize: 12, color: "#6b7280", marginTop: 2 }}>
-                      admin@email.com
-                    </div>
+                    <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>admin@email.com</div>
                   </div>
                 </div>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
             )}
           </div>
-
         </div>
       </header>
     </>

@@ -5,7 +5,3 @@ We are a trusted and authorized dealer of multiple renowned kitchen appliance br
 Our primary focus is on authenticity, reliability, and long-term customer trust. Every brand we represent comes with official dealer authorization, ensuring complete peace of mind for our customers.
 
 Whether it’s mixer grinders, gas stoves, cookers, or genuine spare parts, we are committed to delivering quality products and dependable service.
-
-
-
-    

@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getActiveCategories } from "@/services/CategoryServices";
-import type { ICategoryDocument } from "@kitchensathi12-arch/ecommerce-types";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getActiveCategories } from '@/services/CategoryServices';
 
 // ──────────────────────────────────────────────────────────────────
 
 const ShopCategorySection = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["active-categories"],
+    queryKey: ['active-categories'],
     queryFn: getActiveCategories,
   });
 
-  const categories = Array.isArray(data) ? data : data?.data;
+  const categories = Array.isArray(data) ? data : undefined;
   const [active, setActive] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -20,15 +19,33 @@ const ShopCategorySection = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    let isDown = false, startX = 0, scrollLeft = 0;
-    const down = (e: MouseEvent) => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; };
-    const up = () => { isDown = false; };
-    const move = (e: MouseEvent) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollLeft - (x - startX) * 1.5; };
-    el.addEventListener("mousedown", down);
-    el.addEventListener("mouseup", up);
-    el.addEventListener("mouseleave", up);
-    el.addEventListener("mousemove", move);
-    return () => { el.removeEventListener("mousedown", down); el.removeEventListener("mouseup", up); el.removeEventListener("mouseleave", up); el.removeEventListener("mousemove", move); };
+    let isDown = false,
+      startX = 0,
+      scrollLeft = 0;
+    const down = (e: MouseEvent) => {
+      isDown = true;
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+    const up = () => {
+      isDown = false;
+    };
+    const move = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    };
+    el.addEventListener('mousedown', down);
+    el.addEventListener('mouseup', up);
+    el.addEventListener('mouseleave', up);
+    el.addEventListener('mousemove', move);
+    return () => {
+      el.removeEventListener('mousedown', down);
+      el.removeEventListener('mouseup', up);
+      el.removeEventListener('mouseleave', up);
+      el.removeEventListener('mousemove', move);
+    };
   }, []);
 
   return (
@@ -213,7 +230,6 @@ const ShopCategorySection = () => {
 
       <section className="cat-section">
         <div className="cat-inner">
-
           <em className="cat-eyebrow">Browse by Category</em>
           <h2 className="cat-heading">What are you shopping for today?</h2>
 
@@ -221,27 +237,26 @@ const ShopCategorySection = () => {
           <div className="cat-track" ref={scrollRef}>
             {isLoading
               ? [...Array(6)].map((_, i) => (
-                <div key={i} className="cat-card" style={{ animationDelay: `${i * 0.07}s` }}>
-                  <div className="cat-skeleton-ring" />
-                  <div className="cat-skeleton-label" />
-                </div>
-              ))
-              : categories?.map((cat: any, i: number) => (
-                <div
-                  key={cat._id}
-                  className={`cat-card${active === cat._id ? " active" : ""}`}
-                  style={{ animationDelay: `${i * 0.07}s` }}
-                  onClick={() => setActive(active === cat._id ? null : cat._id)}
-                >
-                  <div className="cat-ring">
-                    <div className="cat-ring-inner">
-                      <img src={cat.image} alt={cat.name} draggable={false} />
-                    </div>
+                  <div key={i} className="cat-card" style={{ animationDelay: `${i * 0.07}s` }}>
+                    <div className="cat-skeleton-ring" />
+                    <div className="cat-skeleton-label" />
                   </div>
-                  <p className="cat-label">{cat.name}</p>
-                </div>
-              ))
-            }
+                ))
+              : categories?.map((cat: any, i: number) => (
+                  <div
+                    key={cat._id}
+                    className={`cat-card${active === cat._id ? ' active' : ''}`}
+                    style={{ animationDelay: `${i * 0.07}s` }}
+                    onClick={() => setActive(active === cat._id ? null : cat._id)}
+                  >
+                    <div className="cat-ring">
+                      <div className="cat-ring-inner">
+                        <img src={cat.image} alt={cat.name} draggable={false} />
+                      </div>
+                    </div>
+                    <p className="cat-label">{cat.name}</p>
+                  </div>
+                ))}
           </div>
 
           {/* Meta footer */}
@@ -251,7 +266,6 @@ const ShopCategorySection = () => {
               <span />
             </p>
           )}
-
         </div>
       </section>
     </>
