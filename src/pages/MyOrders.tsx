@@ -252,7 +252,6 @@ export default function Orders() {
       {/* Page header */}
       <div style={{ background: '#1a1a1a', color: '#fff', padding: '22px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 22 }}>📦</span>
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, letterSpacing: -0.4 }}>My Orders</h1>
         </div>
         <div style={{ background: '#e07b54', color: '#fff', borderRadius: 20, padding: '4px 16px', fontSize: 13, fontWeight: 700 }}>{orders.length} Orders</div>

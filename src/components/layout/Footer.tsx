@@ -184,11 +184,13 @@ const Footer = () => {
           <p className="footer-heading">Quick Link</p>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
-              { label: 'Privacy Policy', path: '/privacy-policy' },
-              { label: 'Terms Of Use', path: '/terms' },
-              { label: 'FAQ', path: '/faq' },
-              { label: 'Contact', path: '/contact' },
-              { label: 'About Us', path: '/about' },
+              { label: 'Privacy Policy',            path: '/privacy-policy' },
+              { label: 'Terms of Use',              path: '/terms-of-use' },
+              { label: 'Cancellation & Returns',    path: '/cancellation-return-policy' },
+              { label: 'Safe & Secure Shopping',    path: '/safe-secure-shopping' },
+              { label: 'FAQ',                       path: '/faq' },
+              { label: 'Contact',                   path: '/contact' },
+              { label: 'About Us',                  path: '/about' },
             ].map((item) => (
               <li key={item.label}>
                 <button className="footer-link" onClick={() => navigate(item.path)}>
