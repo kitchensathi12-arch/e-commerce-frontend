@@ -6,9 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import type { IProductListForWebsite } from '@kitchensathi12-arch/ecommerce-types';
 import { addToCart } from '@/services/CartServices';
 import { addToWishlist } from '@/services/Whislist';
+import { AuthStore } from '@/store/store';
+import toast from 'react-hot-toast';
 
 const FeaturedProducts = () => {
   const navigate = useNavigate();
+  const { user } = AuthStore((state) => state);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['web-products'],
@@ -94,6 +97,11 @@ const FeaturedProducts = () => {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
+                          if (!user) {
+                            toast.error('Please login to add to cart');
+                            navigate('/login');
+                            return;
+                          }
                           if (!product._id) return;
                           handleAddToCart({
                             product_id: product._id.toString(),
@@ -112,6 +120,11 @@ const FeaturedProducts = () => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
+                        if (!user) {
+                          toast.error('Please login to add to wishlist');
+                          navigate('/login');
+                          return;
+                        }
                         if (!product._id) return;
                         handleAddToWishlist({ product_id: product._id.toString() });
                       }}

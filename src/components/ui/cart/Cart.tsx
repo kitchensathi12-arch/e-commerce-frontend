@@ -2,8 +2,12 @@
 import { emptyCart, getCartItems, removeCartItem } from '@/services/CartServices';
 import { useState, useEffect, useCallback } from 'react';
 import type { ICartDetails } from '@kitchensathi12-arch/ecommerce-types';
+import { AuthStore } from '@/store/store';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
+  const { user } = AuthStore((state) => state);
+  const navigate = useNavigate();
   const [items, setItems] = useState<ICartDetails[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,6 +18,12 @@ export default function Cart() {
 
   // ── Fetch cart ──
   const fetchCart = useCallback(async () => {
+    if (!user) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -28,7 +38,7 @@ export default function Cart() {
 
   useEffect(() => {
     fetchCart();
-  }, [fetchCart]);
+  }, [fetchCart, user]);
 
   // ── Remove single item ──
   const removeItem = async (cartId: string) => {
@@ -290,9 +300,14 @@ export default function Cart() {
 
             {!loading && !error && items.length === 0 && (
               <div className="empty-state">
-                <div className="icon">🛍️</div>
-                <h3>Your cart is empty</h3>
-                <p>Add some items to get started!</p>
+                <div className="icon">{!user ? '🔒' : '🛍️'}</div>
+                <h3>{!user ? 'Log in to view your cart' : 'Your cart is empty'}</h3>
+                <p>{!user ? 'You need an account to securely save and checkout your items.' : 'Add some items to get started!'}</p>
+                {!user && (
+                    <button className="btn-red" style={{ marginTop: '24px' }} onClick={() => navigate('/login')}>
+                    Login to Continue
+                    </button>
+                )}
               </div>
             )}
 

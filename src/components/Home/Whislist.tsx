@@ -7,8 +7,13 @@ import { useMutation } from '@tanstack/react-query';
 import type { IWishlistDetails } from '@kitchensathi12-arch/ecommerce-types';
 import { emptyWishlist, getWishlistItems, removeWishlistItem } from '@/services/Whislist';
 import { addToCart } from '@/services/CartServices';
+import { AuthStore } from '@/store/store';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export default function Wishlist() {
+  const { user } = AuthStore((state) => state);
+  const navigate = useNavigate();
   const [items, setItems] = useState<(IWishlistDetails & { _id: string })[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,6 +22,12 @@ export default function Wishlist() {
 
   // ── Fetch wishlist ──
   const fetchWishlist = useCallback(async () => {
+    if (!user) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+    
     try {
       setLoading(true);
       setError(null);
@@ -42,7 +53,7 @@ export default function Wishlist() {
 
   useEffect(() => {
     fetchWishlist();
-  }, [fetchWishlist]);
+  }, [fetchWishlist, user]);
 
   // ── Remove single item ──
   const removeItem = async (wishlistId: string) => {
@@ -271,9 +282,14 @@ export default function Wishlist() {
           <div className="wl-grid">
             {items.length === 0 ? (
               <div className="wl-empty">
-                <div className="wl-empty-icon">🤍</div>
-                <p className="wl-empty-text">Your wishlist is empty</p>
-                <p>Save items you love here</p>
+                <div className="wl-empty-icon">{!user ? '🔒' : '🤍'}</div>
+                <p className="wl-empty-text">{!user ? 'Log in to view your wishlist' : 'Your wishlist is empty'}</p>
+                <p>{!user ? 'You need an account to save and view your favorite items.' : 'Save items you love here'}</p>
+                {!user && (
+                  <button className="wl-move-btn" style={{ marginTop: '20px', background: 'var(--red)', color: '#fff', borderColor: 'var(--red)' }} onClick={() => navigate('/login')}>
+                    Login to Continue
+                  </button>
+                )}
               </div>
             ) : (
               items.map((item) => {
@@ -304,6 +320,11 @@ export default function Wishlist() {
                         className="wl-add-overlay"
                         onClick={(e) => {
                           e.stopPropagation();
+                          if (!user) {
+                            toast.error('Please login to add to cart');
+                            navigate('/login');
+                            return;
+                          }
                           const productId = (p as any)?._id;
                           if (!productId) return;
                           handleAddToCart({
