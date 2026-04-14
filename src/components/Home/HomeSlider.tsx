@@ -95,10 +95,16 @@ const HomeSlider = () => {
         .sl-root {
           position: relative;
           width: 100%;
-          height: min(92vh, 780px);
+          height: min(90vh, 780px);
           min-height: 560px;
           overflow: hidden;
           background: #111;
+        }
+
+        .sl-bgs-wrapper {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
         }
 
         .sl-bg {
@@ -221,25 +227,72 @@ const HomeSlider = () => {
           box-shadow: 0 0 8px rgba(244, 162, 97, 0.6);
         }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-          .sl-content {
-            padding: 35px 24px 60px;
+        /* Responsive Layout Split for Full Uncropped Image */
+        @media (max-width: 768px) {
+          .sl-root {
+            height: auto !important; 
+            min-height: auto !important;
+            max-height: none !important;
+            display: flex;
+            flex-direction: column;
+            background: #111;
           }
+
+          .sl-bgs-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+          }
+          
+          .sl-bg {
+            background-size: contain !important; /* Uncropped Full View */
+            background-repeat: no-repeat !important;
+            background-attachment: scroll !important; 
+            background-position: center !important;
+          }
+
+          .sl-content {
+            position: relative !important;
+            inset: auto !important;
+            padding: 30px 24px 70px !important; 
+            background: #151515 !important;
+            flex-grow: 1;
+          }
+
           .sl-title {
-            font-size: 2.4rem;
+            font-size: 2.3rem !important;
+            margin-bottom: 12px;
+            line-height: 1.1;
+          }
+
+          .sl-subtitle {
+            font-size: 0.95rem !important;
+            margin-bottom: 24px;
+          }
+          
+          .sl-cta {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 20px;
+          }
+
+          .sl-controls {
+            bottom: 24px !important;
           }
         }
       `}</style>
 
       <section className="sl-root" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onTouchStart={() => setIsPaused(true)} onTouchEnd={() => setIsPaused(false)}>
         {/* Background Images */}
-        {slides.map((slide: any, i: number) => (
-          <div key={i}>
-            {prev === i && <div className="sl-bg sl-bg-out" style={{ backgroundImage: `url(${slide.image})` }} />}
-            {current === i && <div className={`sl-bg ${isTransitioning ? 'sl-bg-in' : ''}`} style={{ backgroundImage: `url(${slide.image})` }} />}
-          </div>
-        ))}
+        <div className="sl-bgs-wrapper">
+          {slides.map((slide: any, i: number) => (
+            <div key={i}>
+              {prev === i && <div className="sl-bg sl-bg-out" style={{ backgroundImage: `url(${slide.image})` }} />}
+              {current === i && <div className={`sl-bg ${isTransitioning ? 'sl-bg-in' : ''}`} style={{ backgroundImage: `url(${slide.image})` }} />}
+            </div>
+          ))}
+        </div>
 
         {/* Content */}
         <div className="sl-content">
