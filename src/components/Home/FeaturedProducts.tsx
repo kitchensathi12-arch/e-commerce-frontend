@@ -8,10 +8,13 @@ import { addToCart } from '@/services/CartServices';
 import { addToWishlist } from '@/services/Whislist';
 import { AuthStore } from '@/store/store';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const FeaturedProducts = () => {
   const navigate = useNavigate();
   const { user } = AuthStore((state) => state);
+
+  const [addedItems, setAddedItems] = useState<string[]>([]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['web-products'],
@@ -20,11 +23,8 @@ const FeaturedProducts = () => {
 
   const { mutate: handleAddToCart, isPending } = useMutation({
     mutationFn: addToCart,
-    onSuccess: (res) => {
-      console.log('Cart Success:', res);
-    },
-    onError: (err) => {
-      console.log('Cart Error:', err);
+    onSuccess: (res, variables) => {
+      setAddedItems((prev) => [...prev, variables.product_id]);
     },
   });
 
@@ -85,35 +85,56 @@ const FeaturedProducts = () => {
 
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-4">
-                      <button
-                        type="button"
-                        onClick={() => navigate(`/product-detail/${product._id}?category=${product.category?._id}&brand=${product.brand?._id}`)}
-                        className="bg-white text-gray-900 px-6 py-3 rounded-full font-medium flex items-center gap-2 shadow-lg hover:bg-gray-100 transition-all"
-                      >
-                        <Eye size={20} />
-                        View
-                      </button>
 
+                      {/* 👁 VIEW BUTTON */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (!user) {
-                            toast.error('Please login to add to cart');
-                            navigate('/login');
-                            return;
-                          }
-                          if (!product._id) return;
-                          handleAddToCart({
-                            product_id: product._id.toString(),
-                            qty: 1,
-                            currency: 'INR',
-                          });
+                          navigate(`/product-detail/${product._id}`);
                         }}
-                        className="bg-black text-white px-6 py-3 rounded-full font-medium flex items-center gap-2 shadow-lg hover:bg-gray-800 transition-all w-40"
+                        className="bg-white text-gray-900 px-6 py-2.5 rounded-full font-medium flex items-center gap-2 shadow hover:bg-gray-100 transition"
                       >
-                        <ShoppingCart size={18} />
-                        {isPending ? 'Adding...' : 'Add To Cart'}
+                        <Eye size={18} />
+                        View
                       </button>
+
+                      {/* 🛒 ADD / GO TO CART */}
+                      {(() => {
+                        if (!product._id) return null;
+
+                        const productId = product._id.toString();
+                        const isAdded = addedItems.includes(productId);
+
+                        return (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+
+                              if (!user) {
+                                toast.error('Please login to add to cart');
+                                navigate('/login');
+                                return;
+                              }
+
+                              if (isAdded) {
+                                navigate('/cart');
+                                return;
+                              }
+
+                              handleAddToCart({
+                                product_id: productId,
+                                qty: 1,
+                                currency: 'INR',
+                              });
+                            }}
+                            className="bg-black text-white px-6 py-2.5 rounded-full font-medium flex items-center gap-2 shadow hover:bg-gray-800 transition min-w-[150px] justify-center"
+                          >
+                            <ShoppingCart size={18} />
+                            {isAdded ? 'Go To Cart' : isPending ? 'Adding...' : 'Add To Cart'}
+                          </button>
+                        );
+                      })()}
+
                     </div>
 
                     {/* Heart / Wishlist Icon */}

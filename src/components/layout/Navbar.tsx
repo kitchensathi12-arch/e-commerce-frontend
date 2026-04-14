@@ -35,7 +35,6 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
   const handleLogout = () => {
     mutate();
     removeUser();
-    navigate('/login');
     setMobileOpen(false);
   };
 

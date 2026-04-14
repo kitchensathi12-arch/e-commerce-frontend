@@ -38,6 +38,7 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = AuthStore((state) => state);
+  
 
   // ----------- all use state start here  ---------------
   const [activeImg, setActiveImg] = useState<string>('');

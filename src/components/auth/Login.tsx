@@ -22,7 +22,7 @@ const Login = () => {
     mutationFn: loginUser,
 
     onSuccess: (data) => {
-      toast.success('Login Successfully 🚀');
+      toast.success('Login Successfully');
       addUser(data.user);
       // Navigate home
       navigate('/');
