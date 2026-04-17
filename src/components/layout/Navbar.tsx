@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X, Search, ChevronDown, ClipboardList } from 'lucide-react';
 import Logo from '../../assets/Images/Logos/Logo.jpg';
 import { AuthStore } from '@/store/store';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { logoutUser } from '@/services/AuthServices';
 
 const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, userName = 'User' }) => {
@@ -16,18 +16,19 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
 
   const { user, removeUser } = AuthStore((state) => state);
   const { mutate } = useMutation({ mutationFn: logoutUser });
+  const queryClient = useQueryClient();
 
-  // ✅ FIX: auto close mobile on route change
+  // FIX: auto close mobile on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  // ✅ FIX: scroll lock
+  // FIX: scroll lock
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : 'auto';
   }, [mobileOpen]);
 
-  // ✅ FIX: safe toggle
+  // FIX: safe toggle
   const toggleMobile = () => {
     setMobileOpen((prev) => !prev);
   };
@@ -35,6 +36,7 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
   const handleLogout = () => {
     mutate();
     removeUser();
+    queryClient.removeQueries({ queryKey: ['userDetail'] });
     setMobileOpen(false);
   };
 
