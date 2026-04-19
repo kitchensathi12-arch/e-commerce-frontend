@@ -1,3 +1,4 @@
+import { AuthStore } from '@/store/store';
 import React, { useState } from 'react';
 
 // ── Icons ──────────────────────────────────────────────────────────────────
@@ -39,12 +40,7 @@ const UserIcon = () => (
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
-const MapPinIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-    <circle cx="12" cy="10" r="3" />
-  </svg>
-);
+
 const MailIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -180,9 +176,13 @@ const PwField: React.FC<{
 // ── Main Component ─────────────────────────────────────────────────────────
 const AccountPage: React.FC = () => {
   const [tab, setTab] = useState<Tab>('profile');
+
+  const {user} = AuthStore((state) => state);
   const [editing, setEditing] = useState(false);
   const [toast, setToast] = useState('');
   const [newPw, setNewPw] = useState('');
+
+  console.log('user from store:', user);
 
   const [info, setInfo] = useState<UserInfo>({
     firstName: 'Md',
@@ -213,6 +213,12 @@ const AccountPage: React.FC = () => {
 
   const strength = getStrength(newPw);
 
+  if (!user) {
+    return (
+      <div>something have an issue</div>
+    )
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#f5f0eb', padding: '2rem 1rem 3rem', fontFamily: "'DM Sans', system-ui, sans-serif" }}>
       <div style={{ maxWidth: 960, margin: '0 auto' }}>
@@ -237,16 +243,20 @@ const AccountPage: React.FC = () => {
                   color: '#fff',
                   border: '2px solid rgba(255,255,255,0.4)',
                   flexShrink: 0,
+                  overflow: 'hidden',
                 }}
               >
-                {info.firstName[0]}
-                {info.lastName[0]}
+                {user?.profile_picture ? (
+                  <img src={user.profile_picture} alt="Profile" className='h-full w-full rounded-b-full' />
+                ) : (
+                  user?.username && user?.username[0]?.toUpperCase() || 'U'
+                )}
               </div>
               <div>
                 <div style={{ fontSize: 18, fontWeight: 600, color: '#fff' }}>
-                  {info.firstName} {info.lastName}
+                  {user?.username}
                 </div>
-                <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.72)', marginTop: 2 }}>{info.email}</div>
+                <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.72)', marginTop: 2 }}>{user?.email}</div>
               </div>
             </div>
           </div>
@@ -254,9 +264,8 @@ const AccountPage: React.FC = () => {
           {/* Quick info strip */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderBottom: '1px solid #f0ebe4' }}>
             {[
-              { icon: <MailIcon />, label: 'Email', value: info.email },
-              { icon: <PhoneIcon />, label: 'Phone', value: info.phone },
-              { icon: <MapPinIcon />, label: 'Address', value: info.address },
+              { icon: <MailIcon />, label: 'Email', value: user?.email },
+              { icon: <PhoneIcon />, label: 'Phone', value: user.phone },
             ].map((item, i) => (
               <div key={item.label} style={{ padding: '1rem 1.5rem', borderRight: i < 2 ? '1px solid #f0ebe4' : 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#9e9085', fontSize: 11, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
@@ -337,11 +346,9 @@ const AccountPage: React.FC = () => {
                 <div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
                     {[
-                      { label: 'First name', value: info.firstName },
-                      { label: 'Last name', value: info.lastName },
-                      { label: 'Email address', value: info.email },
-                      { label: 'Phone', value: info.phone },
-                      { label: 'Address', value: info.address },
+                      { label: 'full name', value: user?.full_name },
+                      { label: 'Email address', value: user?.email },
+                      { label: 'Phone', value: user?.phone },
                     ].map((f) => (
                       <div key={f.label}>
                         <div style={{ fontSize: 11, fontWeight: 500, color: '#9e9085', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>{f.label}</div>
