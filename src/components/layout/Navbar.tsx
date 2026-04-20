@@ -12,7 +12,7 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
   const [searchFocused, setSearchFocused] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation(); // ✅ FIX
+  const location = useLocation();
 
   const { user, removeUser } = AuthStore((state) => state);
   const { mutate } = useMutation({ mutationFn: logoutUser });
