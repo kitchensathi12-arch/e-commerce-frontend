@@ -37,6 +37,8 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfUse from '@/pages/TermsConditions';
 import CancellationReturnPolicy from '@/pages/CancellationPolicy';
 import SafeSecureShopping from '@/pages/Security';
+import CheckoutPage from '@/pages/Checkout';
+import AddressPage from '@/pages/AddressPage';
 
 const AppRoutes = () => {
   // ---------- here is am using zustand store ------------
@@ -88,7 +90,9 @@ const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="check-out" element={<CheckoutPage />} />
         <Route path="my-orders" element={<MyOrders />} />
+        <Route path="address" element={<AddressPage />} />
       </Route>
 
       {/* Admin Routes */}

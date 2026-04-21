@@ -304,9 +304,9 @@ export default function Cart() {
                 <h3>{!user ? 'Log in to view your cart' : 'Your cart is empty'}</h3>
                 <p>{!user ? 'You need an account to securely save and checkout your items.' : 'Add some items to get started!'}</p>
                 {!user && (
-                    <button className="btn-red" style={{ marginTop: '24px' }} onClick={() => navigate('/login')}>
+                  <button className="btn-red" style={{ marginTop: '24px' }} onClick={() => navigate('/login')}>
                     Login to Continue
-                    </button>
+                  </button>
                 )}
               </div>
             )}
@@ -414,7 +414,7 @@ export default function Cart() {
                 <span className="grand-label">Total</span>
                 <span className="grand-value">₹{total.toLocaleString('en-IN')}</span>
               </div>
-              <button className="checkout-btn" disabled={items.length === 0 || loading}>
+              <button className="checkout-btn" disabled={items.length === 0 || loading} onClick={() => navigate('/check-out')}>
                 Proceed to Checkout →
               </button>
               <div className="security-note">🛡️ Secure & Encrypted Checkout</div>
