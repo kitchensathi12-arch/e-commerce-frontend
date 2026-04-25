@@ -39,6 +39,7 @@ import CancellationReturnPolicy from '@/pages/CancellationPolicy';
 import SafeSecureShopping from '@/pages/Security';
 import CheckoutPage from '@/pages/Checkout';
 import AddressPage from '@/pages/AddressPage';
+import VerifiedBrands from '@/pages/VerifiedBrands';
 
 const AppRoutes = () => {
   // ---------- here is am using zustand store ------------
@@ -90,6 +91,7 @@ const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="verified-brands" element={<VerifiedBrands/>} />
         <Route path="check-out" element={<CheckoutPage />} />
         <Route path="my-orders" element={<MyOrders />} />
         <Route path="address" element={<AddressPage />} />

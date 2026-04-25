@@ -37,8 +37,8 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
 
   const navLinks = [
     { label: 'Home', to: '/' },
-    { label: 'Shop', to: '/shop' },
-    { label: 'Categories', to: '/categories' },
+    { label: 'Shop', to: '/all-products' },
+    { label: 'Brand', to: '/verified-brands' },
     { label: 'About Us', to: '/about' },
     { label: 'Contact Us', to: '/contact' },
   ];
