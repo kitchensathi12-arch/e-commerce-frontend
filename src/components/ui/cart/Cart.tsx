@@ -89,7 +89,7 @@ export default function Cart() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        .cart-root *, .cart-root *::before, .cart-root *::after { box-sizing: border-box; }
         :root {
           --red: #e02d2d; --red-dark: #b81e1e;
           --bg: #f7f5f2; --card: #ffffff;
@@ -105,7 +105,7 @@ export default function Cart() {
           background: var(--accent); color: #fff;
           padding: 28px 5vw;
           display: flex; align-items: center; justify-content: space-between;
-          position: sticky; top: 0; z-index: 100;
+          
         }
         .cart-header h1 { font-weight: 500; font-size: clamp(1.2rem, 3vw, 1.6rem); letter-spacing: -0.01em; }
         .cart-badge { background: var(--red); color: #fff; font-weight: 500; font-size: 0.78rem; padding: 4px 14px; border-radius: 999px; }
