@@ -15,7 +15,7 @@ const inputClass =
 const selectClass = 'w-full px-3 py-2 text-sm rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-300 transition-all';
 
 const SectionCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-5">
+  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6 mb-5">
     <p className="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-5 pb-3 border-b border-gray-100">{title}</p>
     {children}
   </div>
@@ -121,9 +121,9 @@ export default function ProductForm() {
       const fileUrl = await Promise.all(files.map(async (item: File) => await convertToBase64(item)));
       const setImages = fileUrl.map((img: Base64URLString, index: number) => {
         if (imageRemoved.length >= index + 1) {
-          return { ...imageRemoved[0], image: img }; // Replace the first removed image with new one
+          return { ...imageRemoved[0], image: img };
         } else {
-          return { image: img }; // Add new image if no removed images left to replace
+          return { image: img };
         }
       });
       setFieldValue('product_images', [...values.product_images, ...setImages]);
@@ -136,7 +136,7 @@ export default function ProductForm() {
 
   const handleRemoveImage = (data: any) => {
     if (isEditMode) {
-      setImageRemoved((prev) => [...prev, data]); // Store removed image IDs to send to backend on update
+      setImageRemoved((prev) => [...prev, data]);
       setFieldValue(
         'product_images',
         values.product_images.filter((item: any) => item._id !== data._id)
@@ -174,15 +174,15 @@ export default function ProductForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-6">
-      <div className="max-w-[95%] mx-auto">
+    <div className="min-h-screen bg-gray-100 py-6 sm:py-10 px-3 sm:px-6">
+      <div className="max-w-full sm:max-w-[95%] mx-auto">
         {/* Page Header */}
-        <div className="mb-7">
-          <h1 className="text-2xl font-bold text-gray-800">{!isEditMode ? 'Add Product' : 'Edit Product'}</h1>
+        <div className="mb-5 sm:mb-7">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">{!isEditMode ? 'Add Product' : 'Edit Product'}</h1>
           <p className="text-sm text-gray-500 mt-1">Fill in the details below to list a new product.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6">
           {/* Basic Information */}
           <SectionCard title="Basic Information">
             <div className="flex flex-col gap-1 mb-4">
@@ -226,7 +226,7 @@ export default function ProductForm() {
 
           {/* Product Images */}
           <SectionCard title="Product Images *">
-            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all text-center">
+            <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-xl p-6 sm:p-8 cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all text-center">
               <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
                 <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -247,7 +247,7 @@ export default function ProductForm() {
             {touched.product_images && errors.product_images && typeof errors.product_images === 'string' && <p className="text-xs text-red-500 mt-2">{errors.product_images}</p>}
 
             {values.product_images.length > 0 && (
-              <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4">
                 {values.product_images.map((img: any, index: number) => (
                   <div key={index} className="relative h-24 rounded-lg overflow-hidden border border-gray-200">
                     <img src={img.image || img.image_url || img} alt={`Product image ${index + 1}`} className="w-full h-full object-cover" />
@@ -266,7 +266,7 @@ export default function ProductForm() {
 
           {/* Pricing */}
           <SectionCard title="Pricing">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-semibold text-gray-600">
                   Selling price <span className="text-red-400">*</span>
@@ -334,7 +334,7 @@ export default function ProductForm() {
 
           {/* Classification */}
           <SectionCard title="Classification">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-semibold text-gray-600">
                   Category <span className="text-red-400">*</span>
@@ -369,7 +369,7 @@ export default function ProductForm() {
 
           {/* Inventory & Stock */}
           <SectionCard title="Inventory & Stock">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-semibold text-gray-600">SKU</label>
                 <input
@@ -572,7 +572,7 @@ export default function ProductForm() {
                 </div>
                 <div
                   onClick={() => item.handleChange(!item.defaultOn)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full border-2 cursor-pointer ${item.defaultOn ? 'bg-emerald-500 border-emerald-500' : 'bg-gray-200 border-gray-200'}`}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full border-2 cursor-pointer flex-shrink-0 ml-4 ${item.defaultOn ? 'bg-emerald-500 border-emerald-500' : 'bg-gray-200 border-gray-200'}`}
                 >
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-200 ${item.defaultOn ? 'translate-x-[22px]' : 'translate-x-0.5'}`} />
                 </div>
@@ -581,11 +581,11 @@ export default function ProductForm() {
           </SectionCard>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 mt-2 mb-10">
-            <button type="button" className="px-5 py-2.5 text-sm rounded-lg border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition-colors">
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 mt-2 mb-6 sm:mb-10">
+            <button type="button" className="w-full sm:w-auto px-5 py-2.5 text-sm rounded-lg border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition-colors">
               Reset
             </button>
-            <button type="submit" className="px-7 py-2.5 text-sm rounded-lg bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-colors shadow-sm">
+            <button type="submit" className="w-full sm:w-auto px-7 py-2.5 text-sm rounded-lg bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-colors shadow-sm">
               Save product
             </button>
           </div>
