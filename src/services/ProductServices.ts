@@ -88,10 +88,10 @@ export const getProductList = async ({ page = 1, limit = 10 }: { page?: number; 
 
 // ================= GET ALL PRODUCTS (WEBSITE) =================
 
-export const getAllProducts = async (): Promise<{
+export const getAllProducts = async (params:any,body:any): Promise<{
   data: IProductListForWebsite[];
 }> => {
-  const res = await API.post('/product/get-all-products');
+  const res = await API.post(`/product/get-all-products?page=${params.page}&limit=${params.limit}`,body);
 
   return res.data;
 };
