@@ -86,7 +86,7 @@ const ProductsListingPage = () => {
     }
 
     if (allActiveBrands) {
-      const formateBrands = allActiveBrands.map((b) => ({ id: b._id.toString(), name: b.brand_name }));
+      const formateBrands = allActiveBrands.map((b:any) => ({ id: b._id.toString(), name: b.brand_name }));
       setBrands(formateBrands);
     }
   }, [allActiveCategories, allActiveBrands]);
