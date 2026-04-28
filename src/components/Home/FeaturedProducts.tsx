@@ -18,12 +18,12 @@ const FeaturedProducts = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['web-products'],
-    queryFn: getAllProducts,
+    queryFn: () => getAllProducts({}, {}),
   });
 
   const { mutate: handleAddToCart, isPending } = useMutation({
     mutationFn: addToCart,
-    onSuccess: (res, variables) => {
+    onSuccess: (_res, variables) => {
       setAddedItems((prev) => [...prev, variables.product_id]);
     },
   });
@@ -85,7 +85,6 @@ const FeaturedProducts = () => {
 
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-4">
-
                       {/* 👁 VIEW BUTTON */}
                       <button
                         onClick={(e) => {
@@ -134,7 +133,6 @@ const FeaturedProducts = () => {
                           </button>
                         );
                       })()}
-
                     </div>
 
                     {/* Heart / Wishlist Icon */}

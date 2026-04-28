@@ -38,7 +38,6 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = AuthStore((state) => state);
-  
 
   // ----------- all use state start here  ---------------
   const [activeImg, setActiveImg] = useState<string>('');
@@ -123,14 +122,17 @@ export default function ProductDetailPage() {
                     />
                   </svg>
                 </button>
-                <button onClick={() => {
-                  if (!user) {
-                    toast.error('Please login to add to wishlist');
-                    navigate('/login');
-                    return;
-                  }
-                  setWishlisted(!wishlisted);
-                }} className="w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 transition-colors">
+                <button
+                  onClick={() => {
+                    if (!user) {
+                      toast.error('Please login to add to wishlist');
+                      navigate('/login');
+                      return;
+                    }
+                    setWishlisted(!wishlisted);
+                  }}
+                  className="w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-sm hover:bg-stone-50 transition-colors"
+                >
                   <HeartIcon filled={wishlisted} />
                 </button>
               </div>
@@ -233,13 +235,16 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Buy now */}
-            <button onClick={() => {
-              if (!user) {
-                toast.error('Please login to buy items');
-                navigate('/login');
-                return;
-              }
-            }} className="w-full py-3.5 rounded-xl border-2 border-zinc-900 bg-white text-zinc-900 text-sm font-bold tracking-wide hover:bg-zinc-900 hover:text-white transition-all duration-200 active:scale-95">
+            <button
+              onClick={() => {
+                if (!user) {
+                  toast.error('Please login to buy items');
+                  navigate('/login');
+                  return;
+                }
+              }}
+              className="w-full py-3.5 rounded-xl border-2 border-zinc-900 bg-white text-zinc-900 text-sm font-bold tracking-wide hover:bg-zinc-900 hover:text-white transition-all duration-200 active:scale-95"
+            >
               Buy Now — ₹{((productDetails?.product_selling_price as number) * qty).toFixed(2)}
             </button>
 
@@ -282,15 +287,20 @@ export default function ProductDetailPage() {
                     <HeartIcon filled={false} />
                   </button>
                   <div className="absolute bottom-3 left-3 right-3 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                    <button onClick={(e) => {
-                      e.stopPropagation();
-                      if (!user) {
-                        toast.error('Please login to add to bag');
-                        navigate('/login');
-                        return;
-                      }
-                      toast.success('Quick added to bag');
-                    }} className="w-full bg-zinc-900/90 text-white text-xs font-bold tracking-wide py-2 rounded-lg">Quick Add</button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!user) {
+                          toast.error('Please login to add to bag');
+                          navigate('/login');
+                          return;
+                        }
+                        toast.success('Quick added to bag');
+                      }}
+                      className="w-full bg-zinc-900/90 text-white text-xs font-bold tracking-wide py-2 rounded-lg"
+                    >
+                      Quick Add
+                    </button>
                   </div>
                 </div>
                 <p className="text-sm font-semibold text-zinc-800 leading-tight mb-1 group-hover:text-zinc-500 transition-colors">{item.name}</p>

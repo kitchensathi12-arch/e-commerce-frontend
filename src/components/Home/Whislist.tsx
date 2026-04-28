@@ -27,7 +27,7 @@ export default function Wishlist() {
       setLoading(false);
       return;
     }
-    
+
     try {
       setLoading(true);
       setError(null);

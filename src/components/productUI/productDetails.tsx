@@ -1,7 +1,6 @@
-import type { ProductCardProps } from "@/types/productsTypes";
-import { Stars } from "./Starts";
-import { useNavigate } from "react-router-dom";
-
+import type { ProductCardProps } from '@/types/productsTypes';
+import { Stars } from './Starts';
+import { useNavigate } from 'react-router-dom';
 
 const badgeColors: Record<string, string> = {
   'Best Seller': 'bg-amber-100 text-amber-800',
@@ -13,7 +12,6 @@ const badgeColors: Record<string, string> = {
 };
 
 export const ProductCard = ({ product, view }: ProductCardProps) => {
-
   const navigate = useNavigate();
 
   const price = product.product_selling_price ?? 0;
@@ -24,19 +22,17 @@ export const ProductCard = ({ product, view }: ProductCardProps) => {
   const rating = product.rating ?? 4.0;
   const reviews = product.reviews ?? 0;
   const badge = product.badge ?? (product.is_new_arrival ? 'New' : product.is_featured ? 'Best Seller' : '');
-  const image = product?.product_images?.image_url
-    ?? 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop';
+  const image = product?.product_images?.image_url ?? 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop';
 
   if (view === 'list') {
     return (
-      <div onClick={()=>navigate(`/product-detail/${product._id}`)} className="bg-white border border-gray-100 rounded-2xl overflow-hidden flex gap-4 p-4 hover:border-red-200 hover:shadow-md transition-all group">
+      <div
+        onClick={() => navigate(`/product-detail/${product._id}`)}
+        className="bg-white border border-gray-100 rounded-2xl overflow-hidden flex gap-4 p-4 hover:border-red-200 hover:shadow-md transition-all group"
+      >
         <div className="relative w-28 h-28 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50">
           <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-          {badge && (
-            <span className={`absolute top-1.5 left-1.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-md ${badgeColors[badge] ?? 'bg-gray-100 text-gray-600'}`}>
-              {badge}
-            </span>
-          )}
+          {badge && <span className={`absolute top-1.5 left-1.5 text-[10px] font-semibold px-1.5 py-0.5 rounded-md ${badgeColors[badge] ?? 'bg-gray-100 text-gray-600'}`}>{badge}</span>}
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-gray-800 text-sm line-clamp-1">{name}</h3>
@@ -59,17 +55,14 @@ export const ProductCard = ({ product, view }: ProductCardProps) => {
   }
 
   return (
-    <div onClick={()=>navigate(`/product-detail/${product._id}`)} className="bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col hover:border-red-200 hover:shadow-md transition-all group">
+    <div
+      onClick={() => navigate(`/product-detail/${product._id}`)}
+      className="bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col hover:border-red-200 hover:shadow-md transition-all group"
+    >
       <div className="relative h-48 overflow-hidden bg-gray-50">
         <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-        {badge && (
-          <span className={`absolute top-3 left-3 text-[10px] font-semibold px-2 py-1 rounded-lg ${badgeColors[badge] ?? 'bg-gray-100 text-gray-600'}`}>
-            {badge}
-          </span>
-        )}
-        {discount > 0 && (
-          <span className="absolute top-3 right-3 bg-white text-green-600 text-[10px] font-bold px-2 py-1 rounded-lg">{discount}% OFF</span>
-        )}
+        {badge && <span className={`absolute top-3 left-3 text-[10px] font-semibold px-2 py-1 rounded-lg ${badgeColors[badge] ?? 'bg-gray-100 text-gray-600'}`}>{badge}</span>}
+        {discount > 0 && <span className="absolute top-3 right-3 bg-white text-green-600 text-[10px] font-bold px-2 py-1 rounded-lg">{discount}% OFF</span>}
       </div>
       <div className="p-4 flex-1 flex flex-col">
         <h3 className="font-semibold text-gray-800 text-sm line-clamp-2 flex-1">{name}</h3>

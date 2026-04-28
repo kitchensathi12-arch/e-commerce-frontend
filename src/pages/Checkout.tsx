@@ -66,7 +66,11 @@ const getImageUrl = (images?: ProductImage | ProductImage[]): string => {
 };
 
 const formatCardNumber = (val: string) =>
-  val.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+  val
+    .replace(/\D/g, '')
+    .slice(0, 16)
+    .replace(/(\d{4})(?=\d)/g, '$1 ')
+    .trim();
 
 const formatExpiry = (val: string) => {
   const d = val.replace(/\D/g, '').slice(0, 4);
@@ -78,7 +82,9 @@ const formatExpiry = (val: string) => {
 const VisaIcon = () => (
   <svg viewBox="0 0 48 20" width="40" height="20" xmlns="http://www.w3.org/2000/svg">
     <rect width="48" height="20" rx="3" fill="#1A1F71" />
-    <text x="24" y="14.5" textAnchor="middle" fill="#F7B600" fontSize="11" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="1">VISA</text>
+    <text x="24" y="14.5" textAnchor="middle" fill="#F7B600" fontSize="11" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="1">
+      VISA
+    </text>
   </svg>
 );
 
@@ -96,52 +102,77 @@ const RupayIcon = () => (
     <rect width="50" height="24" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
     <rect x="5" y="9" width="13" height="2.5" rx="1.2" fill="#F26522" />
     <rect x="5" y="13" width="9" height="2.5" rx="1.2" fill="#1A6BBF" />
-    <text x="34" y="16" textAnchor="middle" fill="#1A6BBF" fontSize="8.5" fontWeight="bold" fontFamily="Arial,sans-serif">RuPay</text>
+    <text x="34" y="16" textAnchor="middle" fill="#1A6BBF" fontSize="8.5" fontWeight="bold" fontFamily="Arial,sans-serif">
+      RuPay
+    </text>
   </svg>
 );
 
 const AmexIcon = () => (
   <svg viewBox="0 0 46 24" width="46" height="24" xmlns="http://www.w3.org/2000/svg">
     <rect width="46" height="24" rx="4" fill="#2E77BC" />
-    <text x="23" y="10.5" textAnchor="middle" fill="#fff" fontSize="5.5" fontFamily="Arial,sans-serif" letterSpacing="1.5">AMERICAN</text>
-    <text x="23" y="17.5" textAnchor="middle" fill="#fff" fontSize="7.5" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="0.5">EXPRESS</text>
+    <text x="23" y="10.5" textAnchor="middle" fill="#fff" fontSize="5.5" fontFamily="Arial,sans-serif" letterSpacing="1.5">
+      AMERICAN
+    </text>
+    <text x="23" y="17.5" textAnchor="middle" fill="#fff" fontSize="7.5" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="0.5">
+      EXPRESS
+    </text>
   </svg>
 );
 
 const PhonePeIcon = ({ size = 24 }: { size?: number }) => (
   <svg viewBox="0 0 62 24" width={size * 2.6} height={size} xmlns="http://www.w3.org/2000/svg">
     <rect width="62" height="24" rx="4" fill="#5F259F" />
-    <text x="9" y="16" fill="#fff" fontSize="12" fontWeight="bold" fontFamily="Arial,sans-serif">P</text>
-    <text x="20" y="15.5" fill="#fff" fontSize="8" fontWeight="600" fontFamily="Arial,sans-serif">PhonePe</text>
+    <text x="9" y="16" fill="#fff" fontSize="12" fontWeight="bold" fontFamily="Arial,sans-serif">
+      P
+    </text>
+    <text x="20" y="15.5" fill="#fff" fontSize="8" fontWeight="600" fontFamily="Arial,sans-serif">
+      PhonePe
+    </text>
   </svg>
 );
 
 const GPayIcon = ({ size = 24 }: { size?: number }) => (
   <svg viewBox="0 0 50 24" width={size * 2.1} height={size} xmlns="http://www.w3.org/2000/svg">
     <rect width="50" height="24" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
-    <text x="5" y="17" fill="#4285F4" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">G</text>
-    <text x="18" y="17" fill="#34A853" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">P</text>
-    <text x="29" y="17" fill="#FBBC04" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">a</text>
-    <text x="38" y="17" fill="#EA4335" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">y</text>
+    <text x="5" y="17" fill="#4285F4" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">
+      G
+    </text>
+    <text x="18" y="17" fill="#34A853" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">
+      P
+    </text>
+    <text x="29" y="17" fill="#FBBC04" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">
+      a
+    </text>
+    <text x="38" y="17" fill="#EA4335" fontSize="13" fontWeight="bold" fontFamily="Arial,sans-serif">
+      y
+    </text>
   </svg>
 );
 
 const PaytmIcon = ({ size = 24 }: { size?: number }) => (
   <svg viewBox="0 0 50 24" width={size * 2.1} height={size} xmlns="http://www.w3.org/2000/svg">
     <rect width="50" height="24" rx="4" fill="#00B9F1" />
-    <text x="25" y="16" textAnchor="middle" fill="#fff" fontSize="9.5" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="0.3">Paytm</text>
+    <text x="25" y="16" textAnchor="middle" fill="#fff" fontSize="9.5" fontWeight="bold" fontFamily="Arial,sans-serif" letterSpacing="0.3">
+      Paytm
+    </text>
   </svg>
 );
 
 const CardNetworkIcons = () => (
   <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
-    <VisaIcon /><MastercardIcon /><RupayIcon /><AmexIcon />
+    <VisaIcon />
+    <MastercardIcon />
+    <RupayIcon />
+    <AmexIcon />
   </div>
 );
 
 const UpiSmallIcons = () => (
   <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
-    <PhonePeIcon size={20} /><GPayIcon size={20} /><PaytmIcon size={20} />
+    <PhonePeIcon size={20} />
+    <GPayIcon size={20} />
+    <PaytmIcon size={20} />
   </div>
 );
 
@@ -182,7 +213,8 @@ interface InputFieldProps {
 const InputField = ({ label, name, value, onChange, required = false, type = 'text' }: InputFieldProps) => (
   <div className="flex flex-col gap-1.5">
     <label className="text-sm text-gray-700">
-      {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+      {label}
+      {required && <span className="text-red-500 ml-0.5">*</span>}
     </label>
     <input
       type={type}
@@ -289,7 +321,7 @@ interface UpiSectionProps {
 }
 
 const UpiSection = ({ selectedApp, onSelectApp, upiId, onUpiIdChange }: UpiSectionProps) => {
-  const selectedAppData = UPI_APPS.find(a => a.id === selectedApp);
+  const selectedAppData = UPI_APPS.find((a) => a.id === selectedApp);
 
   return (
     <div className="flex flex-col gap-3 p-4 bg-gray-50 rounded-xl border border-gray-200">
@@ -304,15 +336,11 @@ const UpiSection = ({ selectedApp, onSelectApp, upiId, onUpiIdChange }: UpiSecti
               type="button"
               onClick={() => onSelectApp(app.id)}
               className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all cursor-pointer ${
-                isSelected
-                  ? 'border-red-500 bg-red-50 shadow-sm'
-                  : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
+                isSelected ? 'border-red-500 bg-red-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
               }`}
             >
               {app.icon}
-              <span className={`text-xs font-semibold leading-tight text-center ${isSelected ? 'text-red-600' : 'text-gray-700'}`}>
-                {app.label}
-              </span>
+              <span className={`text-xs font-semibold leading-tight text-center ${isSelected ? 'text-red-600' : 'text-gray-700'}`}>{app.label}</span>
               {isSelected && (
                 <div className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
                   <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -339,17 +367,11 @@ const UpiSection = ({ selectedApp, onSelectApp, upiId, onUpiIdChange }: UpiSecti
               Enter your registered {selectedAppData?.label} UPI ID (e.g. 9876543210{selectedAppData?.suffix})
             </p>
           )}
-          {selectedApp === 'other' && (
-            <p className="text-xs text-gray-400 mt-1.5">
-              e.g. name@okicici · number@ybl · id@upi · id@paytm
-            </p>
-          )}
+          {selectedApp === 'other' && <p className="text-xs text-gray-400 mt-1.5">e.g. name@okicici · number@ybl · id@upi · id@paytm</p>}
         </div>
       )}
 
-      {!selectedApp && (
-        <p className="text-xs text-gray-400 text-center py-1">Select an app above to continue</p>
-      )}
+      {!selectedApp && <p className="text-xs text-gray-400 text-center py-1">Select an app above to continue</p>}
     </div>
   );
 };
@@ -362,9 +384,14 @@ const CheckoutPage = () => {
   const [cartError, setCartError] = useState<string | null>(null);
 
   const [form, setForm] = useState<BillingForm>({
-    firstName: '', companyName: '', streetAddress: '',
-    apartment: '', townCity: '', phoneNumber: '',
-    emailAddress: '', saveInfo: true,
+    firstName: '',
+    companyName: '',
+    streetAddress: '',
+    apartment: '',
+    townCity: '',
+    phoneNumber: '',
+    emailAddress: '',
+    saveInfo: true,
   });
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card');
@@ -391,16 +418,15 @@ const CheckoutPage = () => {
     }
   }, []);
 
-  useEffect(() => { fetchCart(); }, [fetchCart]);
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
-  const subtotal = cartItems.reduce(
-    (sum, i) => sum + (i.product_id?.product_selling_price ?? 0) * (i.qty ?? 1), 0
-  );
+  const subtotal = cartItems.reduce((sum, i) => sum + (i.product_id?.product_selling_price ?? 0) * (i.qty ?? 1), 0);
   const couponDiscount = couponApplied ? Math.round(subtotal * 0.1) : 0;
   const total = subtotal - couponDiscount;
 
-  const handleFieldChange = (name: keyof BillingForm, value: string) =>
-    setForm((prev) => ({ ...prev, [name]: value }));
+  const handleFieldChange = (name: keyof BillingForm, value: string) => setForm((prev) => ({ ...prev, [name]: value }));
 
   const handleApplyCoupon = () => {
     if (couponCode.trim().toUpperCase() === 'SAVE10') setCouponApplied(true);
@@ -432,13 +458,9 @@ const CheckoutPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 lg:py-14">
-
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 lg:mb-12">
-          Billing Details
-        </h1>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 lg:mb-12">Billing Details</h1>
 
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-14 xl:gap-20">
-
           {/* ── LEFT: BILLING FORM ──────────────────────────────────────── */}
           <div className="flex flex-col gap-4 sm:gap-5 order-2 lg:order-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -471,7 +493,6 @@ const CheckoutPage = () => {
 
           {/* ── RIGHT: ORDER SUMMARY ─────────────────────────────────────── */}
           <div className="flex flex-col gap-4 sm:gap-5 order-1 lg:order-2">
-
             {/* Cart Items */}
             <div className="bg-gray-50 rounded-2xl p-4 sm:p-5 border border-gray-100">
               <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Order Summary</h2>
@@ -479,12 +500,12 @@ const CheckoutPage = () => {
               {!cartLoading && cartError && (
                 <div className="text-center py-4">
                   <p className="text-sm text-red-500 mb-2">{cartError}</p>
-                  <button onClick={fetchCart} className="text-xs text-red-600 underline">Retry</button>
+                  <button onClick={fetchCart} className="text-xs text-red-600 underline">
+                    Retry
+                  </button>
                 </div>
               )}
-              {!cartLoading && !cartError && cartItems.length === 0 && (
-                <p className="text-sm text-gray-400 text-center py-4">Your cart is empty.</p>
-              )}
+              {!cartLoading && !cartError && cartItems.length === 0 && <p className="text-sm text-gray-400 text-center py-4">Your cart is empty.</p>}
               {!cartLoading && !cartError && cartItems.length > 0 && (
                 <div className="flex flex-col gap-3">
                   {cartItems.map((item) => {
@@ -495,20 +516,16 @@ const CheckoutPage = () => {
                     return (
                       <div key={item._id} className="flex items-center gap-3">
                         <div className="w-14 h-14 flex-shrink-0 rounded-xl overflow-hidden bg-white border border-gray-200">
-                          {imgUrl
-                            ? <img src={imgUrl} alt={name} className="w-full h-full object-cover" />
-                            : <div className="w-full h-full flex items-center justify-center text-2xl">📦</div>
-                          }
+                          {imgUrl ? <img src={imgUrl} alt={name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-2xl">📦</div>}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-800 line-clamp-2 leading-snug">{name}</p>
                           <p className="text-xs text-gray-400 mt-0.5">
-                            Qty: {item.qty}{p?.brand?.brand_name && ` · ${p.brand.brand_name}`}
+                            Qty: {item.qty}
+                            {p?.brand?.brand_name && ` · ${p.brand.brand_name}`}
                           </p>
                         </div>
-                        <span className="text-sm font-semibold text-gray-900 flex-shrink-0">
-                          ₹{linePrice.toLocaleString('en-IN')}
-                        </span>
+                        <span className="text-sm font-semibold text-gray-900 flex-shrink-0">₹{linePrice.toLocaleString('en-IN')}</span>
                       </div>
                     );
                   })}
@@ -544,7 +561,6 @@ const CheckoutPage = () => {
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Payment Method</p>
               </div>
               <div className="p-4 flex flex-col gap-4">
-
                 {/* Card */}
                 <RadioOption value="card" selected={paymentMethod} onChange={handlePaymentMethodChange} label="Credit / Debit Card" icons={<CardNetworkIcons />} />
                 {paymentMethod === 'card' && (
@@ -556,20 +572,9 @@ const CheckoutPage = () => {
                       placeholder="1234 5678 9012 3456"
                       maxLength={19}
                     />
-                    <PlainInput
-                      label="Card Holder Name"
-                      value={cardForm.cardHolder}
-                      onChange={(v) => setCardForm((p) => ({ ...p, cardHolder: v }))}
-                      placeholder="Name on card"
-                    />
+                    <PlainInput label="Card Holder Name" value={cardForm.cardHolder} onChange={(v) => setCardForm((p) => ({ ...p, cardHolder: v }))} placeholder="Name on card" />
                     <div className="grid grid-cols-2 gap-3">
-                      <PlainInput
-                        label="Expiry (MM/YY)"
-                        value={cardForm.expiry}
-                        onChange={(v) => setCardForm((p) => ({ ...p, expiry: formatExpiry(v) }))}
-                        placeholder="MM/YY"
-                        maxLength={5}
-                      />
+                      <PlainInput label="Expiry (MM/YY)" value={cardForm.expiry} onChange={(v) => setCardForm((p) => ({ ...p, expiry: formatExpiry(v) }))} placeholder="MM/YY" maxLength={5} />
                       <PlainInput
                         label="CVV"
                         value={cardForm.cvv}
@@ -584,14 +589,7 @@ const CheckoutPage = () => {
 
                 {/* UPI */}
                 <RadioOption value="upi" selected={paymentMethod} onChange={handlePaymentMethodChange} label="UPI" icons={<UpiSmallIcons />} />
-                {paymentMethod === 'upi' && (
-                  <UpiSection
-                    selectedApp={selectedUpiApp}
-                    onSelectApp={handleUpiAppSelect}
-                    upiId={upiId}
-                    onUpiIdChange={setUpiId}
-                  />
-                )}
+                {paymentMethod === 'upi' && <UpiSection selectedApp={selectedUpiApp} onSelectApp={handleUpiAppSelect} upiId={upiId} onUpiIdChange={setUpiId} />}
               </div>
             </div>
 
@@ -613,11 +611,7 @@ const CheckoutPage = () => {
                 {couponApplied ? '✓ Applied' : 'Apply Coupon'}
               </button>
             </div>
-            {couponApplied && (
-              <p className="text-xs text-green-600 -mt-2 font-medium">
-                🎉 10% off applied! You saved ₹{couponDiscount.toLocaleString('en-IN')}.
-              </p>
-            )}
+            {couponApplied && <p className="text-xs text-green-600 -mt-2 font-medium">🎉 10% off applied! You saved ₹{couponDiscount.toLocaleString('en-IN')}.</p>}
 
             {/* Place Order */}
             <button

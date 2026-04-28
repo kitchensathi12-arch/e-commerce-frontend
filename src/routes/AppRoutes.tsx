@@ -91,7 +91,7 @@ const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="verified-brands" element={<VerifiedBrands/>} />
+        <Route path="verified-brands" element={<VerifiedBrands />} />
         <Route path="check-out" element={<CheckoutPage />} />
         <Route path="my-orders" element={<MyOrders />} />
         <Route path="address" element={<AddressPage />} />

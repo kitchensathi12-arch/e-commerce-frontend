@@ -319,13 +319,23 @@ export default function Cart() {
                   <div key={String(item._id)} className={`cart-item${removingId === String(item._id) ? ' removing' : ''}`}>
                     <div className="product-cell">
                       <div className="product-img-wrap" onClick={() => navigate(`/product-detail/${p._id}`)} style={{ cursor: 'pointer' }}>
-                        <button className="remove-btn" onClick={(e) => { e.stopPropagation(); removeItem(String(item._id)); }} disabled={removingId === String(item._id)} title="Remove item">
+                        <button
+                          className="remove-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeItem(String(item._id));
+                          }}
+                          disabled={removingId === String(item._id)}
+                          title="Remove item"
+                        >
                           ✕
                         </button>
                         {(p.product_images as any)?.image_url ? <img src={(p.product_images as any).image_url} alt={p.product_name} /> : <span className="img-placeholder">📦</span>}
                       </div>
                       <div className="product-info">
-                        <div className="product-name" onClick={() => navigate(`/product-detail/${p._id}`)} style={{ cursor: 'pointer' }}>{p?.product_name || 'Unknown Product'}</div>
+                        <div className="product-name" onClick={() => navigate(`/product-detail/${p._id}`)} style={{ cursor: 'pointer' }}>
+                          {p?.product_name || 'Unknown Product'}
+                        </div>
                         <div className="product-meta">
                           {p.brand?.brand_name} · {p.category?.name}
                         </div>

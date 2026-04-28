@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { IAddressDocument } from '@kitchensathi12-arch/ecommerce-types';
@@ -34,7 +35,8 @@ interface InputFieldProps {
 const InputField = ({ label, name, value, onChange, required = false, type = 'text', placeholder }: InputFieldProps) => (
   <div className="flex flex-col gap-1.5">
     <label className="text-sm font-medium text-gray-700">
-      {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+      {label}
+      {required && <span className="text-red-500 ml-0.5">*</span>}
     </label>
     <input
       type={type}
@@ -58,7 +60,8 @@ interface SelectFieldProps {
 const SelectField = ({ label, name, value, options, onChange, required }: SelectFieldProps) => (
   <div className="flex flex-col gap-1.5">
     <label className="text-sm font-medium text-gray-700">
-      {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+      {label}
+      {required && <span className="text-red-500 ml-0.5">*</span>}
     </label>
     <div className="relative">
       <select
@@ -67,7 +70,9 @@ const SelectField = ({ label, name, value, options, onChange, required }: Select
         className="w-full h-[50px] px-4 bg-gray-50/50 rounded-xl border border-gray-200 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all appearance-none cursor-pointer"
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
@@ -111,9 +116,7 @@ const ConfirmDeleteModal = ({ onConfirm, onCancel, isDeleting }: ConfirmDeletePr
           disabled={isDeleting}
           className="flex-1 h-11 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold transition-colors disabled:opacity-70 flex items-center justify-center"
         >
-          {isDeleting ? (
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          ) : 'Delete'}
+          {isDeleting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : 'Delete'}
         </button>
       </div>
     </div>
@@ -132,86 +135,96 @@ interface AddressCardProps {
 
 const AddressCard = ({ address, onEdit, onDelete, isSelected, onSelect }: AddressCardProps) => {
   const addressId = (address as any)._id as string;
-  
+
   return (
-  <div
-    onClick={onSelect}
-    className={`relative rounded-2xl border p-5 transition-all cursor-pointer ${
-      isSelected
-        ? 'border-red-500 ring-4 ring-red-500/10 bg-white shadow-sm'
-        : 'border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm'
-    }`}
-  >
-    {isSelected && (
-      <div className="absolute top-5 left-5 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center shadow-sm">
-        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-    )}
-
-    <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 px-2.5 py-1 rounded-full border border-red-100">
-      {address.address_type || 'home'}
-    </span>
-
-    <div className={`flex items-center gap-3 mb-4 pr-20 ${isSelected ? 'pl-8' : ''}`}>
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-red-50' : 'bg-gray-50'}`}>
-        <svg className={`w-5 h-5 ${isSelected ? 'text-red-600' : 'text-gray-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </div>
-      <div>
-        <p className="text-sm font-semibold text-gray-900 leading-none mb-1">
-          {address.name}
-        </p>
-        <p className="text-xs text-gray-500 flex items-center gap-1">
-           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-           </svg>
-           {address.phone}
-        </p>
-      </div>
-    </div>
-
-    <div className={`space-y-1.5 mb-5 ${isSelected ? 'pl-[52px]' : 'pl-[52px]'}`}>
-      <p className="text-sm text-gray-600 leading-relaxed">
-        {address.address_line_1}{address.address_line_2 ? `, ${address.address_line_2}` : ''}
-      </p>
-      <p className="text-sm text-gray-600">
-        {address.landmark ? `${address.landmark}, ` : ''}{address.city}, {address.state} {address.pin_code}
-      </p>
-      <p className="text-sm text-gray-600">{address.country}</p>
-
-      {address.alternate_phone && (
-        <p className="text-xs text-gray-400 mt-2 flex items-center gap-1.5">
-          <span className="font-medium text-gray-500">Alt:</span> {address.alternate_phone}
-        </p>
+    <div
+      onClick={onSelect}
+      className={`relative rounded-2xl border p-5 transition-all cursor-pointer ${
+        isSelected ? 'border-red-500 ring-4 ring-red-500/10 bg-white shadow-sm' : 'border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm'
+      }`}
+    >
+      {isSelected && (
+        <div className="absolute top-5 left-5 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center shadow-sm">
+          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
       )}
-    </div>
 
-    <div className={`flex items-center gap-2.5 ${isSelected ? 'pl-[52px]' : 'pl-[52px]'}`}>
-      <button
-        onClick={(e) => { e.stopPropagation(); onEdit(address); }}
-        className="h-8 px-4 rounded-lg bg-gray-50 text-xs font-medium text-gray-700 hover:bg-gray-100 transition-all flex items-center gap-1.5"
-      >
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-        </svg>
-        Edit
-      </button>
-      <button
-        onClick={(e) => { e.stopPropagation(); onDelete(addressId); }}
-        className="h-8 px-4 rounded-lg bg-red-50 text-xs font-medium text-red-600 hover:bg-red-100 transition-all flex items-center gap-1.5"
-      >
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-        </svg>
-        Delete
-      </button>
+      <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 px-2.5 py-1 rounded-full border border-red-100">
+        {address.address_type || 'home'}
+      </span>
+
+      <div className={`flex items-center gap-3 mb-4 pr-20 ${isSelected ? 'pl-8' : ''}`}>
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-red-50' : 'bg-gray-50'}`}>
+          <svg className={`w-5 h-5 ${isSelected ? 'text-red-600' : 'text-gray-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-gray-900 leading-none mb-1">{address.name}</p>
+          <p className="text-xs text-gray-500 flex items-center gap-1">
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            {address.phone}
+          </p>
+        </div>
+      </div>
+
+      <div className={`space-y-1.5 mb-5 ${isSelected ? 'pl-[52px]' : 'pl-[52px]'}`}>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          {address.address_line_1}
+          {address.address_line_2 ? `, ${address.address_line_2}` : ''}
+        </p>
+        <p className="text-sm text-gray-600">
+          {address.landmark ? `${address.landmark}, ` : ''}
+          {address.city}, {address.state} {address.pin_code}
+        </p>
+        <p className="text-sm text-gray-600">{address.country}</p>
+
+        {address.alternate_phone && (
+          <p className="text-xs text-gray-400 mt-2 flex items-center gap-1.5">
+            <span className="font-medium text-gray-500">Alt:</span> {address.alternate_phone}
+          </p>
+        )}
+      </div>
+
+      <div className={`flex items-center gap-2.5 ${isSelected ? 'pl-[52px]' : 'pl-[52px]'}`}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit(address);
+          }}
+          className="h-8 px-4 rounded-lg bg-gray-50 text-xs font-medium text-gray-700 hover:bg-gray-100 transition-all flex items-center gap-1.5"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          Edit
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(addressId);
+          }}
+          className="h-8 px-4 rounded-lg bg-red-50 text-xs font-medium text-red-600 hover:bg-red-100 transition-all flex items-center gap-1.5"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Delete
+        </button>
+      </div>
     </div>
-  </div>
-)};
+  );
+};
 
 // ─── ADDRESS FORM PANEL ───────────────────────────────────────────────────────
 
@@ -243,7 +256,7 @@ const AddressFormPanel = ({ form, onChange, onSubmit, onCancel, isEditing, isLoa
 
     <div className="flex flex-col gap-5">
       <InputField label="Full Name" name="name" value={form.name} onChange={onChange} required placeholder="John Doe" />
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <InputField label="Phone Number" name="phone" value={form.phone} onChange={onChange} required type="tel" placeholder="1234567890" />
         <InputField label="Alternate Phone" name="alternate_phone" value={form.alternate_phone} onChange={onChange} type="tel" placeholder="0987654321" />
@@ -270,7 +283,7 @@ const AddressFormPanel = ({ form, onChange, onSubmit, onCancel, isEditing, isLoa
         options={[
           { label: 'Home', value: 'home' },
           { label: 'Work', value: 'work' },
-          { label: 'Farm / Other', value: 'farm' }
+          { label: 'Farm / Other', value: 'farm' },
         ]}
         onChange={onChange}
         required
@@ -318,7 +331,11 @@ const AddressPage = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // Tanstack Query - Fetching
-  const { data, isLoading: isPageLoading, isError } = useQuery({
+  const {
+    data,
+    isLoading: isPageLoading,
+    isError,
+  } = useQuery({
     queryKey: ['addresses'],
     queryFn: getAddress,
   });
@@ -343,11 +360,11 @@ const AddressPage = () => {
     onError: (error) => {
       console.error('Error adding address:', error);
       alert('Failed to save the address!');
-    }
+    },
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, payload }: { id: string, payload: Partial<IAddressDocument> }) => updateAddress(id, payload),
+    mutationFn: ({ id, payload }: { id: string; payload: Partial<IAddressDocument> }) => updateAddress(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['addresses'] });
       handleCancel();
@@ -355,7 +372,7 @@ const AddressPage = () => {
     onError: (error) => {
       console.error('Error updating address:', error);
       alert('Failed to update the address!');
-    }
+    },
   });
 
   const deleteMutation = useMutation({
@@ -369,16 +386,14 @@ const AddressPage = () => {
       console.error('Error deleting address:', error);
       alert('Failed to delete the address!');
       setDeleteTargetId(null);
-    }
+    },
   });
 
   // Calculate loading status (handles Tanstack v4 vs v5 compatability by checking both keys)
-  const isSaving = (addMutation as any).isPending || (addMutation as any).isLoading || 
-                   (updateMutation as any).isPending || (updateMutation as any).isLoading;
+  const isSaving = (addMutation as any).isPending || (addMutation as any).isLoading || (updateMutation as any).isPending || (updateMutation as any).isLoading;
   const isDeleting = (deleteMutation as any).isPending || (deleteMutation as any).isLoading;
 
-  const handleFieldChange = (name: keyof IAddressDocument, value: string) =>
-    setForm((prev) => ({ ...prev, [name]: value }));
+  const handleFieldChange = (name: keyof IAddressDocument, value: string) => setForm((prev) => ({ ...prev, [name]: value }));
 
   const openAdd = () => {
     setForm(EMPTY_FORM);
@@ -432,31 +447,19 @@ const AddressPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50/30">
-      {deleteTargetId && (
-        <ConfirmDeleteModal
-          onConfirm={handleDeleteConfirm}
-          onCancel={() => setDeleteTargetId(null)}
-          isDeleting={!!isDeleting}
-        />
-      )}
+      {deleteTargetId && <ConfirmDeleteModal onConfirm={handleDeleteConfirm} onCancel={() => setDeleteTargetId(null)} isDeleting={!!isDeleting} />}
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="flex items-center justify-between mb-8 sm:mb-10">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-              My Addresses
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Manage your saved delivery addresses
-            </p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">My Addresses</h1>
+            <p className="text-sm text-gray-500 mt-1">Manage your saved delivery addresses</p>
           </div>
         </div>
 
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
           {/* ── LEFT: ADDRESS LIST ───────────────────────────────────────── */}
           <div className="flex flex-col gap-5 w-full order-2 lg:order-1 lg:col-span-7 xl:col-span-6">
-            
             {isPageLoading ? (
               <div className="flex flex-col gap-4">
                 {[1, 2].map((i) => (
@@ -477,10 +480,7 @@ const AddressPage = () => {
                 </div>
                 <p className="text-base font-semibold text-gray-900 mb-1">No addresses saved yet</p>
                 <p className="text-sm text-gray-500 mb-6">Add a delivery address to get started</p>
-                <button
-                  onClick={openAdd}
-                  className="h-11 px-6 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center gap-2 mx-auto shadow-sm"
-                >
+                <button onClick={openAdd} className="h-11 px-6 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center gap-2 mx-auto shadow-sm">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                   </svg>
@@ -494,10 +494,7 @@ const AddressPage = () => {
                     {addresses.length} Saved Address{addresses.length > 1 ? 'es' : ''}
                   </p>
                   {!showForm && (
-                    <button
-                      onClick={openAdd}
-                      className="text-sm font-semibold text-red-600 hover:text-red-700 flex items-center gap-1.5"
-                    >
+                    <button onClick={openAdd} className="text-sm font-semibold text-red-600 hover:text-red-700 flex items-center gap-1.5">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                       </svg>
@@ -505,7 +502,7 @@ const AddressPage = () => {
                     </button>
                   )}
                 </div>
-                
+
                 <div className="space-y-4">
                   {addresses.map((address) => (
                     <AddressCard
@@ -525,14 +522,7 @@ const AddressPage = () => {
           {/* ── RIGHT: FORM ──────────────────────────────────────────────── */}
           <div id="address-form" className="w-full order-1 lg:order-2 lg:col-span-5 xl:col-span-6 lg:sticky lg:top-8">
             {showForm ? (
-              <AddressFormPanel
-                form={form}
-                onChange={handleFieldChange}
-                onSubmit={handleSubmit}
-                onCancel={handleCancel}
-                isEditing={!!editingId}
-                isLoading={!!isSaving}
-              />
+              <AddressFormPanel form={form} onChange={handleFieldChange} onSubmit={handleSubmit} onCancel={handleCancel} isEditing={!!editingId} isLoading={!!isSaving} />
             ) : (
               <div
                 onClick={openAdd}
@@ -550,7 +540,6 @@ const AddressPage = () => {
               </div>
             )}
           </div>
-
         </div>
       </div>
     </div>

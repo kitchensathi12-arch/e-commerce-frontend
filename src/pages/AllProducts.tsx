@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import {
-  Search, SlidersHorizontal, X, Grid3X3, List, ShoppingBag,
-} from 'lucide-react';
-import type { Product, SidebarItem, } from '@/types/productsTypes';
+import { Search, SlidersHorizontal, X, Grid3X3, List, ShoppingBag } from 'lucide-react';
+import type { Product, SidebarItem } from '@/types/productsTypes';
 import { ProductCard } from '@/components/productUI/productDetails';
 import { SidebarSection } from '@/components/productUI/SideBardSection';
 import { SkeletonCard } from '@/components/productUI/SekeltonLoading';
@@ -14,7 +12,6 @@ import { getActiveCategories } from '@/services/CategoryServices';
 import { getActiveBrands } from '@/services/BrandServices';
 import { getAllProducts } from '@/services/ProductServices';
 
-
 const SORT_OPTIONS = [
   { value: 'default', label: 'Default' },
   { value: 'price_asc', label: 'Price: Low to High' },
@@ -23,38 +20,29 @@ const SORT_OPTIONS = [
   { value: 'newest', label: 'Newest First' },
 ];
 
-
-
 // ─── MAIN PAGE ────────────────────────────────────────────────────────────────
 
 const ProductsListingPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [searchInput, setSearchInput] = useState<string>('');
   const [search, setSearch] = useState<string>('');
-  const [sort, setSort] = useState<string>('default');
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 80000]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  console.log(search);
 
   const [filter, setFilter] = useState<any>({
     category: [],
     brand: [],
-    sort: "z-a",
+    sort: 'z-a',
     start_range: 1,
-    end_range: 100000
-  })
+    end_range: 100000,
+  });
   const [categories, setCategories] = useState<SidebarItem[]>([]);
   const [brands, setBrands] = useState<SidebarItem[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
-
-
-
-
 
   // --------- here i am using all the tanstack queries --------------
 
@@ -69,15 +57,14 @@ const ProductsListingPage = () => {
   });
 
   const { mutate: GetAllProductData, isPending: isAllProductLoading } = useMutation({
+    mutationKey: ['all-products', filter],
     mutationFn: ({ params, body }: any) => getAllProducts(params, body),
     onSuccess: (data: any) => {
       setProducts(data?.data);
       setTotalProducts(data?.totalProduct);
       setTotalPages(data?.totalPage);
-
-    }
-  })
-
+    },
+  });
 
   useEffect(() => {
     if (allActiveCategories) {
@@ -86,67 +73,68 @@ const ProductsListingPage = () => {
     }
 
     if (allActiveBrands) {
-      const formateBrands = allActiveBrands.map((b:any) => ({ id: b._id.toString(), name: b.brand_name }));
+      const formateBrands = allActiveBrands.map((b: any) => ({ id: b._id.toString(), name: b.brand_name }));
       setBrands(formateBrands);
     }
   }, [allActiveCategories, allActiveBrands]);
 
-
   useEffect(() => {
     GetAllProductData({
-      params: { page: 1, limit: 12 }, body: filter
-    })
+      params: { page: 1, limit: 12 },
+      body: filter,
+    });
   }, []);
-
 
   // Debounce search
   useEffect(() => {
     const t = setTimeout(() => {
       GetAllProductData({
-        params: { page: 1, limit: 12 }, body: filter
-      })
+        params: { page: 1, limit: 12 },
+        body: filter,
+      });
     }, 500);
     return () => clearTimeout(t);
   }, [filter]);
 
-
-  const handleCategoryChange = (id: string[]) => { setFilter({ ...filter, category: id }); setCurrentPage(1); };
-  const handleBrandChange = (id: string[]) => { setFilter({ ...filter, brand: id }); setCurrentPage(1); };
-  const handleSortChange = (val: string) => { setFilter({ ...filter, sort: val }); };
-  const handlePageChange = (p: number) => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleCategoryChange = (id: string[]) => {
+    setFilter({ ...filter, category: id });
+    setCurrentPage(1);
+  };
+  const handleBrandChange = (id: string[]) => {
+    setFilter({ ...filter, brand: id });
+    setCurrentPage(1);
+  };
+  const handleSortChange = (val: string) => {
+    setFilter({ ...filter, sort: val });
+  };
+  const handlePageChange = (p: number) => {
+    setCurrentPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const clearAll = () => {
     setFilter({
       category: [],
       brand: [],
-      sort: "z-a",
+      sort: 'z-a',
       start_range: 1,
-      end_range: 100000
-    })
+      end_range: 100000,
+    });
   };
-
-
-
-  const activeFiltersCount = [
-    selectedCategory !== 'all',
-    selectedBrand !== 'all',
-    priceRange[0] > 0 || priceRange[1] < 80000,
-  ].filter(Boolean).length;
-
 
   // ── Sidebar (extracted as inner component to access state) ─────────────────
   const SidebarContent = () => (
     <div className="w-full">
       <div className="flex items-center justify-between mb-5">
         <h2 className="font-bold text-gray-800 text-base">Filters</h2>
-        {activeFiltersCount > 0 && (
+        {/* {activeFiltersCount > 0 && (
           <button onClick={clearAll} className="text-xs text-red-600 hover:underline flex items-center gap-1">
             <X size={11} /> Clear all
           </button>
-        )}
+        )} */}
       </div>
 
-      {loadingMeta ? (
+      {isCategoriesLoading || isBrandLoading ? (
         <div className="space-y-2 animate-pulse">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="h-8 bg-gray-100 rounded-lg" />
@@ -167,7 +155,9 @@ const ProductsListingPage = () => {
             min={500}
             max={100000}
             value={filter.end_range}
-            onChange={(e) => { setFilter({ ...filter, end_range: Number(e.target.value) }); }}
+            onChange={(e) => {
+              setFilter({ ...filter, end_range: Number(e.target.value) });
+            }}
             className="w-full accent-red-600"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
@@ -180,9 +170,7 @@ const ProductsListingPage = () => {
   );
 
   if (isCategoriesLoading || isBrandLoading || isAllProductLoading) {
-    return (
-      <div>loading...</div>
-    );
+    return <div>loading...</div>;
   }
 
   return (
@@ -200,7 +188,13 @@ const ProductsListingPage = () => {
               className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white transition"
             />
             {searchInput && (
-              <button onClick={() => { setSearchInput(''); setSearch(''); }} className="absolute right-3 top-1/2 -translate-y-1/2">
+              <button
+                onClick={() => {
+                  setSearchInput('');
+                  setSearch('');
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2"
+              >
                 <X size={14} className="text-gray-400 hover:text-gray-600" />
               </button>
             )}
@@ -212,11 +206,11 @@ const ProductsListingPage = () => {
           >
             <SlidersHorizontal size={15} />
             Filters
-            {activeFiltersCount > 0 && (
+            {/* {activeFiltersCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-600 text-white text-[10px] rounded-full flex items-center justify-center">
                 {activeFiltersCount}
               </span>
-            )}
+            )} */}
           </button>
         </div>
       </div>
@@ -247,22 +241,20 @@ const ProductsListingPage = () => {
           {/* TOOLBAR */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
             <div>
-              <h1 className="text-lg font-bold text-gray-800">
-                {'All Products'}
-              </h1>
-              <p className="text-sm text-gray-500 mt-0.5">
-                {isAllProductLoading ? 'Loading…' : `${totalProducts} product${totalProducts !== 1 ? 's' : ''} found`}
-              </p>
+              <h1 className="text-lg font-bold text-gray-800">{'All Products'}</h1>
+              <p className="text-sm text-gray-500 mt-0.5">{isAllProductLoading ? 'Loading…' : `${totalProducts} product${totalProducts !== 1 ? 's' : ''} found`}</p>
             </div>
 
             <div className="flex items-center gap-2">
               <select
-                value={sort}
+                value={filter.sort}
                 onChange={(e) => handleSortChange(e.target.value)}
                 className="text-sm border border-gray-200 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-600"
               >
                 {SORT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </select>
 
@@ -305,33 +297,41 @@ const ProductsListingPage = () => {
           {isAllProductLoading ? (
             view === 'grid' ? (
               <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} view="grid" />)}
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <SkeletonCard key={i} view="grid" />
+                ))}
               </div>
             ) : (
               <div className="flex flex-col gap-3">
-                {Array.from({ length: 5 }).map((_, i) => <SkeletonCard key={i} view="list" />)}
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <SkeletonCard key={i} view="list" />
+                ))}
               </div>
             )
           ) : products.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-gray-400">
               <ShoppingBag size={40} className="mb-3 opacity-30" />
               <p className="text-base font-medium">No products found</p>
-              <button onClick={clearAll} className="mt-3 text-sm text-red-600 hover:underline">Clear filters</button>
+              <button onClick={clearAll} className="mt-3 text-sm text-red-600 hover:underline">
+                Clear filters
+              </button>
             </div>
           ) : view === 'grid' ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-              {products.map((p) => <ProductCard key={p._id} product={p} view="grid" />)}
+              {products.map((p) => (
+                <ProductCard key={p._id} product={p} view="grid" />
+              ))}
             </div>
           ) : (
             <div className="flex flex-col gap-3">
-              {products.map((p) => <ProductCard key={p._id} product={p} view="list" />)}
+              {products.map((p) => (
+                <ProductCard key={p._id} product={p} view="list" />
+              ))}
             </div>
           )}
 
           {/* PAGINATION */}
-          {!isAllProductLoading && products.length > 0 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-          )}
+          {!isAllProductLoading && products.length > 0 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />}
         </main>
       </div>
     </div>

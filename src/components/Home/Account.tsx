@@ -177,7 +177,7 @@ const PwField: React.FC<{
 const AccountPage: React.FC = () => {
   const [tab, setTab] = useState<Tab>('profile');
 
-  const {user} = AuthStore((state) => state);
+  const { user } = AuthStore((state) => state);
   const [editing, setEditing] = useState(false);
   const [toast, setToast] = useState('');
   const [newPw, setNewPw] = useState('');
@@ -214,9 +214,7 @@ const AccountPage: React.FC = () => {
   const strength = getStrength(newPw);
 
   if (!user) {
-    return (
-      <div>something have an issue</div>
-    )
+    return <div>something have an issue</div>;
   }
 
   return (
@@ -246,16 +244,10 @@ const AccountPage: React.FC = () => {
                   overflow: 'hidden',
                 }}
               >
-                {user?.profile_picture ? (
-                  <img src={user.profile_picture} alt="Profile" className='h-full w-full rounded-b-full' />
-                ) : (
-                  user?.username && user?.username[0]?.toUpperCase() || 'U'
-                )}
+                {user?.profile_picture ? <img src={user.profile_picture} alt="Profile" className="h-full w-full rounded-b-full" /> : (user?.username && user?.username[0]?.toUpperCase()) || 'U'}
               </div>
               <div>
-                <div style={{ fontSize: 18, fontWeight: 600, color: '#fff' }}>
-                  {user?.username}
-                </div>
+                <div style={{ fontSize: 18, fontWeight: 600, color: '#fff' }}>{user?.username}</div>
                 <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.72)', marginTop: 2 }}>{user?.email}</div>
               </div>
             </div>

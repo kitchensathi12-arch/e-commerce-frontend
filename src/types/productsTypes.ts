@@ -1,4 +1,3 @@
-
 export interface Category {
   _id: string;
   name: string;
@@ -43,8 +42,6 @@ export interface SidebarItem {
   count?: number;
 }
 
-
-
 export interface ProductListParams {
   page?: number;
   limit?: number;
@@ -61,14 +58,12 @@ export interface SidebarSectionProps {
   options: SidebarItem[];
   selected: string[];
   onChange: (id: string[]) => void;
-};
-
+}
 
 export interface ProductCardProps {
   product: Product;
   view: 'grid' | 'list';
-};
-
+}
 
 export interface PaginationProps {
   currentPage: number;

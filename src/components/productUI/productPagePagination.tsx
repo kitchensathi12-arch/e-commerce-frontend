@@ -1,5 +1,5 @@
-import type { PaginationProps } from "@/types/productsTypes";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { PaginationProps } from '@/types/productsTypes';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   if (totalPages <= 1) return null;
@@ -22,7 +22,9 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
 
       {pages[0] > 1 && (
         <>
-          <button onClick={() => onPageChange(1)} className="w-9 h-9 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition">1</button>
+          <button onClick={() => onPageChange(1)} className="w-9 h-9 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition">
+            1
+          </button>
           {pages[0] > 2 && <span className="text-gray-400 text-sm px-1">…</span>}
         </>
       )}
@@ -31,8 +33,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
         <button
           key={p}
           onClick={() => onPageChange(p)}
-          className={`w-9 h-9 rounded-xl border text-sm font-medium transition ${p === currentPage ? 'bg-red-600 border-red-600 text-white' : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-            }`}
+          className={`w-9 h-9 rounded-xl border text-sm font-medium transition ${p === currentPage ? 'bg-red-600 border-red-600 text-white' : 'border-gray-200 text-gray-600 hover:bg-gray-50'}`}
         >
           {p}
         </button>
