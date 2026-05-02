@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search, SlidersHorizontal, X, Grid3X3, List, ShoppingBag } from 'lucide-react';
 import type { Product, SidebarItem } from '@/types/productsTypes';
 import { ProductCard } from '@/components/productUI/productDetails';
@@ -28,14 +28,16 @@ const ProductsListingPage = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+const endRangeRef = useRef<HTMLInputElement>(null);
+const startRangeRef = useRef<HTMLInputElement>(null);
 
-  console.log(search);
+console.log(search)
 
   const [filter, setFilter] = useState<any>({
     category: [],
     brand: [],
     sort: 'z-a',
-    start_range: 1,
+    start_range: 500,
     end_range: 100000,
   });
   const [categories, setCategories] = useState<SidebarItem[]>([]);
@@ -78,12 +80,6 @@ const ProductsListingPage = () => {
     }
   }, [allActiveCategories, allActiveBrands]);
 
-  useEffect(() => {
-    GetAllProductData({
-      params: { page: 1, limit: 12 },
-      body: filter,
-    });
-  }, []);
 
   // Debounce search
   useEffect(() => {
@@ -92,7 +88,7 @@ const ProductsListingPage = () => {
         params: { page: 1, limit: 12 },
         body: filter,
       });
-    }, 500);
+    }, 800);
     return () => clearTimeout(t);
   }, [filter]);
 
@@ -150,6 +146,10 @@ const ProductsListingPage = () => {
       <div className="mb-4">
         <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Price Range</p>
         <div className="px-1">
+          <div className='flex gap-2 w-full'>
+            <input type='number' ref={startRangeRef} min={500} value={filter.start_range} className='border w-full rounded' />
+            <input type='number' ref={endRangeRef} min="1000" value={filter.end_range} onChange={(e) => setFilter((prev:any) => ({...prev, end_range: Number(e.target.value) }))} className='border w-full rounded' />
+          </div>
           <input
             type="range"
             min={500}
@@ -160,6 +160,8 @@ const ProductsListingPage = () => {
             }}
             className="w-full accent-red-600"
           />
+          {/* custom pricing */}
+
           <div className="flex justify-between text-xs text-gray-500 mt-1">
             <span>₹500</span>
             <span className="font-medium text-red-600">Up to ₹{filter.end_range}</span>
@@ -169,7 +171,7 @@ const ProductsListingPage = () => {
     </div>
   );
 
-  if (isCategoriesLoading || isBrandLoading || isAllProductLoading) {
+  if (isCategoriesLoading || isBrandLoading) {
     return <div>loading...</div>;
   }
 
