@@ -28,10 +28,10 @@ const ProductsListingPage = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-const endRangeRef = useRef<HTMLInputElement>(null);
-const startRangeRef = useRef<HTMLInputElement>(null);
+  const endRangeRef = useRef<HTMLInputElement>(null);
+  const startRangeRef = useRef<HTMLInputElement>(null);
 
-console.log(search)
+  console.log(search);
 
   const [filter, setFilter] = useState<any>({
     category: [],
@@ -79,7 +79,6 @@ console.log(search)
       setBrands(formateBrands);
     }
   }, [allActiveCategories, allActiveBrands]);
-
 
   // Debounce search
   useEffect(() => {
@@ -146,9 +145,16 @@ console.log(search)
       <div className="mb-4">
         <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Price Range</p>
         <div className="px-1">
-          <div className='flex gap-2 w-full'>
-            <input type='number' ref={startRangeRef} min={500} value={filter.start_range} className='border w-full rounded' />
-            <input type='number' ref={endRangeRef} min="1000" value={filter.end_range} onChange={(e) => setFilter((prev:any) => ({...prev, end_range: Number(e.target.value) }))} className='border w-full rounded' />
+          <div className="flex gap-2 w-full">
+            <input type="number" ref={startRangeRef} min={500} value={filter.start_range} className="border w-full rounded" />
+            <input
+              type="number"
+              ref={endRangeRef}
+              min="1000"
+              value={filter.end_range}
+              onChange={(e) => setFilter((prev: any) => ({ ...prev, end_range: Number(e.target.value) }))}
+              className="border w-full rounded"
+            />
           </div>
           <input
             type="range"

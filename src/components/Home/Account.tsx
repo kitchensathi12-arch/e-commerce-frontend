@@ -1,5 +1,6 @@
 import { AuthStore } from '@/store/store';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // ── Icons ──────────────────────────────────────────────────────────────────
 const EyeIcon = () => (
@@ -177,6 +178,8 @@ const PwField: React.FC<{
 const AccountPage: React.FC = () => {
   const [tab, setTab] = useState<Tab>('profile');
 
+  const navigate = useNavigate();
+
   const { user } = AuthStore((state) => state);
   const [editing, setEditing] = useState(false);
   const [toast, setToast] = useState('');
@@ -213,8 +216,14 @@ const AccountPage: React.FC = () => {
 
   const strength = getStrength(newPw);
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user]);
+
   if (!user) {
-    return <div>something have an issue</div>;
+    navigate('/login');
   }
 
   return (
@@ -257,7 +266,7 @@ const AccountPage: React.FC = () => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderBottom: '1px solid #f0ebe4' }}>
             {[
               { icon: <MailIcon />, label: 'Email', value: user?.email },
-              { icon: <PhoneIcon />, label: 'Phone', value: user.phone },
+              { icon: <PhoneIcon />, label: 'Phone', value: user?.phone },
             ].map((item, i) => (
               <div key={item.label} style={{ padding: '1rem 1.5rem', borderRight: i < 2 ? '1px solid #f0ebe4' : 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#9e9085', fontSize: 11, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>

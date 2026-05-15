@@ -185,10 +185,7 @@ const Footer = () => {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
               { label: 'Privacy Policy', path: '/privacy-policy' },
-              { label: 'Terms of Use', path: '/terms-of-use' },
-              { label: 'Cancellation & Returns', path: '/cancellation-return-policy' },
-              { label: 'Safe & Secure Shopping', path: '/safe-secure-shopping' },
-              { label: 'FAQ', path: '/faq' },
+              { label: 'Terms & Conditions', path: '/terms-of-use' },
               { label: 'Contact', path: '/contact' },
               { label: 'About Us', path: '/about' },
             ].map((item) => (

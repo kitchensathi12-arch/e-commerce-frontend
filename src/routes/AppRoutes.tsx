@@ -35,8 +35,6 @@ import ProductsListingPage from '@/pages/AllProducts';
 import MyOrders from '@/pages/MyOrders';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfUse from '@/pages/TermsConditions';
-import CancellationReturnPolicy from '@/pages/CancellationPolicy';
-import SafeSecureShopping from '@/pages/Security';
 import CheckoutPage from '@/pages/Checkout';
 import AddressPage from '@/pages/AddressPage';
 import VerifiedBrands from '@/pages/VerifiedBrands';
@@ -86,8 +84,6 @@ const AppRoutes = () => {
         <Route path="brand-particular" element={<BrandProductsPage />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-of-use" element={<TermsOfUse />} />
-        <Route path="cancellation-return-policy" element={<CancellationReturnPolicy />} />
-        <Route path="safe-secure-shopping" element={<SafeSecureShopping />} />
         <Route path="about" element={<About />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="contact" element={<Contact />} />

@@ -4,27 +4,29 @@ export default function PrivacyPolicy() {
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 16px' }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: 13, color: '#878787', marginBottom: 12 }}>
-          <span style={{ color: '#2874f0', cursor: 'pointer' }}>Home</span>
+          <a href="/" style={{ color: '#e87000', textDecoration: 'none' }}>
+            Home
+          </a>
           <span style={{ margin: '0 6px' }}>›</span>
           <span>Privacy Policy</span>
         </div>
 
-        <div style={{ background: '#fff', borderRadius: 2, padding: '32px 36px', boxShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>
+        <div style={{ background: '#fff', borderRadius: 2, padding: '24px 20px', boxShadow: '0 1px 2px rgba(0,0,0,0.08)' }}>
           <h1 style={{ fontSize: 24, fontWeight: 700, color: '#212121', marginBottom: 4, marginTop: 0 }}>Privacy Policy</h1>
-          <div style={{ fontSize: 13, color: '#878787', borderBottom: '1px solid #f0f0f0', paddingBottom: 20, marginBottom: 28 }}>Last Updated: July 2025 &nbsp;|&nbsp; Effective Date: July 2025</div>
+          <div style={{ fontSize: 13, color: '#878787', borderBottom: '1px solid #f0f0f0', paddingBottom: 20, marginBottom: 28 }}>Last Updated: May 2026</div>
 
           <Callout type="info">
-            <strong>Disclaimer:</strong> In case of any discrepancy or difference, the English version will take precedence over any translation of this Privacy Policy.
+            <strong>Note:</strong> In case of any discrepancy or difference, the English version will take precedence over any translation of this Privacy Policy.
           </Callout>
 
           <p style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.9, marginBottom: 20 }}>
-            We value the trust you place in us and recognize the importance of secure transactions and information privacy. This Privacy Policy describes how{' '}
-            <strong>KitchenSathi Private Limited</strong> and its affiliates, group companies, and related parties (collectively "KitchenSathi", "we", "our", "us") collect, use, share, or otherwise
-            process your personal data through the KitchenSathi website, its mobile application, and m-site (hereinafter referred to as the "Platform").
+            We value the trust you place in us and recognize the importance of secure transactions and information privacy. This Privacy Policy describes how <strong>KITCHEN SAATHI</strong> (operated
+            by <strong>Shri Nathji Enterprises</strong>, hereinafter referred to as "KITCHEN SAATHI", "we", "our", "us") collects, uses, shares, or otherwise processes your personal data through the
+            KITCHEN SAATHI website, its mobile application, and m-site (hereinafter referred to as the "Platform").
           </p>
           <p style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.9, marginBottom: 28 }}>
-            By visiting this Platform, providing your information, or availing our product/service, you expressly agree to be bound by the terms and conditions of this Privacy Policy, the Terms of
-            Use, and the applicable service/product terms and conditions. If you do not agree, please do not use or access our Platform.
+            By visiting this Platform, providing your information, or availing our product/service, you expressly agree to be bound by the terms and conditions of this Privacy Policy and the Terms of
+            Use. If you do not agree, please do not use or access our Platform.
           </p>
 
           <Section title="1. Collection of Your Information">
@@ -51,7 +53,7 @@ export default function PrivacyPolicy() {
                 </tbody>
               </table>
             </div>
-            <p>We may also collect information through your use of features such as voice commands, virtual try-on, and loyalty/membership programs such as SuperCoin or VIP memberships.</p>
+            <p>We may also collect information through your use of features such as voice commands and other interactive features available on the Platform.</p>
           </Section>
 
           <Section title="2. Use of Your Information">
@@ -60,29 +62,25 @@ export default function PrivacyPolicy() {
               items={[
                 'Take and fulfil orders, deliver products and services, and process payments.',
                 'Communicate with you about orders, products, services, and promotional offers.',
-                'Assist sellers and business partners in handling and fulfilling orders.',
+                'Assist business partners in handling and fulfilling orders.',
                 'Enhance customer experience, resolve disputes, and troubleshoot problems.',
-                'Measure consumer interest and inform you about online and offline offers, products, services, and updates.',
+                'Inform you about online and offline offers, products, services, and updates.',
                 'Customize and enhance your experience on the Platform.',
                 'Detect and protect against error, fraud, and other criminal activity.',
                 'Report to regulatory authorities wherever required.',
                 'Conduct market research and surveys to improve our offerings.',
               ]}
             />
-            <p>
-              Insights derived from this analysis may be shared with our group companies, affiliates, business partners, and third parties who offer services to us, for promotions, advertisements,
-              marketing, product development, and other commercial purposes.
-            </p>
           </Section>
 
           <Section title="3. Cookies">
             <p>
               We use data collection devices such as "cookies" on certain pages of the Platform to help analyse our web page flow, measure promotional effectiveness, and promote trust and safety.
-              Cookies are small files placed on your hard drive that assist us in providing our services. Cookies do not contain any of your personal data.
+              Cookies are small files placed on your device that assist us in providing our services. Cookies do not contain any of your personal data.
             </p>
             <BulletList
               items={[
-                'Most cookies are session cookies, meaning they are automatically deleted from your hard drive at the end of a session.',
+                'Most cookies are session cookies, meaning they are automatically deleted from your device at the end of a session.',
                 'You are always free to decline or delete our cookies if your browser permits, although in that case you may not be able to use certain features on the Platform.',
                 'We use cookies from third-party partners such as Google Analytics for marketing and analytical purposes.',
                 'You can opt-out of Google Analytics at: https://tools.google.com/dlpage/gaoptout',
@@ -93,25 +91,22 @@ export default function PrivacyPolicy() {
           <Section title="4. Sharing of Personal Data">
             <p>We may share personal data with:</p>
 
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.1 KitchenSathi Group Companies and Affiliates</h3>
-            <p>For providing products and services such as personal loans, insurance, deferred payment options, and Pay Later features offered by group companies and lending partners.</p>
-
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.2 Sellers and Business Partners</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.1 Business Partners and Vendors</h3>
             <p>
               This may be required for: fulfilment of your orders; enhancing your experience; collecting payments; conducting market research; facilitating marketing and advertising activities;
               analysing data; fraud prevention; and providing customer service.
             </p>
 
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.3 Legal and Regulatory Authorities</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.2 Legal and Regulatory Authorities</h3>
             <p>
               We may disclose personal data if required to do so by law, or in good faith belief that such disclosure is reasonably necessary to: respond to subpoenas, court orders, or other legal
               process; enforce our Terms of Use or Privacy Policy; or protect the rights, property, or personal safety of our users or the general public.
             </p>
 
-            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.4 Business Transactions</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#212121', margin: '16px 0 8px' }}>4.3 Business Transactions</h3>
             <p>
-              We and our affiliates will share or sell some or all of your personal data with another business entity should we (or our assets) plan to merge with, or be acquired by, that business
-              entity, or in case of any reorganization, amalgamation, or restructuring of business.
+              We may share some or all of your personal data with another business entity should we plan to merge with, or be acquired by, that business entity, or in the case of any reorganization or
+              restructuring of business.
             </p>
 
             <Callout type="info">
@@ -121,10 +116,12 @@ export default function PrivacyPolicy() {
 
           <Section title="5. Advertisements on Platform">
             <p>
-              We use third-party advertising companies to serve ads when you visit our Platform. These companies may use information (not including your name, address, email address, or telephone
-              number) about your visits to this and other websites in order to provide personalised advertisements about goods and services of interest to you.
+              We may work with third-party advertising and analytics partners to display advertisements and measure the effectiveness of our marketing campaigns on the Platform and other websites.
+              These partners may use cookies, pixels, and similar technologies to collect limited information about your interactions with our Platform, such as device information, browser type, pages
+              visited, and browsing activity. This information does not include sensitive personal details such as your name, phone number, or payment information unless explicitly provided by you.
+              You can control or disable personalised advertising through your browser settings, cookie preferences, or your device advertising settings. Please note that disabling personalised
+              advertising may not completely stop advertisements, but the ads shown to you may be less relevant to your interests.
             </p>
-            <p>You have an option to opt out from tracking of personalised advertising using the "Opt out of Ads Personalisation" settings in your device's settings application.</p>
           </Section>
 
           <Section title="6. Security Precautions">
@@ -133,8 +130,8 @@ export default function PrivacyPolicy() {
               Once your information is in our possession, we adhere to our security guidelines to protect it against unauthorized access.
             </p>
             <Callout type="warning">
-              By using the Platform, users accept the inherent security implications of data transmission over the internet and the World Wide Web, which cannot always be guaranteed as completely
-              secure. There will always remain certain inherent risks regarding use of the Platform. Users are responsible for ensuring the protection of login and password records for their account.
+              Data transmission over the internet cannot always be guaranteed as completely secure. There will always remain certain inherent risks regarding use of the Platform. Users are responsible
+              for ensuring the protection of login and password records for their account.
             </Callout>
           </Section>
 
@@ -154,7 +151,7 @@ export default function PrivacyPolicy() {
             <BulletList
               items={[
                 'Prevent fraud or future abuse.',
-                'Enable KitchenSathi to exercise its legal rights and/or defend against legal claims.',
+                'Enable KITCHEN SAATHI to exercise its legal rights and/or defend against legal claims.',
                 'Comply with applicable law.',
                 'Continue to retain your data in anonymised form for analytical and research purposes.',
               ]}
@@ -172,7 +169,7 @@ export default function PrivacyPolicy() {
                 { right: 'Opt-Out', desc: 'Opt out of receiving non-essential promotional/marketing communications from us at any time.' },
               ].map(({ right, desc }) => (
                 <div key={right} style={{ border: '1px solid #e0e0e0', borderRadius: 4, padding: '14px 16px', background: '#fafafa' }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#2874f0', marginBottom: 6 }}>{right}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#e87000', marginBottom: 6 }}>{right}</div>
                   <div style={{ fontSize: 12, color: '#4a4a4a', lineHeight: 1.6 }}>{desc}</div>
                 </div>
               ))}
@@ -180,8 +177,8 @@ export default function PrivacyPolicy() {
 
             <p>
               To exercise your rights, you can write to us at{' '}
-              <a href="mailto:privacy.grievance@kitchensathi.com" style={{ color: '#2874f0', textDecoration: 'none' }}>
-                privacy.grievance@kitchensathi.com
+              <a href="mailto:privacy@KITCHEN SAATHI.com" style={{ color: '#e87000', textDecoration: 'none' }}>
+                privacy@KITCHEN SAATHI.com
               </a>{' '}
               or manage preferences directly on the Platform.
             </p>
@@ -200,7 +197,7 @@ export default function PrivacyPolicy() {
 
           <Section title="11. Links to Other Sites">
             <p>
-              Our Platform may provide links to other websites or applications that may collect personal data about you, and you will be governed by their privacy policies. KitchenSathi shall not be
+              Our Platform may provide links to other websites or applications that may collect personal data about you, and you will be governed by their privacy policies. KITCHEN SAATHI shall not be
               responsible for the privacy practices or the content of their privacy policies. We request you to read their privacy policies prior to disclosing any information.
             </p>
           </Section>
@@ -212,27 +209,16 @@ export default function PrivacyPolicy() {
             </p>
           </Section>
 
-          <Section title="13. Grievance Officer">
-            <p>In accordance with the Information Technology Act, 2000 and rules made thereunder, the name and contact details of the Grievance Officer are provided below:</p>
-            <ContactBox
-              name="Shremanth M"
-              title="Senior Manager – Privacy, KitchenSathi Private Limited"
-              address="Embassy Tech Village, 8th Floor Block B, Devarabeesanahalli Village, Varthur Hobli, Bengaluru East Taluk, Bengaluru – 560103, Karnataka, India"
-              email="privacy.grievance@kitchensathi.com"
-              hours="Mon – Sat (9:00 – 18:00)"
-            />
-          </Section>
-
           <Section title="14. Customer Support">
             <p>
               If you have a query, concern, or complaint in relation to the collection or usage of your personal data under this Privacy Policy, please contact us at{' '}
-              <a href="mailto:privacy.grievance@kitchensathi.com" style={{ color: '#2874f0', textDecoration: 'none' }}>
-                privacy.grievance@kitchensathi.com
+              <a href="mailto:privacy@KITCHEN SAATHI.com" style={{ color: '#e87000', textDecoration: 'none' }}>
+                privacy@KITCHEN SAATHI.com
               </a>
             </p>
             <p>You can reach our customer support team to address any queries or complaints related to products and services by visiting our Help Centre:</p>
             <div style={{ marginTop: 8 }}>
-              <LinkButton href="https://www.kitchensathi.com/helpcentre">Visit Help Centre</LinkButton>
+              <LinkButton href="https://www.KITCHEN SAATHI.com/helpcentre">Visit Help Centre</LinkButton>
             </div>
           </Section>
         </div>
@@ -260,19 +246,18 @@ const tdStyle: React.CSSProperties = {
 
 const dataCategories: [string, string][] = [
   ['Identity & Contact', 'Name, email address, phone number, delivery address'],
-  ['Payment Information', 'Credit/debit card last 4 digits, UPI ID, payment instrument type'],
+  ['Payment Information', 'UPI ID, payment instrument type, last 4 digits of card'],
   ['Transaction Data', 'Orders placed, products viewed, purchase history'],
   ['Technical Data', 'IP address, browser information, URL history, device ID'],
   ['Usage Data', 'Browsing patterns, preferences, click behaviour, session data'],
   ['Communications', 'Reviews, ratings, messages, emails, feedback submitted on Platform'],
-  ['Government IDs', 'PAN card (for purchases ≥ ₹2,00,000), GSTIN, KYC documents (for financial products)'],
-  ['Loyalty Data', 'SuperCoin balance, VIP membership details, redemption history'],
+  ['Government IDs', 'PAN card (for purchases ≥ ₹2,00,000), GSTIN, KYC documents'],
 ];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 32 }}>
-      <h2 style={{ fontSize: 16, fontWeight: 700, color: '#212121', marginBottom: 12, marginTop: 0, borderLeft: '3px solid #ff6161', paddingLeft: 10 }}>{title}</h2>
+      <h2 style={{ fontSize: 16, fontWeight: 700, color: '#212121', marginBottom: 12, marginTop: 0, borderLeft: '3px solid #e87000', paddingLeft: 10 }}>{title}</h2>
       <div style={{ fontSize: 14, color: '#4a4a4a', lineHeight: 1.9 }}>{children}</div>
     </div>
   );
@@ -291,38 +276,9 @@ function BulletList({ items }: { items: string[] }) {
 }
 
 function Callout({ children, type }: { children: React.ReactNode; type: 'warning' | 'info' }) {
-  const bg = type === 'warning' ? '#fff8e1' : '#e3f2fd';
-  const border = type === 'warning' ? '#ffc107' : '#2196f3';
+  const bg = type === 'warning' ? '#fff8e1' : '#fff3e0';
+  const border = type === 'warning' ? '#e87000' : '#e87000';
   return <div style={{ background: bg, borderLeft: `4px solid ${border}`, padding: '14px 16px', borderRadius: 2, margin: '14px 0', fontSize: 13, color: '#4a4a4a', lineHeight: 1.7 }}>{children}</div>;
-}
-
-function ContactBox({ name, title, address, email, hours }: { name: string; title: string; address: string; email: string; hours: string }) {
-  return (
-    <div style={{ background: '#f7f9fc', border: '1px solid #e0e0e0', borderRadius: 4, padding: '20px 24px', fontSize: 14 }}>
-      <p style={{ margin: '0 0 4px', fontWeight: 700, color: '#212121', fontSize: 15 }}>{name}</p>
-      <p style={{ margin: '0 0 14px', color: '#878787', fontSize: 13 }}>{title}</p>
-      <div style={{ display: 'grid', gap: 8 }}>
-        <Row label="Address" value={address} />
-        <Row label="Email" value={email} link={`mailto:${email}`} />
-        <Row label="Working Hours" value={hours} />
-      </div>
-    </div>
-  );
-}
-
-function Row({ label, value, link }: { label: string; value: string; link?: string }) {
-  return (
-    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-      <span style={{ minWidth: 110, color: '#878787', fontSize: 13, paddingTop: 1, flexShrink: 0 }}>{label}</span>
-      {link ? (
-        <a href={link} style={{ color: '#2874f0', textDecoration: 'none', fontSize: 13 }}>
-          {value}
-        </a>
-      ) : (
-        <span style={{ color: '#212121', fontSize: 13 }}>{value}</span>
-      )}
-    </div>
-  );
 }
 
 function LinkButton({ href, children }: { href: string; children: React.ReactNode }) {
@@ -332,7 +288,7 @@ function LinkButton({ href, children }: { href: string; children: React.ReactNod
       style={{
         display: 'inline-block',
         padding: '10px 20px',
-        background: '#2874f0',
+        background: '#e87000',
         color: '#fff',
         borderRadius: 2,
         fontSize: 13,
