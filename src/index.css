@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/*
+ ========================================================
+ ---------- here all theme color configuration ----------
+ ========================================================
+*/
+
+@theme {
+  --color-brown: #5C3A1E;
+  --color-brown-dark: #3E2610;
+  --color-amber: #D4860B;
+  --color-amber-light: #F0A830;
+  --color-amber-pale: #FFF4E0;
+  --color-steel: #C0C8D0;
+  --color-steel-dark: #8A9299;
+  --color-off-white:#FAFAF7;
+  --color-text: #1A1109;
+  --color-text-muted: #6B5B45;
+  --color-primary: #5C3A1E;
+  --color-secondary: #D4860B;
+  --color-background: #F0A830;
+  --color-border: #E8D8B8;
+}
+
+
+/*
+ ========================================================
+ ---------- here all theme fonts configuration ----------
+ ========================================================
+*/
+
+@theme {
+ --font-playfair: "Playfair Display", serif;
+ --font-dm-sans: "DM Sans", sans-serif;
+}
+
+
+/*
+ ========================================================
+ ---------- here all module custom styles ----------
+ ========================================================
+*/
+
+
+.flex-space {
+  @apply flex items-center justify-between;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-around {
+  @apply flex items-center justify-around;
+}
+
+.flex-evenly {
+  @apply flex items-center justify-evenly;
+}
+
+.animation {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+
+@layer components {
+  .nav-link::before {
+    content: "";
+    @apply absolute left-0 bottom-[-4px]  h-[2px] w-0 bg-amber transition-all duration-300 ;
+  }
+};
+
+
+@layer components {
+  .tag {
+    @apply inline-block bg-amber/25 text-amber border border-[#F0C870] rounded-full text-[11px] font-semibold tracking-[0.8px] uppercase px-3 py-[3px];
+  }
+};
+
+@layer components {
+  .btn-primary:hover {
+    @apply bg-gradient-to-br from-brown-dark to-brown -translate-y-0.5 shadow-[0_8px_24px_rgba(212,134,11,0.35)];
+  }
+}
