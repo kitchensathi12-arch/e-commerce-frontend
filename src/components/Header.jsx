@@ -1,6 +1,7 @@
 import { Heart, Menu, Search, ShoppingCart, X } from 'lucide-react';
 import { useState } from 'react';
 import Button from './ui/Buttons';
+import { Link } from 'react-router-dom';
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -24,7 +25,7 @@ export function Header() {
       <header className={`sticky top-0 z-50 bg-white border-b border-border animation`}>
         <div className=" flex-around w-full max-w-screen px-6 h-16">
           {/* Logo */}
-          <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <Link to="/" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10 }}>
             <img src="/Logo.jpg" alt="KitchenSaathi Logo" className="h-16 w-16 " />
             <div>
               <div className="font-playfair font-semibold text-xl  text-brown  leading-none">
@@ -34,7 +35,7 @@ export function Header() {
                 Your Trusted Kitchen Companion
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Nav */}
           <nav className="hidden md:flex gap-8">
