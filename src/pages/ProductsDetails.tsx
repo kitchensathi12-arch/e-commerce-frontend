@@ -1,17 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getProductById } from '@/services/ProductServices';
-import { useQuery } from '@tanstack/react-query';
+import { getAllProducts, getProductById } from '@/services/ProductServices';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthStore } from '@/store/store';
 import toast from 'react-hot-toast';
-
-const RELATED = [
-  { id: 1, name: 'Linen Blend Overshirt', price: '£34.00', was: '£48.00', tag: 'SALE', img: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=80&fit=crop' },
-  { id: 2, name: 'Cotton Striped Shirt', price: '£28.00', was: null, tag: 'NEW', img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80&fit=crop' },
-  { id: 3, name: 'Utility Cargo Jacket', price: '£65.00', was: '£89.00', tag: 'SALE', img: 'https://images.unsplash.com/photo-1591213954196-2d0ccb3f8d4c?w=500&q=80&fit=crop' },
-  { id: 4, name: 'Relaxed Denim Shirt', price: '£42.00', was: null, tag: null, img: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=500&q=80&fit=crop' },
-];
+import { Eye, ShoppingCart } from 'lucide-react';
+import type { IProductListForWebsite } from '@kitchensathi12-arch/ecommerce-types';
+import { addToCart } from '@/services/CartServices';
 
 function HeartIcon({ filled }: any) {
   return (
@@ -54,7 +50,23 @@ export default function ProductDetailPage() {
     enabled: !!id,
   });
 
-  console.log('productDetails', productDetails);
+  const {
+    data: webProducts,
+    isLoading: isWebProductsLoading,
+    isError: isErrorWebProducts,
+  } = useQuery({
+    queryKey: ['web-products'],
+    queryFn: () => getAllProducts({}, {}),
+  });
+
+  const [addedItems, setAddedItems] = useState<string[]>([]);
+
+  const { mutate: handleAddToCart, isPending } = useMutation({
+    mutationFn: addToCart,
+    onSuccess: (_res, variables) => {
+      setAddedItems((prev) => [...prev, variables.product_id]);
+    },
+  });
 
   const handleAdd = () => {
     if (!user) {
@@ -73,9 +85,11 @@ export default function ProductDetailPage() {
     }
   }, [productDetails]);
 
-  if (isExistProductLoading) {
+  if (isExistProductLoading || isWebProductsLoading) {
     return <div>Loading...</div>;
   }
+
+  // webProducts?.data.slice(0, 4).map((product: IProductListForWebsite)
 
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-gray-900">
@@ -273,43 +287,120 @@ export default function ProductDetailPage() {
             <div className="flex-1 h-px bg-stone-200" />
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-6">
-            {RELATED.map((item) => (
-              <div key={item.id} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-[3/4] mb-3">
-                  <img src={item.img} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  {item.tag && (
-                    <span className={`absolute top-3 left-3 text-xs font-bold tracking-widest px-2 py-0.5 rounded-sm ${item.tag === 'SALE' ? 'bg-red-600 text-white' : 'bg-zinc-900 text-white'}`}>
-                      {item.tag}
-                    </span>
-                  )}
-                  <button className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-all hover:scale-110">
-                    <HeartIcon filled={false} />
-                  </button>
-                  <div className="absolute bottom-3 left-3 right-3 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (!user) {
-                          toast.error('Please login to add to bag');
-                          navigate('/login');
-                          return;
-                        }
-                        toast.success('Quick added to bag');
-                      }}
-                      className="w-full bg-zinc-900/90 text-white text-xs font-bold tracking-wide py-2 rounded-lg"
+          <div className="w-full">
+            {isWebProductsLoading ? (
+              <div className="text-center py-16 text-gray-500">Loading products...</div>
+            ) : isErrorWebProducts ? (
+              <div className="text-center py-16 text-red-500">Failed to load products</div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {webProducts?.data?.map((product: IProductListForWebsite) => {
+                  const price = product.product_selling_price || 0;
+                  const mrp = product.product_mrp_price || price;
+                  const hasDiscount = mrp > price;
+
+                  return (
+                    <div
+                      key={product._id?.toString()}
+                      className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                      onClick={() => navigate(`/product-detail/${product._id}?category=${product.category?._id}&brand=${product.brand?._id}`)}
                     >
-                      Quick Add
-                    </button>
-                  </div>
-                </div>
-                <p className="text-sm font-semibold text-zinc-800 leading-tight mb-1 group-hover:text-zinc-500 transition-colors">{item.name}</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-zinc-900">{item.price}</span>
-                  {item.was && <span className="text-xs text-zinc-400 line-through">{item.was}</span>}
-                </div>
+                      {/* Image Container */}
+                      <div className="relative h-64 bg-gray-50 flex items-center justify-center p-8 overflow-hidden">
+                        <img
+                          src={product.product_images?.image_url || '/placeholder.jpg'}
+                          alt={product.product_name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        />
+
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-4">
+                          {/* 👁 VIEW BUTTON */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/product-detail/${product._id}`);
+                            }}
+                            className="bg-white text-gray-900 px-6 py-2.5 rounded-full font-medium flex items-center gap-2 shadow hover:bg-gray-100 transition"
+                          >
+                            <Eye size={18} />
+                            View
+                          </button>
+
+                          {/* 🛒 ADD / GO TO CART */}
+                          {(() => {
+                            if (!product._id) return null;
+
+                            const productId = product._id.toString();
+                            const isAdded = addedItems.includes(productId);
+
+                            return (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+
+                                  if (!user) {
+                                    toast.error('Please login to add to cart');
+                                    navigate('/login');
+                                    return;
+                                  }
+
+                                  if (isAdded) {
+                                    navigate('/cart');
+                                    return;
+                                  }
+
+                                  handleAddToCart({
+                                    product_id: productId,
+                                    qty: 1,
+                                    currency: 'INR',
+                                  });
+                                }}
+                                className="bg-black text-white px-6 py-2.5 rounded-full font-medium flex items-center gap-2 shadow hover:bg-gray-800 transition min-w-[150px] justify-center"
+                              >
+                                <ShoppingCart size={18} />
+                                {isAdded ? 'Go To Cart' : isPending ? 'Adding...' : 'Add To Cart'}
+                              </button>
+                            );
+                          })()}
+                        </div>
+
+                        {/* Heart / Wishlist Icon */}
+                        {/* <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (!user) {
+                              toast.error('Please login to add to wishlist');
+                              navigate('/login');
+                              return;
+                            }
+                            if (!product._id) return;
+                            handleAddToWishlist({ product_id: product._id.toString() });
+                          }}
+                          disabled={isWishlistPending}
+                          className="absolute top-4 right-4 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-all hover:text-red-500 disabled:opacity-50"
+                        >
+                          <Heart size={18} />
+                        </button> */}
+                      </div>
+
+                      {/* Product Info */}
+                      <div className="p-5">
+                        <h3 className="font-medium text-gray-900 text-base leading-tight line-clamp-2 min-h-[44px]">{product.product_name}</h3>
+                        <div className="flex items-center gap-1 mt-3 text-amber-400 text-sm">
+                          ★★★★☆
+                          <span className="text-xs text-gray-400 ml-1">(45)</span>
+                        </div>
+                        <div className="mt-4 flex items-center gap-2">
+                          <span className="text-xl font-semibold text-gray-900">₹{price.toLocaleString('en-IN')}</span>
+                          {hasDiscount && <span className="text-sm text-gray-400 line-through">₹{mrp.toLocaleString('en-IN')}</span>}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            )}
           </div>
         </div>
       </main>
