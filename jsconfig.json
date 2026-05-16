@@ -1,18 +1,10 @@
 {
-    "compilerOptions": {
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ],
-            "@components/*": [
-                "./src/components/*"
-            ],
-            "@assets/*": [
-                "./src/assets/*"
-            ],
-            "@utils/*": [
-                "./src/utils/*"
-            ]
-        }
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@utils/*": ["./src/utils/*"]
     }
+  }
 }

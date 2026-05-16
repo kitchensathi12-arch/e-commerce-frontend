@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /*
  ========================================================
@@ -7,22 +7,21 @@
 */
 
 @theme {
-  --color-brown: #5C3A1E;
-  --color-brown-dark: #3E2610;
-  --color-amber: #D4860B;
-  --color-amber-light: #F0A830;
-  --color-amber-pale: #FFF4E0;
-  --color-steel: #C0C8D0;
-  --color-steel-dark: #8A9299;
-  --color-off-white:#FAFAF7;
-  --color-text: #1A1109;
-  --color-text-muted: #6B5B45;
-  --color-primary: #5C3A1E;
-  --color-secondary: #D4860B;
-  --color-background: #F0A830;
-  --color-border: #E8D8B8;
+  --color-brown: #5c3a1e;
+  --color-brown-dark: #3e2610;
+  --color-amber: #d4860b;
+  --color-amber-light: #f0a830;
+  --color-amber-pale: #fff4e0;
+  --color-steel: #c0c8d0;
+  --color-steel-dark: #8a9299;
+  --color-off-white: #fafaf7;
+  --color-text: #1a1109;
+  --color-text-muted: #6b5b45;
+  --color-primary: #5c3a1e;
+  --color-secondary: #d4860b;
+  --color-background: #f0a830;
+  --color-border: #e8d8b8;
 }
-
 
 /*
  ========================================================
@@ -31,17 +30,15 @@
 */
 
 @theme {
- --font-playfair: "Playfair Display", serif;
- --font-dm-sans: "DM Sans", sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
 }
-
 
 /*
  ========================================================
  ---------- here all module custom styles ----------
  ========================================================
 */
-
 
 .flex-space {
   @apply flex items-center justify-between;
@@ -63,20 +60,18 @@
   @apply transition-all duration-300 ease-in-out;
 }
 
-
 @layer components {
   .nav-link::before {
-    content: "";
-    @apply absolute left-0 bottom-[-4px]  h-[2px] w-0 bg-amber transition-all duration-300 ;
+    content: '';
+    @apply absolute left-0 bottom-[-4px]  h-[2px] w-0 bg-amber transition-all duration-300;
   }
-};
-
+}
 
 @layer components {
   .tag {
     @apply inline-block bg-amber/25 text-amber border border-[#F0C870] rounded-full text-[11px] font-semibold tracking-[0.8px] uppercase px-3 py-[3px];
   }
-};
+}
 
 @layer components {
   .btn-primary:hover {

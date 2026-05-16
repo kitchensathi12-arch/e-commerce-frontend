@@ -1,5 +1,4 @@
-import { AxiosInstance } from "@/config/axiosInstance";
-
+import { AxiosInstance } from '@/config/axiosInstance';
 
 // ------------------ CREATE CATEGORY -----------------------
 export const createCategory = async (payload) => {
@@ -8,7 +7,7 @@ export const createCategory = async (payload) => {
 };
 
 // ---------------------  GET ALL CATEGORIES (ADMIN) ---------------------
-export const getAllCategories = async ({ page = 1, limit = 10 } ) => {
+export const getAllCategories = async ({ page = 1, limit = 10 }) => {
   const res = await AxiosInstance.get('/category/get-category', {
     params: { page, limit },
   });
@@ -28,7 +27,7 @@ export const deleteCategory = async (id) => {
 };
 
 // ---------------- GET ALL DELETED CATEGORIES (FIXED) ----------------------
-export const getDeletedCategories = async ({ page = 1, limit = 10 })=> {
+export const getDeletedCategories = async ({ page = 1, limit = 10 }) => {
   const res = await AxiosInstance.get('/category/get-all-deleted-categories', {
     params: { page, limit },
   });
@@ -54,7 +53,7 @@ export const deleteCategoryPermanently = async (id) => {
 // =======================================
 
 // ------------------------ GET ACTIVE CATEGORIES (PUBLIC) ------------------------
-export const getActiveCategories = async ()=> {
+export const getActiveCategories = async () => {
   const res = await AxiosInstance.get('/category/get-active-categories');
   return res.data;
 };
