@@ -1,10 +1,17 @@
-import { Stars } from '../Stars';
+import { useQuery } from '@tanstack/react-query';
 import { Heart } from 'lucide-react';
+
+// -------------- local imports ---------------
+import { Stars } from '@components/Stars';
 import Button from '@components/ui/Buttons';
 import { getAllProducts } from '@/service/product.service';
-import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 export function ProductCard() {
+  // --------- all hooks use here ----------
+  const navigate = useNavigate();
+
+  // ------------ all tanstack query start here ----------------
   const { data: Products, isLoading: isProductsLoading } = useQuery({
     queryKey: ['products'],
     queryFn: () => getAllProducts({ page: 1, limit: 10 }),
@@ -15,9 +22,9 @@ export function ProductCard() {
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3">
       {Products?.data?.map((item) => (
-        <div className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer">
+        <div onClick={()=>navigate(`/product-detail/${item._id}`)} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer">
           {/* IMAGE */}
           <div className="h-50 relative flex items-center justify-center">
             <img src={item?.product_images?.image_url} className="h-32 object-contain" />
@@ -28,7 +35,7 @@ export function ProductCard() {
               {item?.category?.name}
             </div>
 
-            <div className="font-semibold text-[15px] text-brown leading-[1.4] mb-2 cursor-pointer">
+            <div className="font-semibold text-[15px] text-brown leading-[1.4] mb-2 cursor-pointer truncate">
               {item?.product_title}
             </div>
 
