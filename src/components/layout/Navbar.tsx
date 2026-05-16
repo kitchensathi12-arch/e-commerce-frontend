@@ -60,7 +60,7 @@ const Navbar: FC<{ cartCount?: number; userName?: string }> = ({ cartCount = 0, 
         <div className="w-full px-4 md:px-8 lg:px-[60px] h-[68px] md:h-[78px] flex items-center justify-between">
           {/* Logo */}
           <Link to="/">
-            <img src={Logo} alt="Logo" className="h-11 md:h-[52px]" />
+            <img src={Logo} alt="Logo" className="h-11 md:h-20" />
           </Link>
 
           {/* Desktop Nav Links */}
