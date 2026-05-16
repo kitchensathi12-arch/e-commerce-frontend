@@ -5,7 +5,7 @@ import ForgotPassword from '@/components/auth/ForgotPassword';
 
 import MainLayout from '@/components/layout/MainLayout';
 import Home from '@/pages/Home';
-import Cart from '@/components/ui/cart/Cart';
+import Cart from '@/components/productUI/cart/Cart';
 import About from '@/pages/About';
 import { useQuery } from '@tanstack/react-query';
 import { getLoggedInUser } from '@/services/AuthServices';

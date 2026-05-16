@@ -1,23 +1,24 @@
-import { getAllBrands, type BrandListResponse } from '@/services/BrandServices';
+import { getActiveBrands} from '@/services/BrandServices';
 import type { IBrandDocument } from '@kitchensathi12-arch/ecommerce-types';
 import { useQuery } from '@tanstack/react-query';
 
 const VerifiedBrands = () => {
-  const { data, isLoading } = useQuery<BrandListResponse>({
-    queryKey: ['brands'],
-    queryFn: () => getAllBrands({ page: 1, limit: 100 }),
+  const { data, isLoading } = useQuery({
+    queryKey: ['active-brands'],
+    queryFn: () => getActiveBrands(),
   });
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
+  };
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-center mb-8">All Brands</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data?.data?.map((brand: IBrandDocument) => (
+        {data?.map((brand: IBrandDocument) => (
           <div key={brand._id.toString()} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-5 flex flex-col items-center text-center">
             {/* Logo */}
             <img src={brand.brand_logo} alt={brand.brand_name} className="w-24 h-24 object-contain mb-4" />

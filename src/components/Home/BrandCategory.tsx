@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 
 import { getActiveBrands } from '@/services/BrandServices';
@@ -108,6 +108,7 @@ const BrandSlider = () => {
   const { data: brands, isLoading } = useQuery<IBrandDocument[]>({
     queryKey: ['active-brands'],
     queryFn: getActiveBrands,
+    placeholderData: keepPreviousData,
   });
 
   const pauseSlider = () => {
