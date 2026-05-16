@@ -177,8 +177,8 @@ export default function PrivacyPolicy() {
 
             <p>
               To exercise your rights, you can write to us at{' '}
-              <a href="mailto:privacy@KITCHEN SAATHI.com" style={{ color: '#e87000', textDecoration: 'none' }}>
-                privacy@KITCHEN SAATHI.com
+              <a href="mailto:privacy@kithensaathi.com" style={{ color: '#e87000', textDecoration: 'none' }}>
+                privacy@kitchensaathi.com
               </a>{' '}
               or manage preferences directly on the Platform.
             </p>
