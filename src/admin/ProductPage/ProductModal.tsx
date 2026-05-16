@@ -435,7 +435,7 @@ export default function ProductForm() {
                 ))}
                 <input className="bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400 min-w-[80px] flex-1" placeholder="Type and press Enter…" onChange={handleProductTags} />
               </div>
-              <span className="text-xs text-gray-400 mt-0.5">Press Enter or comma to add a tag</span>
+              <span className="text-xs text-gray-400 mt-0.5">Press comma to add a tag</span>
               {touched.product_tags && errors.product_tags && typeof errors.product_tags === 'string' && <p className="text-xs text-red-500 mt-0.5">{errors.product_tags}</p>}
             </div>
 
@@ -495,7 +495,7 @@ export default function ProductForm() {
                 ))}
                 <input className="bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400 min-w-[80px] flex-1" placeholder="Type and press Enter…" onChange={handleMetaKeywords} />
               </div>
-              <span className="text-xs text-gray-400 mt-0.5">Press Enter or comma to add a keyword</span>
+              <span className="text-xs text-gray-400 mt-0.5">Press comma to add a keyword</span>
               {touched.meta_keywords && errors.meta_keywords && typeof errors.meta_keywords === 'string' && <p className="text-xs text-red-500 mt-0.5">{errors.meta_keywords}</p>}
             </div>
           </SectionCard>
