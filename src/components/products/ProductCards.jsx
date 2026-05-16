@@ -21,16 +21,20 @@ export function ProductCard() {
     return <div>loading....</div>;
   }
 
+  const productList = Array.isArray(Products?.data)
+  ? Products.data
+  : [];
+
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3">
-      {Products?.data?.map((item) => (
-        <div onClick={()=>navigate(`/product-detail/${item._id}`)} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
+      {productList.map((item) => (
+        <div key={item?._id || item?.id} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer flex flex-col">
           {/* IMAGE */}
           <div className="h-50 relative flex items-center justify-center">
             <img src={item?.product_images?.image_url} className="h-32 object-contain" />
           </div>
 
-          <div className="px-4.5 pt-4.5 pb-5">
+          <div className="px-4.5 pt-4.5 pb-5 flex flex-1 flex-col">
             <div className="text-[11px] text-text-muted font-semibold uppercase tracking-[0.8px] mb-1">
               {item?.category?.name}
             </div>
@@ -58,8 +62,8 @@ export function ProductCard() {
               </span>
             </div>
 
-            <div className="flex gap-2">
-              <Button className="btn-primary flex-1 py-2.5 text-[13px] disabled:opacity-50">
+            <div className="flex gap-2 mt-auto">
+              <Button className="btn-primary mt-auto flex-1 py-2.5 text-[13px] disabled:opacity-50">
                 Add to Cart
               </Button>
 

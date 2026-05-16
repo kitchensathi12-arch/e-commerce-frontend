@@ -1,4 +1,4 @@
-import CategoriesCard from '@/components/products/categoriesCard';
+import CategoriesCard from '@/components/products/CategoriesCard';
 import { ProductCard } from '@/components/products/ProductCards';
 import PromotionSection from '@/components/products/PromotionSection';
 import Button from '@/components/ui/Buttons';
