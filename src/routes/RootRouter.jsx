@@ -4,7 +4,7 @@ import { lazy, Suspense } from 'react';
 // lazy load the layout component
 // ------------ all layout load at the top ----------------
 const UserLayout = lazy(() => import('@/routes/layout/UserLayout'));
-const AuthLayout = lazy(() => import('@/routes/layout/authLayout'));
+const AuthLayout = lazy(() => import('@/routes/layout/AuthLayout'));
 
 // ---------------- all pages load here -----------------
 const Home = lazy(() => import('@/pages/users/Home'));
