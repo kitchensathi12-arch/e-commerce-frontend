@@ -4,7 +4,6 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Buttons';
 import { LoginValidation } from '@/validation/authVallidation/LoginValidation';
-import { FcGoogle } from 'react-icons/fc';
 
 const FEATURES = [
   { icon: '🚚', label: 'Free Delivery' },
@@ -154,7 +153,7 @@ const LoginPage = () => {
 
         {/* RIGHT PANEL */}
         <div className="bg-off-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
-          <span className="tag mb-4 hidden lg:inline-block">👋 Welcome Back</span>
+          <span className="tag mb-4 hidden lg:inline-block w-fit">👋 Welcome Back</span>
           <h2 className="font-playfair text-[26px] sm:text-[32px] font-bold text-text mb-1">
             Login Account
           </h2>
@@ -223,7 +222,8 @@ const LoginPage = () => {
           </div>
 
           <button className="w-full h-[46px] rounded-2xl border border-border bg-white flex items-center justify-center gap-2 text-[13.5px] font-medium text-text cursor-pointer transition-all duration-300 hover:border-amber hover:shadow-[0_4px_14px_rgba(212,134,11,0.12)] hover:-translate-y-px">
-            <FcGoogle size={20} />
+            {/* <FcGoogle size={20} /> */}
+            <img src="/google.png" alt="google" className="w-5 h-5" />
             Continue with Google
           </button>
 

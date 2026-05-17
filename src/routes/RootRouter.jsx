@@ -1,6 +1,5 @@
 import { useRoutes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import CartWishlistPage from '@/pages/test';
 import LoginPage from '@/pages/auth/LoginPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 
@@ -54,10 +53,6 @@ const RootRouter = () => {
           ),
         }
       ],
-    },
-    {
-      path:"/test",
-      element:<CartWishlistPage/>
     },
     {
       path:"/login",

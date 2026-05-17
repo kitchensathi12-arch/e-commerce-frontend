@@ -4,7 +4,6 @@ import { User, Mail, Phone, Lock, Eye, EyeOff } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Buttons';
 import { RegisterValidation } from '@/validation/authVallidation/RegisterValidation';
-import { FcGoogle } from 'react-icons/fc';
 
 const FEATURES = [
   { icon: '🍳', label: 'Best Appliances' },
@@ -89,7 +88,7 @@ const RegisterPage = () => {
 
         {/* RIGHT PANEL */}
         <div className="bg-off-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-10">
-          <span className="tag mb-4 hidden lg:inline-block">🍳 Join KitchenSathi</span>
+          <span className="tag mb-4 hidden lg:inline-block w-fit">🍳 Join KitchenSathi</span>
           <h2 className="font-playfair text-[26px] sm:text-[30px] font-bold text-text mb-1">Create Account</h2>
           <p className="text-text-muted text-[13px] sm:text-[13.5px] leading-relaxed mb-5">Start shopping the best kitchen essentials in India.</p>
 
@@ -144,10 +143,10 @@ const RegisterPage = () => {
             <span className="flex-1 h-px bg-border" /> or sign up with <span className="flex-1 h-px bg-border" />
           </div>
 
-          <button className="w-full h-[46px] rounded-2xl border border-border bg-white flex items-center justify-center gap-2 text-[13.5px] font-medium text-text cursor-pointer transition-all duration-300 hover:border-amber hover:shadow-[0_4px_14px_rgba(212,134,11,0.12)] hover:-translate-y-px">
-  <FcGoogle size={20} />
-  Continue with Google
-</button>
+          <button className="w-full h-11.5 rounded-2xl border border-border bg-white flex items-center justify-center gap-2 text-[13.5px] font-medium text-text cursor-pointer transition-all duration-300 hover:border-amber hover:shadow-[0_4px_14px_rgba(212,134,11,0.12)] hover:-translate-y-px">
+            <img src="/google.png" alt="google" className="w-5 h-5" />
+            Continue with Google
+          </button>
 
           <p className="text-[12px] text-steel-dark text-center mt-5 mb-2">
             Already have an account?{' '}
