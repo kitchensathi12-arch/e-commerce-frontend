@@ -2,6 +2,7 @@ import { Heart, Menu, MoreVertical, Search, ShoppingCart, X } from 'lucide-react
 import { useEffect, useRef, useState } from 'react';
 import Button from './ui/Buttons';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@/store/auth';
 
 export function Header() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const user = null; // replace with your auth state
+  const user = useAuthStore(state => state.user)
 
   const navLinks = [
     { label: 'Home', key: 'home', path: '/' },

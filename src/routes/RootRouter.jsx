@@ -81,6 +81,7 @@ const RootRouter = () => {
       </Suspense>)
     },
   ];
+
   return useRoutes(routes);
 };
 

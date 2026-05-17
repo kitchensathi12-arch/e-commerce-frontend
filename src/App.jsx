@@ -6,8 +6,11 @@ import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   
+  // ---------------- all hooks start here ----------------
   const queryClient = new QueryClient();
   const { pathname } = useLocation();
+
+
   useEffect(() => {
     // Scrolls to top whenever 'someData' changes
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
