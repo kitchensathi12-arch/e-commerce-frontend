@@ -3,8 +3,8 @@
 export const RegisterValidation = ({ firstName, lastName, email, phone, password, agree }) => {
   const errors = {};
 
-  if (!firstName.trim()) errors.firstName = 'Required';
-  if (!lastName.trim())  errors.lastName  = 'Required';
+  if (!firstName.trim()) errors.firstName = 'First Name is Required';
+  if (!lastName.trim())  errors.lastName  = 'Last Name is Required';
 
   if (!email)                          errors.email = 'Email is required';
   else if (!/\S+@\S+\.\S+/.test(email)) errors.email = 'Enter a valid email';
