@@ -1,5 +1,5 @@
 import CategoriesCard from '@/components/products/CategoriesCard';
-import { ProductCard } from '@/components/products/ProductList';
+import ProductList from '@/components/products/ProductList';
 import PromotionSection from '@/components/products/PromotionSection';
 import Button from '@/components/ui/Buttons';
 
@@ -104,7 +104,7 @@ const HomePage = () => {
 
             <button className="btn-outline px-6 py-2.5 text-sm">View All</button>
           </div>
-          <ProductCard />
+          <ProductList />
         </div>
       </section>
 

@@ -9,7 +9,7 @@ const ProductCard = ({ item }) => {
     const navigate = useNavigate();
 
     return (
-        <div onClick={() => navigate(`/product-detail/${item._id}`)} key={item?._id || item?.id} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer flex flex-col">
+        <div onClick={() => navigate(`/product-detail/${item._id}`)} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer flex flex-col">
             {/* IMAGE */}
             <div className="h-50 relative flex items-center justify-center">
                 <img src={item?.product_images?.image_url} className="h-32 object-contain" />
