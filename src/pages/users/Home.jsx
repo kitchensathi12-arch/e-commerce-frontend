@@ -1,5 +1,5 @@
 import CategoriesCard from '@/components/products/CategoriesCard';
-import { ProductCard } from '@/components/products/ProductCards';
+import { ProductCard } from '@/components/products/ProductList';
 import PromotionSection from '@/components/products/PromotionSection';
 import Button from '@/components/ui/Buttons';
 

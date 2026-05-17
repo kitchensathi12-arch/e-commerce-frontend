@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getProductById } from '@/service/product.service';
 import { ImageGallery } from '@/components/ProductDetails/ImageGallery';
 import { ProductInfo } from '@/components/ProductDetails/ProductInfo';
-import { ProductCard } from '@/components/products/ProductCards';
+import { ProductCard } from '@/components/products/ProductList';
 import { ProductTabs } from '@/components/ProductDetails/ProductTabs';
 
 // ── Sample Product Data ───────────────────────────────────────────────────────
