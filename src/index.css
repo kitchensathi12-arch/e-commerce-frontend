@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
 @import 'tailwindcss';
 
 /*
@@ -21,22 +23,210 @@
   --color-secondary: #d4860b;
   --color-background: #f0a830;
   --color-border: #e8d8b8;
-}
 
-/*
- ========================================================
- ---------- here all theme fonts configuration ----------
- ========================================================
-*/
+  /*
+   ========================================================
+   ---------- here all theme fonts configuration ----------
+   ========================================================
+  */
 
-@theme {
   --font-playfair: 'Playfair Display', serif;
   --font-dm-sans: 'DM Sans', sans-serif;
 }
 
 /*
  ========================================================
- ---------- here all module custom styles ----------
+ ---------- global styles ----------
+ ========================================================
+*/
+
+body {
+  font-family: var(--font-dm-sans);
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+/*
+ ========================================================
+ ---------- animations ----------
+ ========================================================
+*/
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce-once {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.15);
+  }
+
+  70% {
+    transform: scale(0.93);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/*
+ ========================================================
+ ---------- animation utility classes ----------
+ ========================================================
+*/
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp 0.5s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s ease both;
+}
+
+.animate-slide-left {
+  animation: slideLeft 0.4s ease both;
+}
+
+.animate-bounce-once {
+  animation: bounce-once 0.5s ease;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+/*
+ ========================================================
+ ---------- shimmer button ----------
+ ========================================================
+*/
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.shimmer-btn:hover::after {
+  transform: translateX(100%);
+}
+
+/*
+ ========================================================
+ ---------- card hover effect ----------
+ ========================================================
+*/
+
+.card-hover {
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(92, 58, 30, 0.13);
+}
+
+/*
+ ========================================================
+ ---------- remove outline ----------
+ ========================================================
+*/
+
+button,
+input {
+  outline: none;
+}
+
+/*
+ ========================================================
+ ---------- reusable flex utilities ----------
  ========================================================
 */
 
@@ -60,20 +250,22 @@
   @apply transition-all duration-300 ease-in-out;
 }
 
+/*
+ ========================================================
+ ---------- custom components ----------
+ ========================================================
+*/
+
 @layer components {
   .nav-link::before {
     content: '';
-    @apply absolute left-0 bottom-[-4px]  h-[2px] w-0 bg-amber transition-all duration-300;
+    @apply absolute left-0 bottom-[-4px] h-[2px] w-0 bg-amber transition-all duration-300;
   }
-}
 
-@layer components {
   .tag {
     @apply inline-block bg-amber/25 text-amber border border-[#F0C870] rounded-full text-[11px] font-semibold tracking-[0.8px] uppercase px-3 py-[3px];
   }
-}
 
-@layer components {
   .btn-primary:hover {
     @apply bg-gradient-to-br from-brown-dark to-brown -translate-y-0.5 shadow-[0_8px_24px_rgba(212,134,11,0.35)];
   }

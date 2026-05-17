@@ -113,7 +113,7 @@ const HomePage = () => {
 
       {/* ------------------------------WHY US-------------------------------- */}
       <section className="py-20 px-6 bg-linear-to-br from-brown-dark to-brown text-white">
-        <div className="max-w-7xl  text-start">
+        <div className="max-w-7xl  text-center mx-auto">
           <div className="tag mb-3 bg-amber/15 border border-amber/30 text-amber-light">
             Why Choose Us
           </div>

@@ -1,9 +1,11 @@
 import { Heart, Menu, Search, ShoppingCart, X } from 'lucide-react';
 import { useState } from 'react';
 import Button from './ui/Buttons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Header() {
+  // ------------- all hooks use here ----------
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -60,10 +62,10 @@ export function Header() {
             >
               <Search className="w-5 h-5" />
             </Button>
-            <Button variant="outline" size="sm" className="border-none ">
+            <Button onClick={() => navigate("/wishlist")} variant="outline" size="sm" className="border-none ">
               <Heart className="w-5 h-5" />
             </Button>
-            <Button leftIcon={<ShoppingCart className="w-5 h-5" />}>
+            <Button onClick={() => navigate("/cart")} leftIcon={<ShoppingCart className="w-5 h-5" />}>
               <span>Cart</span>
             </Button>
             <button

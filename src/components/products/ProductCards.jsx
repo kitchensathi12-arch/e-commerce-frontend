@@ -22,13 +22,13 @@ export function ProductCard() {
   }
 
   const productList = Array.isArray(Products?.data)
-  ? Products.data
-  : [];
+    ? Products.data
+    : [];
 
   return (
     <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
       {productList.map((item) => (
-        <div key={item?._id || item?.id} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer flex flex-col">
+        <div onClick={() => navigate(`/product-detail/${item._id}`)} key={item?._id || item?.id} className="card-lift bg-white rounded-[20px] overflow-hidden border border-[#F0E8D4] relative cursor-pointer flex flex-col">
           {/* IMAGE */}
           <div className="h-50 relative flex items-center justify-center">
             <img src={item?.product_images?.image_url} className="h-32 object-contain" />

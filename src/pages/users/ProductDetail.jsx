@@ -73,9 +73,6 @@ export default function ProductDetailPage() {
 
     // -------------- all hooks start here ------------
     const { id } = useParams();
-    console.log(id)
-
-
 
     // ------------- all tanstack query start here --------------
     const { data: productDetail, isPending: isProductDetailPending } = useQuery({
