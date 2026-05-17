@@ -7,6 +7,7 @@ const Input = ({
   leftIcon,
   rightIcon,
   className = '',
+  name,
   inputClassName = '',
   disabled = false,
   ...props
@@ -57,6 +58,7 @@ const Input = ({
         <input
           type={type}
           disabled={disabled}
+          name={name}
           className={[
             `
               w-full bg-transparent outline-none

@@ -1,4 +1,6 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
+import Button from './ui/Buttons';
+import Input from './ui/Input';
 
 const CATEGORIES = [
   { id: 1, name: 'Mixer Grinders', emoji: '🫙', count: 48 },
@@ -24,14 +26,14 @@ export function Footer() {
           </p>
 
           <div className="flex gap-2 max-w-[420px] mx-auto">
-            <input
+            <Input
               placeholder="Enter your email…"
               className="flex-1 border-0 rounded-full px-5 py-3 text-sm outline-none font-dm-sans"
             />
 
-            <button className="btn-primary px-6 py-3 text-sm bg-brown-dark whitespace-nowrap">
+            <Button >
               Subscribe
-            </button>
+            </Button>
           </div>
         </div>
       </div>
