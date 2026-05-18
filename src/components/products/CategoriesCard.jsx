@@ -23,7 +23,7 @@ const CategoriesCard = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <p
-            className="text-xs tracking-[0.25em] uppercase font-semibold mb-3"
+            className="text-xs tracking-[0.25em] tag uppercase font-semibold mb-3"
             style={{ color: '#C17A2A' }}
           >
             Browse By Category

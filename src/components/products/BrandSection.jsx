@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 
-// ── Brand data — all using same local image /brands/brand.jpg ──
+// ── Brand data ──
 const DUMMY_BRANDS = [
   { _id: '1',  brand_name: 'Philips',         slug: 'philips',         certificate: null, brand_logo: '/brands/brand.jpg' },
   { _id: '2',  brand_name: 'Prestige',        slug: 'prestige',        certificate: null, brand_logo: '/brands/brand1.jpg' },
@@ -32,14 +32,13 @@ const SLIDER_STYLE = `
     animation-play-state: paused;
   }
 
-  /* Responsive card widths via CSS custom property */
   .brand-card {
     width: clamp(140px, 22vw, 220px);
     flex-shrink: 0;
   }
 
   .brand-logo-img {
-    opacity: 0.85;
+    opacity: 0.80;
     transition: opacity 0.3s ease, transform 0.3s ease;
     object-fit: contain;
   }
@@ -77,14 +76,14 @@ const BrandCard = ({ brand, navigate }) => (
     onClick={() => brand.slug && navigate(`/brand/${brand.slug}`)}
     className="
       brand-card group relative
-      bg-brown/20 hover:bg-brown/40
-      border border-amber/20 hover:border-amber/50
+      bg-off-white hover:bg-amber-pale
+      border border-border hover:border-amber/50
       rounded-2xl
       transition-all duration-300 ease-out
       p-4 sm:p-5 md:p-7
       flex flex-col items-center justify-center
       cursor-pointer
-      hover:shadow-[0_8px_32px_rgba(212,134,11,0.18)]
+      hover:shadow-[0_8px_32px_rgba(212,134,11,0.14)]
       hover:-translate-y-1
     "
   >
@@ -97,8 +96,8 @@ const BrandCard = ({ brand, navigate }) => (
         className="
           absolute top-3 right-3
           flex items-center gap-1
-          bg-amber/20 hover:bg-amber-light
-          text-amber-light hover:text-brown-dark
+          bg-amber/15 hover:bg-amber
+          text-amber hover:text-white
           p-1.5 rounded-xl
           opacity-100 md:opacity-0 md:group-hover:opacity-100
           transition-all duration-300
@@ -121,15 +120,14 @@ const BrandCard = ({ brand, navigate }) => (
           loading="lazy"
           onError={(e) => {
             e.currentTarget.style.display = 'none';
-            // Show initials sibling on error
             const fallback = e.currentTarget.nextElementSibling;
             if (fallback) fallback.style.display = 'flex';
           }}
         />
       ) : null}
-      {/* Initials fallback — hidden by default when logo exists */}
+      {/* Initials fallback */}
       <span
-        className="font-playfair text-2xl sm:text-3xl font-bold text-amber-light/40 tracking-tighter select-none items-center justify-center"
+        className="font-playfair text-2xl sm:text-3xl font-bold text-amber/40 tracking-tighter select-none items-center justify-center"
         style={{ display: brand.brand_logo ? 'none' : 'flex' }}
       >
         {brand.brand_name?.slice(0, 2).toUpperCase()}
@@ -139,7 +137,7 @@ const BrandCard = ({ brand, navigate }) => (
     {/* Brand name */}
     <h3 className="
       font-dm-sans font-medium
-      text-white/60 group-hover:text-white
+      text-text-muted group-hover:text-text
       text-xs sm:text-sm md:text-[15px]
       tracking-tight text-center leading-snug
       transition-colors duration-300
@@ -148,13 +146,13 @@ const BrandCard = ({ brand, navigate }) => (
     </h3>
 
     {/* Animated underline accent */}
-    <div className="h-px w-5 bg-amber/40 mt-2 sm:mt-3 transition-all duration-300 group-hover:w-9 group-hover:bg-amber-light" />
+    <div className="h-px w-5 bg-amber/30 mt-2 sm:mt-3 transition-all duration-300 group-hover:w-9 group-hover:bg-amber" />
   </div>
 );
 
 // ── Skeleton Card ──
 const SkeletonCard = () => (
-  <div className="brand-card flex-shrink-0 h-36 sm:h-40 md:h-44 bg-brown/20 border border-amber/10 rounded-2xl animate-pulse" />
+  <div className="brand-card flex-shrink-0 h-36 sm:h-40 md:h-44 bg-border/60 border border-border rounded-2xl animate-pulse" />
 );
 
 // ── Main Component ──
@@ -171,19 +169,29 @@ const BrandSlider = () => {
     <>
       <style>{SLIDER_STYLE}</style>
 
-      <section className="w-full bg-brown-dark py-12 sm:py-16 md:py-20 overflow-hidden">
+      {/* 
+        LIGHT THEME CHANGES:
+        - Section bg: bg-off-white  (was bg-brown-dark)
+        - Heading: text-text        (was text-white)
+        - Subtitle: text-text-muted (was text-white/50)
+        - Divider: bg-amber/30      (was bg-amber/40)
+        - Fade edges: from-off-white (was from-brown-dark)
+        - Stats border: border-border (was border-amber/15)
+        - Stats label: text-text-muted (was text-white/40)
+      */}
+      <section className="w-full bg-off-white py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
           {/* ── Heading ── */}
           <div className="flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
             <span className="tag mb-3 sm:mb-4 text-xs sm:text-sm">✦ Our Brand Partners</span>
-            <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3 sm:mb-4">
-              Shop by <span className="text-amber-light">Brand</span>
+            <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-text tracking-tight mb-3 sm:mb-4">
+              Shop by <span className="text-amber">Brand</span>
             </h2>
-            <p className="text-white/50 text-sm sm:text-[15px] max-w-xs sm:max-w-md leading-relaxed font-dm-sans px-2">
+            <p className="text-text-muted text-sm sm:text-[15px] max-w-xs sm:max-w-md leading-relaxed font-dm-sans px-2">
               Discover premium kitchen brands — authenticated, trusted, and curated for the modern Indian kitchen.
             </p>
-            <div className="w-14 h-px bg-amber/40 mt-4 sm:mt-6" />
+            <div className="w-14 h-px bg-amber/30 mt-4 sm:mt-6" />
           </div>
 
           {/* ── Slider ── */}
@@ -193,9 +201,9 @@ const BrandSlider = () => {
             </div>
           ) : (
             <div className="brand-slider-wrap relative w-full overflow-hidden">
-              {/* Fade edges — narrower on mobile */}
-              <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-14 md:w-20 bg-gradient-to-r from-brown-dark to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-14 md:w-20 bg-gradient-to-l from-brown-dark to-transparent z-10 pointer-events-none" />
+              {/* Fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-14 md:w-20 bg-gradient-to-r from-off-white to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-14 md:w-20 bg-gradient-to-l from-off-white to-transparent z-10 pointer-events-none" />
 
               <div
                 className="brand-track flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 py-3 sm:py-4"
@@ -217,7 +225,7 @@ const BrandSlider = () => {
             <div className="
               flex flex-row items-center justify-center
               gap-6 sm:gap-12 md:gap-16 lg:gap-24
-              border-t border-amber/15
+              border-t border-border
               mt-10 sm:mt-12 md:mt-14
               pt-8 sm:pt-10
             ">
@@ -227,10 +235,10 @@ const BrandSlider = () => {
                 { value: 'Free',              label: 'Returns'        },
               ].map(({ value, label }) => (
                 <div key={label} className="flex flex-col items-center gap-1 sm:gap-1.5">
-                  <span className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold text-amber-light tracking-tight">
+                  <span className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold text-amber tracking-tight">
                     {value}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] md:text-xs text-white/40 uppercase tracking-[0.12em] sm:tracking-[0.14em] font-medium">
+                  <span className="text-[9px] sm:text-[10px] md:text-xs text-text-muted uppercase tracking-[0.12em] sm:tracking-[0.14em] font-medium">
                     {label}
                   </span>
                 </div>
