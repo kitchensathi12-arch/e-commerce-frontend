@@ -22,11 +22,23 @@ const orbItems = [
 
 export default function KitchenSaathiLoader() {
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState(0); // 0=loading, 1=done
+  const [phase, setPhase] = useState(0);
   const [activeEmoji, setActiveEmoji] = useState(0);
   const [sparks, setSparks] = useState([]);
+  const [vw, setVw] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
   const intervalRef = useRef(null);
   const sparkId = useRef(0);
+
+  // Responsive breakpoints
+  const isMobile = vw < 480;
+  const isTablet = vw >= 480 && vw < 768;
+  const isDesktop = vw >= 768;
+
+  useEffect(() => {
+    const handleResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -49,7 +61,6 @@ export default function KitchenSaathiLoader() {
     return () => clearInterval(t);
   }, []);
 
-  // Spark burst on pot
   useEffect(() => {
     const t = setInterval(() => {
       const id = sparkId.current++;
@@ -74,75 +85,220 @@ export default function KitchenSaathiLoader() {
       ? "Plating your experience..."
       : "Your kitchen awaits! 🍽️";
 
+  // Responsive sizes
+  const orbSize = isMobile ? 220 : isTablet ? 260 : 290;
+  const orbRadius = isMobile ? 85 : isTablet ? 100 : 115;
+  const potFontSize = isMobile ? 44 : isTablet ? 52 : 58;
+  const logoIconSize = isMobile ? 46 : isTablet ? 52 : 58;
+  const logoTextSize = isMobile ? 22 : isTablet ? 25 : 28;
+  const orbItemSize = isMobile ? 36 : isTablet ? 40 : 44;
+  const orbItemFont = isMobile ? 17 : isTablet ? 20 : 22;
+  const pctFontSize = isMobile ? 28 : isTablet ? 32 : 36;
+  const doneEmojiSize = isMobile ? 40 : isTablet ? 46 : 52;
+  const doneTextSize = isMobile ? 20 : isTablet ? 24 : 28;
+
   return (
-    <div style={styles.root}>
+    <div style={{
+      minHeight: "100vh",
+      width: "100%",
+      background: `radial-gradient(ellipse at 60% 40%, #8B4500 0%, #5C2E00 40%, #2E1500 100%)`,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "'DM Sans', sans-serif",
+      position: "relative",
+      overflow: "hidden",
+      color: BRAND.cream,
+      boxSizing: "border-box",
+    }}>
       {/* Grain texture overlay */}
-      <div style={styles.grain} />
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`,
+        opacity: 0.18,
+        pointerEvents: "none",
+        animation: "grainAnim 0.5s steps(1) infinite",
+        zIndex: 1,
+      }} />
 
       {/* Radial glow */}
-      <div style={styles.glow} />
+      <div style={{
+        position: "absolute",
+        top: "30%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: isMobile ? 320 : isTablet ? 420 : 520,
+        height: isMobile ? 320 : isTablet ? 420 : 520,
+        borderRadius: "50%",
+        background: `radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)`,
+        pointerEvents: "none",
+        zIndex: 1,
+      }} />
 
       {/* Top ticker */}
-      <div style={styles.ticker}>
-        <span>🚚 Free delivery on orders above ₹999</span>
-        <span style={{ margin: "0 18px", opacity: 0.4 }}>|</span>
-        <span>📞 Customer care: 1800-XXX-XXXX</span>
-        <span style={{ margin: "0 18px", opacity: 0.4 }}>|</span>
-        <span>⭐ 4.7★ Rated on Google</span>
+      <div style={{
+        position: "absolute",
+        top: 0,
+        width: "100%",
+        background: "rgba(0,0,0,0.35)",
+        borderBottom: `1px solid rgba(245,158,11,0.2)`,
+        padding: isMobile ? "7px 12px" : "8px 24px",
+        fontSize: isMobile ? 10 : 12,
+        color: BRAND.cream,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        letterSpacing: "0.04em",
+        zIndex: 10,
+        gap: 0,
+        flexWrap: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        boxSizing: "border-box",
+      }}>
+        {isMobile ? (
+          <span>🚚 Free delivery above ₹999 &nbsp;|&nbsp; ⭐ 4.7★ Google</span>
+        ) : (
+          <>
+            <span>🚚 Free delivery on orders above ₹999</span>
+            <span style={{ margin: "0 18px", opacity: 0.4 }}>|</span>
+            <span>📞 Customer care: 1800-XXX-XXXX</span>
+            <span style={{ margin: "0 18px", opacity: 0.4 }}>|</span>
+            <span>⭐ 4.7★ Rated on Google</span>
+          </>
+        )}
       </div>
 
       {/* Main content */}
-      <div style={styles.center}>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: isMobile ? 18 : isTablet ? 22 : 28,
+        zIndex: 5,
+        padding: isMobile ? "60px 16px 24px" : isTablet ? "64px 24px 28px" : "0 24px",
+        width: "100%",
+        maxWidth: isMobile ? "100%" : isTablet ? 420 : 480,
+        boxSizing: "border-box",
+      }}>
         {/* Logo */}
-        <div style={styles.logoRow}>
-          <div style={styles.logoIcon}>🍳</div>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: isMobile ? 10 : 14,
+          marginBottom: isMobile ? 0 : 4,
+        }}>
+          <div style={{
+            fontSize: isMobile ? 30 : 40,
+            background: "rgba(255,255,255,0.08)",
+            borderRadius: isMobile ? 12 : 14,
+            width: logoIconSize,
+            height: logoIconSize,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: `1px solid rgba(245,158,11,0.3)`,
+            boxShadow: `0 0 24px rgba(245,158,11,0.2)`,
+            flexShrink: 0,
+          }}>🍳</div>
           <div>
-            <div style={styles.logoText}>
+            <div style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: logoTextSize,
+              fontWeight: 900,
+              color: BRAND.white,
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+            }}>
               Kitchen<span style={{ color: BRAND.amber }}>Saathi</span>
             </div>
-            <div style={styles.logoSub}>YOUR TRUSTED KITCHEN COMPANION</div>
+            <div style={{
+              fontSize: isMobile ? 7.5 : 9,
+              letterSpacing: "0.18em",
+              color: BRAND.amber,
+              fontWeight: 500,
+              marginTop: 2,
+            }}>YOUR TRUSTED KITCHEN COMPANION</div>
           </div>
         </div>
 
         {/* Orbital animation */}
-        <div style={styles.orbScene}>
+        <div style={{
+          position: "relative",
+          width: orbSize,
+          height: orbSize,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+        }}>
           {/* Outer ring */}
-          <div style={styles.ring1} />
-          <div style={styles.ring2} />
+          <div style={{
+            position: "absolute",
+            width: orbSize * 0.827,
+            height: orbSize * 0.827,
+            borderRadius: "50%",
+            border: `1.5px dashed rgba(245,158,11,0.2)`,
+            animation: "spin1 18s linear infinite",
+          }} />
+          <div style={{
+            position: "absolute",
+            width: orbSize * 0.655,
+            height: orbSize * 0.655,
+            borderRadius: "50%",
+            border: `1px solid rgba(245,158,11,0.1)`,
+            animation: "spin2 12s linear infinite",
+          }} />
 
           {/* Central pot */}
-          <div style={styles.potWrap}>
-            <div style={styles.potEmoji}>🍲</div>
+          <div style={{
+            position: "relative",
+            width: isMobile ? 70 : 90,
+            height: isMobile ? 70 : 90,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 4,
+            animation: "potBob 1.8s ease-in-out infinite",
+          }}>
+            <div style={{
+              fontSize: potFontSize,
+              filter: "drop-shadow(0 0 18px rgba(245,158,11,0.6))",
+              userSelect: "none",
+            }}>🍲</div>
             {/* Steam */}
             {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                style={{
-                  ...styles.steam,
-                  left: `${28 + i * 18}%`,
-                  animationDelay: `${i * 0.35}s`,
-                }}
-              />
+              <div key={i} style={{
+                position: "absolute",
+                top: -10,
+                left: `${28 + i * 18}%`,
+                width: 6,
+                height: 18,
+                background: "rgba(255,255,255,0.18)",
+                borderRadius: 99,
+                animation: "steamRise 1.4s ease-out infinite",
+                animationDelay: `${i * 0.35}s`,
+              }} />
             ))}
             {/* Sparks */}
             {sparks.map((sp) => {
               const rad = (sp.angle * Math.PI) / 180;
               return (
-                <div
-                  key={sp.id}
-                  style={{
-                    position: "absolute",
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: BRAND.amber,
-                    top: `calc(50% + ${Math.sin(rad) * sp.dist}px)`,
-                    left: `calc(50% + ${Math.cos(rad) * sp.dist}px)`,
-                    opacity: 0,
-                    animation: "sparkFly 0.9s ease-out forwards",
-                    boxShadow: `0 0 6px ${BRAND.amber}`,
-                  }}
-                />
+                <div key={sp.id} style={{
+                  position: "absolute",
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: BRAND.amber,
+                  top: `calc(50% + ${Math.sin(rad) * sp.dist}px)`,
+                  left: `calc(50% + ${Math.cos(rad) * sp.dist}px)`,
+                  opacity: 0,
+                  animation: "sparkFly 0.9s ease-out forwards",
+                  boxShadow: `0 0 6px ${BRAND.amber}`,
+                }} />
               );
             })}
           </div>
@@ -150,29 +306,26 @@ export default function KitchenSaathiLoader() {
           {/* Orbiting items */}
           {orbItems.map((item, i) => {
             const rad = (item.angle * Math.PI) / 180;
-            const r = 115;
+            const half = orbItemSize / 2;
             return (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  top: `calc(50% + ${Math.sin(rad) * r}px - 22px)`,
-                  left: `calc(50% + ${Math.cos(rad) * r}px - 22px)`,
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: "rgba(255,255,255,0.07)",
-                  backdropFilter: "blur(6px)",
-                  border: `1px solid rgba(245,158,11,0.25)`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 22,
-                  animation: `floatOrb 3s ease-in-out infinite`,
-                  animationDelay: `${item.delay}s`,
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
-                }}
-              >
+              <div key={i} style={{
+                position: "absolute",
+                top: `calc(50% + ${Math.sin(rad) * orbRadius}px - ${half}px)`,
+                left: `calc(50% + ${Math.cos(rad) * orbRadius}px - ${half}px)`,
+                width: orbItemSize,
+                height: orbItemSize,
+                borderRadius: isMobile ? 9 : 12,
+                background: "rgba(255,255,255,0.07)",
+                backdropFilter: "blur(6px)",
+                border: `1px solid rgba(245,158,11,0.25)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: orbItemFont,
+                animation: `floatOrb 3s ease-in-out infinite`,
+                animationDelay: `${item.delay}s`,
+                boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+              }}>
                 {item.emoji}
               </div>
             );
@@ -180,57 +333,172 @@ export default function KitchenSaathiLoader() {
         </div>
 
         {/* Message */}
-        <div style={styles.msgWrap}>
-          <span style={styles.msgEmoji}>{cookingEmojis[activeEmoji]}</span>
-          <span style={styles.msgText}>{msg}</span>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: isMobile ? 7 : 10,
+          background: "rgba(255,255,255,0.06)",
+          border: `1px solid rgba(245,158,11,0.2)`,
+          borderRadius: 99,
+          padding: isMobile ? "8px 16px" : "10px 22px",
+          animation: "msgFade 2s ease-in-out infinite",
+          maxWidth: "100%",
+        }}>
+          <span style={{ fontSize: isMobile ? 16 : 20, transition: "all 0.4s ease" }}>
+            {cookingEmojis[activeEmoji]}
+          </span>
+          <span style={{
+            fontSize: isMobile ? 12 : 14,
+            fontWeight: 400,
+            color: BRAND.cream,
+            letterSpacing: "0.02em",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}>{msg}</span>
         </div>
 
         {/* Progress bar */}
-        <div style={styles.barTrack}>
-          <div
-            style={{
-              ...styles.barFill,
-              width: `${Math.min(progress, 100)}%`,
-            }}
-          >
-            <div style={styles.barShine} />
+        <div style={{
+          width: "100%",
+          height: isMobile ? 7 : 8,
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 99,
+          position: "relative",
+          overflow: "visible",
+          border: `1px solid rgba(245,158,11,0.12)`,
+        }}>
+          <div style={{
+            height: "100%",
+            borderRadius: 99,
+            background: `linear-gradient(90deg, ${BRAND.darkBrown}, ${BRAND.gold}, ${BRAND.amber})`,
+            transition: "width 0.12s ease",
+            position: "relative",
+            overflow: "hidden",
+            boxShadow: `0 0 12px rgba(245,158,11,0.5)`,
+            width: `${Math.min(progress, 100)}%`,
+          }}>
+            <div style={{
+              position: "absolute",
+              top: 0,
+              width: "60%",
+              height: "100%",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
+              animation: "barShimmer 1.6s ease-in-out infinite",
+            }} />
           </div>
-          <div
-            style={{
-              ...styles.barDot,
-              left: `calc(${Math.min(progress, 100)}% - 7px)`,
-            }}
-          />
+          <div style={{
+            position: "absolute",
+            top: isMobile ? -3.5 : -4,
+            width: isMobile ? 12 : 14,
+            height: isMobile ? 12 : 14,
+            borderRadius: "50%",
+            background: BRAND.amber,
+            boxShadow: `0 0 10px ${BRAND.amber}, 0 0 24px rgba(245,158,11,0.4)`,
+            transition: "left 0.12s ease",
+            border: `2px solid white`,
+            left: `calc(${Math.min(progress, 100)}% - ${isMobile ? 6 : 7}px)`,
+          }} />
         </div>
 
-        <div style={styles.pctRow}>
-          <span style={styles.pctText}>{Math.floor(Math.min(progress, 100))}%</span>
-          <span style={styles.pctLabel}>Loading your kitchen</span>
+        <div style={{
+          display: "flex",
+          alignItems: "baseline",
+          gap: isMobile ? 7 : 10,
+          marginTop: isMobile ? -6 : -10,
+        }}>
+          <span style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: pctFontSize,
+            fontWeight: 900,
+            color: BRAND.amber,
+            lineHeight: 1,
+            textShadow: `0 0 20px rgba(245,158,11,0.4)`,
+          }}>{Math.floor(Math.min(progress, 100))}%</span>
+          <span style={{
+            fontSize: isMobile ? 10 : 12,
+            color: "rgba(254,243,199,0.5)",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+          }}>Loading your kitchen</span>
         </div>
 
         {/* Trust badges */}
-        <div style={styles.badges}>
+        <div style={{
+          display: "flex",
+          gap: isMobile ? 7 : 12,
+          flexWrap: "wrap",
+          justifyContent: "center",
+          marginTop: isMobile ? 0 : 4,
+          width: "100%",
+        }}>
           {["🚚 Free Delivery", "🔒 Secure Payment", "↩️ Easy Returns"].map((b) => (
-            <div key={b} style={styles.badge}>
-              {b}
-            </div>
+            <div key={b} style={{
+              fontSize: isMobile ? 9.5 : 11,
+              color: "rgba(254,243,199,0.6)",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(245,158,11,0.15)",
+              borderRadius: 99,
+              padding: isMobile ? "4px 10px" : "5px 14px",
+              letterSpacing: "0.04em",
+              whiteSpace: "nowrap",
+            }}>{b}</div>
           ))}
         </div>
       </div>
 
       {/* Done overlay */}
       {phase === 1 && (
-        <div style={styles.doneOverlay}>
-          <div style={styles.doneBox}>
-            <div style={{ fontSize: 52 }}>🍽️</div>
-            <div style={styles.doneText}>Your Kitchen is Ready!</div>
-            <div style={styles.doneSubText}>Welcome to KitchenSaathi</div>
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          background: "rgba(61,31,0,0.7)",
+          backdropFilter: "blur(8px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 100,
+          animation: "doneReveal 0.5s ease forwards",
+          padding: "16px",
+          boxSizing: "border-box",
+        }}>
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: isMobile ? 8 : 12,
+            background: "rgba(255,255,255,0.07)",
+            border: `1.5px solid rgba(245,158,11,0.4)`,
+            borderRadius: isMobile ? 18 : 24,
+            padding: isMobile ? "28px 32px" : isTablet ? "34px 48px" : "40px 60px",
+            boxShadow: `0 0 60px rgba(245,158,11,0.2)`,
+            width: "100%",
+            maxWidth: isMobile ? 300 : 380,
+            boxSizing: "border-box",
+          }}>
+            <div style={{ fontSize: doneEmojiSize }}>🍽️</div>
+            <div style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: doneTextSize,
+              fontWeight: 900,
+              color: BRAND.white,
+              textAlign: "center",
+            }}>Your Kitchen is Ready!</div>
+            <div style={{
+              fontSize: isMobile ? 11 : 14,
+              color: BRAND.amber,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              textAlign: "center",
+            }}>Welcome to KitchenSaathi</div>
           </div>
         </div>
       )}
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; }
 
         @keyframes spin1 {
           from { transform: rotate(0deg); }
@@ -277,278 +545,14 @@ export default function KitchenSaathiLoader() {
           70% { transform: translate(1%,-1%); }
           90% { transform: translate(-1%,2%); }
         }
+
+        @media (max-width: 360px) {
+          /* Extra small devices */
+        }
+        @media (min-width: 1024px) {
+          /* Large desktops get extra breathing room */
+        }
       `}</style>
     </div>
   );
 }
-
-const styles = {
-  root: {
-    minHeight: "100vh",
-    width: "100%",
-    background: `radial-gradient(ellipse at 60% 40%, #8B4500 0%, #5C2E00 40%, #2E1500 100%)`,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "'DM Sans', sans-serif",
-    position: "relative",
-    overflow: "hidden",
-    color: BRAND.cream,
-  },
-  grain: {
-    position: "absolute",
-    inset: 0,
-    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`,
-    opacity: 0.18,
-    pointerEvents: "none",
-    animation: "grainAnim 0.5s steps(1) infinite",
-    zIndex: 1,
-  },
-  glow: {
-    position: "absolute",
-    top: "30%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 520,
-    height: 520,
-    borderRadius: "50%",
-    background: `radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)`,
-    pointerEvents: "none",
-    zIndex: 1,
-  },
-  ticker: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    background: "rgba(0,0,0,0.35)",
-    borderBottom: `1px solid rgba(245,158,11,0.2)`,
-    padding: "8px 24px",
-    fontSize: 12,
-    color: BRAND.cream,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    letterSpacing: "0.04em",
-    zIndex: 10,
-    gap: 0,
-  },
-  center: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 28,
-    zIndex: 5,
-    padding: "0 24px",
-    width: "100%",
-    maxWidth: 480,
-  },
-  logoRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: 14,
-    marginBottom: 4,
-  },
-  logoIcon: {
-    fontSize: 40,
-    background: "rgba(255,255,255,0.08)",
-    borderRadius: 14,
-    width: 58,
-    height: 58,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: `1px solid rgba(245,158,11,0.3)`,
-    boxShadow: `0 0 24px rgba(245,158,11,0.2)`,
-  },
-  logoText: {
-    fontFamily: "'Playfair Display', serif",
-    fontSize: 28,
-    fontWeight: 900,
-    color: BRAND.white,
-    lineHeight: 1.1,
-    letterSpacing: "-0.01em",
-  },
-  logoSub: {
-    fontSize: 9,
-    letterSpacing: "0.18em",
-    color: BRAND.amber,
-    fontWeight: 500,
-    marginTop: 2,
-  },
-  orbScene: {
-    position: "relative",
-    width: 290,
-    height: 290,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ring1: {
-    position: "absolute",
-    width: 240,
-    height: 240,
-    borderRadius: "50%",
-    border: `1.5px dashed rgba(245,158,11,0.2)`,
-    animation: "spin1 18s linear infinite",
-  },
-  ring2: {
-    position: "absolute",
-    width: 190,
-    height: 190,
-    borderRadius: "50%",
-    border: `1px solid rgba(245,158,11,0.1)`,
-    animation: "spin2 12s linear infinite",
-  },
-  potWrap: {
-    position: "relative",
-    width: 90,
-    height: 90,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 4,
-    animation: "potBob 1.8s ease-in-out infinite",
-  },
-  potEmoji: {
-    fontSize: 58,
-    filter: "drop-shadow(0 0 18px rgba(245,158,11,0.6))",
-    userSelect: "none",
-  },
-  steam: {
-    position: "absolute",
-    top: -10,
-    width: 6,
-    height: 18,
-    background: "rgba(255,255,255,0.18)",
-    borderRadius: 99,
-    animation: "steamRise 1.4s ease-out infinite",
-  },
-  msgWrap: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    background: "rgba(255,255,255,0.06)",
-    border: `1px solid rgba(245,158,11,0.2)`,
-    borderRadius: 99,
-    padding: "10px 22px",
-    animation: "msgFade 2s ease-in-out infinite",
-  },
-  msgEmoji: {
-    fontSize: 20,
-    transition: "all 0.4s ease",
-  },
-  msgText: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: BRAND.cream,
-    letterSpacing: "0.02em",
-  },
-  barTrack: {
-    width: "100%",
-    height: 8,
-    background: "rgba(255,255,255,0.08)",
-    borderRadius: 99,
-    position: "relative",
-    overflow: "visible",
-    border: `1px solid rgba(245,158,11,0.12)`,
-  },
-  barFill: {
-    height: "100%",
-    borderRadius: 99,
-    background: `linear-gradient(90deg, ${BRAND.darkBrown}, ${BRAND.gold}, ${BRAND.amber})`,
-    transition: "width 0.12s ease",
-    position: "relative",
-    overflow: "hidden",
-    boxShadow: `0 0 12px rgba(245,158,11,0.5)`,
-  },
-  barShine: {
-    position: "absolute",
-    top: 0,
-    width: "60%",
-    height: "100%",
-    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
-    animation: "barShimmer 1.6s ease-in-out infinite",
-  },
-  barDot: {
-    position: "absolute",
-    top: -4,
-    width: 14,
-    height: 14,
-    borderRadius: "50%",
-    background: BRAND.amber,
-    boxShadow: `0 0 10px ${BRAND.amber}, 0 0 24px rgba(245,158,11,0.4)`,
-    transition: "left 0.12s ease",
-    border: `2px solid white`,
-  },
-  pctRow: {
-    display: "flex",
-    alignItems: "baseline",
-    gap: 10,
-    marginTop: -10,
-  },
-  pctText: {
-    fontFamily: "'Playfair Display', serif",
-    fontSize: 36,
-    fontWeight: 900,
-    color: BRAND.amber,
-    lineHeight: 1,
-    textShadow: `0 0 20px rgba(245,158,11,0.4)`,
-  },
-  pctLabel: {
-    fontSize: 12,
-    color: "rgba(254,243,199,0.5)",
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
-  },
-  badges: {
-    display: "flex",
-    gap: 12,
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginTop: 4,
-  },
-  badge: {
-    fontSize: 11,
-    color: "rgba(254,243,199,0.6)",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(245,158,11,0.15)",
-    borderRadius: 99,
-    padding: "5px 14px",
-    letterSpacing: "0.04em",
-  },
-  doneOverlay: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(61,31,0,0.7)",
-    backdropFilter: "blur(8px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 100,
-    animation: "doneReveal 0.5s ease forwards",
-  },
-  doneBox: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 12,
-    background: "rgba(255,255,255,0.07)",
-    border: `1.5px solid rgba(245,158,11,0.4)`,
-    borderRadius: 24,
-    padding: "40px 60px",
-    boxShadow: `0 0 60px rgba(245,158,11,0.2)`,
-  },
-  doneText: {
-    fontFamily: "'Playfair Display', serif",
-    fontSize: 28,
-    fontWeight: 900,
-    color: BRAND.white,
-  },
-  doneSubText: {
-    fontSize: 14,
-    color: BRAND.amber,
-    letterSpacing: "0.12em",
-    textTransform: "uppercase",
-  },
-};

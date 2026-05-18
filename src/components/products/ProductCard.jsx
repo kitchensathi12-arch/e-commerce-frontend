@@ -30,7 +30,7 @@ const ProductCard = ({ item }) => {
                 </div>
 
                 <div className="flex items-center gap-2 mb-4">
-                    <span className="font-playfair text-[22px] font-bold text-brown">
+                    <span className="font-price text-[22px] font-bold text-brown">
                         ₹{item?.product_selling_price?.toLocaleString()}
                     </span>
 

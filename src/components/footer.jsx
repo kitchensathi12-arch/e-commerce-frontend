@@ -70,7 +70,7 @@ export function Footer() {
     <footer className="bg-brown-dark font-dm-sans">
 
       {/* ── Newsletter Banner ── */}
-      <div className="bg-gradient-to-br from-brown to-amber py-12 px-6 text-center">
+      {/* <div className="bg-gradient-to-br from-brown to-amber py-12 px-6 text-center">
         <div className="max-w-[560px] mx-auto">
           <h2 className="font-playfair text-[28px] font-bold text-white mb-2">
             Stay in the Loop!
@@ -87,7 +87,7 @@ export function Footer() {
             <Button>Subscribe</Button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* ── Main Footer Grid ── */}
       <div className="max-w-screen-xl mx-auto px-6 pt-14 pb-8">
