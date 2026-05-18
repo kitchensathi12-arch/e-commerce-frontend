@@ -1,81 +1,89 @@
+import { UtensilsCrossed, Tag, Truck, ArrowRight } from 'lucide-react';
+
 const PromotionSection = () => {
   const banners = [
     {
       title: 'Up to 40% Off on Cookware',
       sub: 'Limited time deal • Shop now',
-      icon: '🍳',
-      // Light theme: warm cream bg with brown text
-      bg: 'bg-amber-pale',
-      border: 'border-amber/40',
-      titleColor: 'text-brown-dark',
-      subColor: 'text-brown/70',
-      btnClass: 'bg-brown text-amber-pale hover:bg-brown-dark border-transparent',
-      accentBar: 'bg-amber',
+      Icon: UtensilsCrossed,
+      BtnIcon: Tag,
+      bg: 'bg-[#F5ECD8]',
+      border: 'border-[#D9C4A0]',
+      titleColor: 'text-[#3D2608]',
+      subColor: 'text-[#8C6A3A]',
+      btnClass: 'bg-[#4A2C0A] text-[#F5ECD8] hover:opacity-90',
+      accentBar: 'bg-[#B8860B]',
+      iconBg: 'bg-[rgba(160,110,40,0.10)]',
+      iconColor: '#8C6030',
     },
     {
       title: 'Free Delivery on First Order',
       sub: 'Use code: SAATHI1 at checkout',
-      icon: '🚚',
-      // Light theme: soft amber tint bg with amber-dark text
-      bg: 'bg-amber/10',
-      border: 'border-amber/50',
-      titleColor: 'text-brown-dark',
-      subColor: 'text-text-muted',
-      btnClass: 'bg-amber text-brown-dark hover:bg-amber-light border-transparent',
-      accentBar: 'bg-brown',
+      Icon: Truck,
+      BtnIcon: ArrowRight,
+      bg: 'bg-[#EDE0CC]',
+      border: 'border-[#C9B48A]',
+      titleColor: 'text-[#3D2608]',
+      subColor: 'text-[#8C6A3A]',
+      btnClass: 'bg-[#A8720F] text-white hover:opacity-90',
+      accentBar: 'bg-[#8C6030]',
+      iconBg: 'bg-[rgba(140,90,30,0.12)]',
+      iconColor: '#8C6030',
     },
   ];
 
   return (
-    <section className="py-16 px-6 bg-off-white">
+    <section className="py-16 px-6 bg-[#FAF5EE]">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-5">
-        {banners.map((b, i) => (
-          <div
-            key={i}
-            className={`
-              group relative overflow-hidden
-              ${b.bg} ${b.border}
-              border rounded-[20px]
-              p-9 flex justify-between items-center
-              cursor-pointer
-              card-hover
-              transition-all duration-300
-            `}
-          >
-            {/* Top accent bar */}
-            <div className={`absolute top-0 left-0 right-0 h-[3px] ${b.accentBar} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} />
+        {banners.map((b, i) => {
+          const IconComp = b.Icon;
+          const BtnIconComp = b.BtnIcon;
+          return (
+            <div
+              key={i}
+              className={`
+                group relative overflow-hidden
+                ${b.bg} border ${b.border}
+                rounded-[20px] p-9
+                flex items-center justify-between
+                cursor-pointer transition-all duration-300
+                hover:-translate-y-0.5
+              `}
+            >
+              {/* Accent bar */}
+              <div className={`absolute top-0 left-0 right-0 h-[3px] ${b.accentBar} opacity-50 group-hover:opacity-85 transition-opacity duration-300`} />
 
-            {/* Subtle inner glow on hover */}
-            <div className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-[inset_0_0_60px_rgba(212,134,11,0.06)]" />
+              {/* Content */}
+              <div className="relative z-10 flex-1 pr-6">
+                <h3 className={`font-serif text-[19px] font-bold mb-1.5 ${b.titleColor}`}>
+                  {b.title}
+                </h3>
+                <p className={`text-[12.5px] ${b.subColor} mb-5`}>
+                  {b.sub}
+                </p>
+                <button
+                  className={`
+                    inline-flex items-center gap-1.5
+                    px-5 py-2 rounded-full text-sm font-semibold
+                    ${b.btnClass}
+                    transition-all duration-200 hover:-translate-y-0.5
+                  `}
+                >
+                  <BtnIconComp size={13} strokeWidth={2.5} />
+                  Shop Now
+                </button>
+              </div>
 
-            <div className="relative z-10">
-              <h3 className={`font-playfair text-[22px] font-bold mb-1.5 ${b.titleColor}`}>
-                {b.title}
-              </h3>
-              <p className={`text-[13px] font-dm-sans ${b.subColor}`}>
-                {b.sub}
-              </p>
-              <button
-                className={`
-                  mt-5 px-5 py-2 rounded-full
-                  text-sm font-semibold font-dm-sans
-                  border
-                  ${b.btnClass}
-                  transition-all duration-200
-                  hover:-translate-y-0.5
-                  hover:shadow-md
-                `}
+              {/* Icon */}
+              <div
+                className="w-[60px] h-[60px] rounded-[14px] flex items-center justify-center flex-shrink-0"
+                style={{ background: b.iconBg }}
               >
-                Shop Now
-              </button>
+                <IconComp size={28} color={b.iconColor} strokeWidth={1.5} />
+              </div>
             </div>
-
-            {/* Emoji with subtle scale on hover */}
-            <div className="text-[64px] relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 select-none">
-              {b.icon}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
