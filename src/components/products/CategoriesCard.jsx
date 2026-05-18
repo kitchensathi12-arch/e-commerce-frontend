@@ -1,11 +1,8 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-
-// ----------- local import start here --------------
 import { getActiveCategories } from '@/service/category.service';
 import CategoryCardsLoaders from '@/Loaders/CategoryCardsLoaders';
 
 const CategoriesCard = () => {
-  // ---------------- tanstack query start here ---------------
   const { data: categories, isLoading: isCategoryLoading } = useQuery({
     queryKey: ['public-categories'],
     queryFn: () => getActiveCategories(),
@@ -17,26 +14,71 @@ const CategoriesCard = () => {
   }
 
   return (
-    <section className="py-10 px-6 bg-off-white">
+    <section className="py-16 px-6 bg-off-white relative overflow-hidden">
+      {/* Subtle background texture circles */}
+      <div className="pointer-events-none absolute -top-16 -left-16 w-64 h-64 rounded-full bg-[#C17A2A]/5" />
+      <div className="pointer-events-none absolute -bottom-20 -right-10 w-80 h-80 rounded-full bg-[#C17A2A]/5" />
+
       <div className="max-w-7xl mx-auto">
-        <div className="text-start">
-          <div className="tag mb-3">Browse By Category</div>
-          <h2 className="font-playfair text-[36px] font-bold text-brown">Shop What You Need</h2>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <p
+            className="text-xs tracking-[0.25em] uppercase font-semibold mb-3"
+            style={{ color: '#C17A2A' }}
+          >
+            Browse By Category
+          </p>
+          <h2 className="font-playfair text-4xl md:text-5xl font-bold text-brown leading-tight">
+            What are you shopping for today?
+          </h2>
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(110px,1fr))] gap-6">
-          {categories.map((cat) => (
+        {/* Category circles grid */}
+        <div className="flex flex-wrap justify-center gap-8 md:gap-10">
+          {categories.map((cat, index) => (
             <div
               key={cat._id}
-              // onClick={() => setPage("products")}
-              className="card-lift bg-white rounded-[20px] p-7 text-center cursor-pointer border border-[#F0E8D4]"
+              className="group flex flex-col items-center gap-3 cursor-pointer"
+              style={{ animationDelay: `${index * 80}ms` }}
             >
-              <div className="text-[44px] mb-3 flex-center ">
-                <img src={cat?.image} alt={cat.slug} className="h-28" />
+              {/* Circle image container */}
+              <div
+                className="relative w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center
+                  border-2 border-[#E8D5B0] bg-white shadow-md
+                  transition-all duration-300 ease-out
+                  group-hover:shadow-xl group-hover:scale-105 group-hover:border-[#C17A2A]"
+              >
+                {/* Inner warm ring on hover */}
+                <div
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 50% 50%, rgba(193,122,42,0.08) 0%, transparent 70%)',
+                  }}
+                />
+                <img
+                  src={cat?.image}
+                  alt={cat.slug}
+                  className="h-16 w-16 md:h-20 md:w-20 object-contain relative z-10
+                    transition-transform duration-300 group-hover:scale-110 drop-shadow-md"
+                />
               </div>
-              <div className="text-[14px] font-semibold text-brown mb-1">{cat?.name}</div>
+
+              {/* Label */}
+              <span
+                className="text-sm md:text-[15px] font-semibold text-brown text-center
+                  transition-colors duration-200 group-hover:text-[#C17A2A]"
+              >
+                {cat?.name}
+              </span>
             </div>
           ))}
+        </div>
+
+        {/* Footer count */}
+        <div className="flex items-center justify-center gap-2 mt-10 text-xs text-[#9E8A6F] tracking-widest uppercase">
+          <span>{categories.length} categories available</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C17A2A] inline-block" />
         </div>
       </div>
     </section>

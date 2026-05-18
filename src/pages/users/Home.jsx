@@ -1,3 +1,4 @@
+import BrandSlider from '@/components/products/BrandSection';
 import CategoriesCard from '@/components/products/CategoriesCard';
 import ProductList from '@/components/products/ProductList';
 import PromotionSection from '@/components/products/PromotionSection';
@@ -110,6 +111,10 @@ const HomePage = () => {
 
       {/* --------------------------PROMO --------------------------*/}
       <PromotionSection />
+
+
+      {/*------------------------- BRAND SECTION -------------------*/}
+      <BrandSlider />
 
       {/* ------------------------------WHY US-------------------------------- */}
       <section className="py-20 px-6 bg-linear-to-br from-brown-dark to-brown text-white">

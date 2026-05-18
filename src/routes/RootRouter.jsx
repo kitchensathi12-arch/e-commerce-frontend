@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import KitchenSaathiLoader from '@/components/ui/LoadingPage';
 
 // lazy load the layout component
 // ------------ all layout load at the top ----------------
@@ -21,7 +22,7 @@ const RootRouter = () => {
     {
       path: '/',
       element: (
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<KitchenSaathiLoader/>}>
           <UserLayout>
             <Home />
           </UserLayout>

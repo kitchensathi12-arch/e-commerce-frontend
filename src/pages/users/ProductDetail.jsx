@@ -8,7 +8,7 @@ import { ProductInfo } from '@/components/ProductDetails/ProductInfo';
 import ProductList from '@/components/products/ProductList';
 import { ProductTabs } from '@/components/ProductDetails/ProductTabs';
 
-// ── Sample Product Data ───────────────────────────────────────────────────────
+// ── Sample Product Data ─────
 const sampleProduct = {
     id: 1,
     name: 'ProBlend 750W Mixer Grinder',
@@ -47,7 +47,7 @@ const ArrowIcon = () => (
 
 
 
-// ── Breadcrumb ────────────────────────────────────────────────────────────────
+// ── Breadcrumb ────────
 function Breadcrumb({ product }) {
     return (
         <nav className="flex items-center gap-1.5 text-xs text-[#6B5B45] py-4">
@@ -68,7 +68,7 @@ function Breadcrumb({ product }) {
 
 
 
-// ── Main Product Detail Page ──────────────────────────────────────────────────
+// ── Main Product Detail Page ──────
 export default function ProductDetailPage() {
 
     // -------------- all hooks start here ------------
