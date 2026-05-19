@@ -23,6 +23,9 @@ const Categories = lazy(() => import('@/pages/admin/Categories'));
 const Brands     = lazy(() => import('@/pages/admin/Brands'));
 
 import AdminRoutes from '@/routes/AdminRoutes';
+import Orders from '@/pages/admin/Orders';
+import Banners from '@/pages/admin/Banners';
+import Bin from '@/pages/admin/Bin';
 
 const RootRouter = () => {
   const routes = [
@@ -135,6 +138,31 @@ const RootRouter = () => {
             </Suspense>
           ),
         },
+        {
+          path: 'orders',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Orders />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'banners',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Banners />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'bin',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Bin />
+            </Suspense>
+          ),
+        },
+        
       ],
     },
   ];
