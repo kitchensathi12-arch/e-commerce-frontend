@@ -6,6 +6,7 @@ import KitchenSaathiLoader from '@/components/ui/LoadingPage';
 // ------------ all layout load at the top ----------------
 const UserLayout = lazy(() => import('@/routes/layout/UserLayout'));
 const AuthLayout = lazy(() => import('@/routes/layout/AuthLayout'));
+const AdminLayout = lazy(() => import('@/routes/layout/AdminLayout'));
 
 // ---------------- all pages load here -----------------
 const Home = lazy(() => import('@/pages/users/Home'));
@@ -14,6 +15,14 @@ const Cart = lazy(() => import('@/pages/users/Cart'));
 const Wishlist = lazy(() => import('@/pages/users/Wishlist'));
 const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
+
+// ---------------- all admin pages load here -----------------
+const Dashboard  = lazy(() => import('@/pages/admin/Dashboard'));
+const Products   = lazy(() => import('@/pages/admin/Products'));
+const Categories = lazy(() => import('@/pages/admin/Categories'));
+const Brands     = lazy(() => import('@/pages/admin/Brands'));
+
+import AdminRoutes from '@/routes/AdminRoutes';
 
 const RootRouter = () => {
   const routes = [
@@ -81,7 +90,56 @@ const RootRouter = () => {
         </AuthLayout>
       </Suspense>)
     },
+
+    // ----------------------- all admin routes start here ------------------
+
+    {
+      path: '/admin',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader/>}>
+          <AdminRoutes>
+            <AdminLayout />
+          </AdminRoutes>
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Dashboard />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'products',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Products />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'categories',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Categories />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'brands',
+          element: (
+            <Suspense fallback={<KitchenSaathiLoader/>}>
+              <Brands />
+            </Suspense>
+          ),
+        },
+      ],
+    },
   ];
+
+  
 
   return useRoutes(routes);
 };
