@@ -5,10 +5,7 @@ import { Header } from '@/components/Header';
 // import { useQuery } from '@tanstack/react-query';
 // import { useEffect } from 'react';
 
-
 const UserLayout = ({ children }) => {
-
-
   // const {user,removeUser} = useAuthStore(state => state)
 
   // const { data: userDetail, isLoading: isUserLoading,isError} = useQuery({
@@ -18,7 +15,6 @@ const UserLayout = ({ children }) => {
   //   // enabled: !user
   // });
 
-
   // useEffect(()=>{
 
   //   if(isError){
@@ -26,7 +22,6 @@ const UserLayout = ({ children }) => {
   //   }
 
   // },[isError])
-
 
   // if(isUserLoading){
   //   return "loading...."

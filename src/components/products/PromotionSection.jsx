@@ -51,16 +51,16 @@ const PromotionSection = () => {
               `}
             >
               {/* Accent bar */}
-              <div className={`absolute top-0 left-0 right-0 h-[3px] ${b.accentBar} opacity-50 group-hover:opacity-85 transition-opacity duration-300`} />
+              <div
+                className={`absolute top-0 left-0 right-0 h-[3px] ${b.accentBar} opacity-50 group-hover:opacity-85 transition-opacity duration-300`}
+              />
 
               {/* Content */}
               <div className="relative z-10 flex-1 pr-6">
                 <h3 className={`font-serif text-[19px] font-bold mb-1.5 ${b.titleColor}`}>
                   {b.title}
                 </h3>
-                <p className={`text-[12.5px] ${b.subColor} mb-5`}>
-                  {b.sub}
-                </p>
+                <p className={`text-[12.5px] ${b.subColor} mb-5`}>{b.sub}</p>
                 <button
                   className={`
                     inline-flex items-center gap-1.5

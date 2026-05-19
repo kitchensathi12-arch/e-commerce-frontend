@@ -1,16 +1,32 @@
 // src/layouts/admin/AdminLayout.jsx
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import AdminSidebar from "../../components/admin/AdminSidebar";
-import AdminHeader  from "../../components/admin/AdminHeader";
+import { useEffect, useState } from 'react';
+import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
+import { useAuthStore } from '@/store/auth';
+import { useNavigate } from 'react-router-dom';
 
-export default function AdminLayout() {
-  const [collapsed, setCollapsed]   = useState(false);
+export default function AdminLayout({ children }) {
+  const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  return (
-    <div className="flex h-screen overflow-hidden bg-[#fdf8f0]" style={{ fontFamily: "'Lora', Georgia, serif" }}>
+  const user = useAuthStore((state) => state.user);
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+
+    if (user && user?.role !== 'admin') {
+      navigate('/');
+    }
+  }, [user]);
+
+  return (
+    <div
+      className="flex h-screen overflow-hidden bg-[#fdf8f0]"
+      style={{ fontFamily: "'Lora', Georgia, serif" }}
+    >
       {/* ── Mobile backdrop ── */}
       {mobileOpen && (
         <div
@@ -26,7 +42,7 @@ export default function AdminLayout() {
         className={`
           fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto
           transition-transform duration-[220ms] ease-[cubic-bezier(.4,0,.2,1)]
-          ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+          ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0
         `}
       >
@@ -40,11 +56,8 @@ export default function AdminLayout() {
       {/* ── Main column ── */}
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         <AdminHeader onMenuClick={() => setMobileOpen((v) => !v)} />
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7">
-          <Outlet />
-        </div>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7">{children}</div>
       </div>
-
     </div>
   );
 }

@@ -17,12 +17,11 @@ const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 
 // ---------------- all admin pages load here -----------------
-const Dashboard  = lazy(() => import('@/pages/admin/Dashboard'));
-const Products   = lazy(() => import('@/pages/admin/Products'));
+const Dashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const Products = lazy(() => import('@/pages/admin/Products'));
 const Categories = lazy(() => import('@/pages/admin/Categories'));
-const Brands     = lazy(() => import('@/pages/admin/Brands'));
+const Brands = lazy(() => import('@/pages/admin/Brands'));
 
-import AdminRoutes from '@/routes/AdminRoutes';
 import Orders from '@/pages/admin/Orders';
 import Banners from '@/pages/admin/Banners';
 import Bin from '@/pages/admin/Bin';
@@ -34,7 +33,7 @@ const RootRouter = () => {
     {
       path: '/',
       element: (
-        <Suspense fallback={<KitchenSaathiLoader/>}>
+        <Suspense fallback={<KitchenSaathiLoader />}>
           <UserLayout>
             <Home />
           </UserLayout>
@@ -46,8 +45,7 @@ const RootRouter = () => {
       element: (
         <Suspense fallback="Loading...">
           <UserLayout>
-
-          <ProductDetail />
+            <ProductDetail />
           </UserLayout>
         </Suspense>
       ),
@@ -73,25 +71,27 @@ const RootRouter = () => {
       ),
     },
 
-
     // ----------------------- all authentication routes start here ------------------
 
-    
     {
-      path: "/login",
-      element: (<Suspense fallback="loading">
-        <AuthLayout>
-          <LoginPage />
-        </AuthLayout>
-      </Suspense>)
+      path: '/login',
+      element: (
+        <Suspense fallback="loading">
+          <AuthLayout>
+            <LoginPage />
+          </AuthLayout>
+        </Suspense>
+      ),
     },
     {
-      path: "/register",
-      element: (<Suspense fallback="loading">
-        <AuthLayout>
-          <RegisterPage />
-        </AuthLayout>
-      </Suspense>)
+      path: '/register',
+      element: (
+        <Suspense fallback="loading">
+          <AuthLayout>
+            <RegisterPage />
+          </AuthLayout>
+        </Suspense>
+      ),
     },
 
     // ----------------------- all admin routes start here ------------------
@@ -99,75 +99,74 @@ const RootRouter = () => {
     {
       path: '/admin',
       element: (
-        <Suspense fallback={<KitchenSaathiLoader/>}>
-          <AdminRoutes>
-            <AdminLayout />
-          </AdminRoutes>
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Dashboard />
+          </AdminLayout>
         </Suspense>
       ),
-      children: [
-        {
-          index: true,
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Dashboard />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'products',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Products />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'categories',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Categories />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'brands',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Brands />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'orders',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Orders />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'banners',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Banners />
-            </Suspense>
-          ),
-        },
-        {
-          path: 'bin',
-          element: (
-            <Suspense fallback={<KitchenSaathiLoader/>}>
-              <Bin />
-            </Suspense>
-          ),
-        },
-        
-      ],
+    },
+    {
+      path: '/admin/products',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Products />
+          </AdminLayout>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/admin/categories',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Categories />
+          </AdminLayout>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/admin/brands',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Brands />
+          </AdminLayout>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/admin/orders',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Orders />
+          </AdminLayout>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/admin/banners',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Banners />
+          </AdminLayout>
+        </Suspense>
+      ),
+    },
+    {
+      path: '/admin/bin',
+      element: (
+        <Suspense fallback={<KitchenSaathiLoader />}>
+          <AdminLayout>
+            <Bin />
+          </AdminLayout>
+        </Suspense>
+      ),
     },
   ];
-
-  
 
   return useRoutes(routes);
 };

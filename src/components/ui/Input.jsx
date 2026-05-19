@@ -33,11 +33,7 @@ const Input = ({
 
   return (
     <div className="w-full">
-      {label && (
-        <label className="block mb-2 text-sm font-semibold text-brown">
-          {label}
-        </label>
-      )}
+      {label && <label className="block mb-2 text-sm font-semibold text-brown">{label}</label>}
 
       <div
         className={[
@@ -51,9 +47,7 @@ const Input = ({
           .filter(Boolean)
           .join(' ')}
       >
-        {leftIcon && (
-          <span className="text-gray-400 flex-shrink-0">{leftIcon}</span>
-        )}
+        {leftIcon && <span className="text-gray-400 flex-shrink-0">{leftIcon}</span>}
 
         <input
           type={type}
@@ -71,14 +65,10 @@ const Input = ({
           {...props}
         />
 
-        {rightIcon && (
-          <span className="text-gray-400 flex-shrink-0">{rightIcon}</span>
-        )}
+        {rightIcon && <span className="text-gray-400 flex-shrink-0">{rightIcon}</span>}
       </div>
 
-      {error && (
-        <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-500 font-medium">{error}</p>}
     </div>
   );
 };

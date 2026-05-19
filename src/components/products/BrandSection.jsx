@@ -4,16 +4,76 @@ import { Download } from 'lucide-react';
 
 // ── Brand data ──
 const DUMMY_BRANDS = [
-  { _id: '1',  brand_name: 'Philips',         slug: 'philips',         certificate: null, brand_logo: '/brands/brand.jpg' },
-  { _id: '2',  brand_name: 'Prestige',        slug: 'prestige',        certificate: null, brand_logo: '/brands/brand1.jpg' },
-  { _id: '3',  brand_name: 'Bajaj',           slug: 'bajaj',           certificate: null, brand_logo: '/brands/brand2.jpg' },
-  { _id: '4',  brand_name: 'Bosch',           slug: 'bosch',           certificate: null, brand_logo: '/brands/brand3.jpg' },
-  { _id: '5',  brand_name: 'Butterfly',       slug: 'butterfly',       certificate: null, brand_logo: '/brands/brand5.jpg' },
-  { _id: '6',  brand_name: 'Havells',         slug: 'havells',         certificate: null, brand_logo: '/brands/brand4.jpg' },
-  { _id: '7',  brand_name: 'Tefal',           slug: 'tefal',           certificate: null, brand_logo: '/brands/brand6.jpg' },
-  { _id: '8',  brand_name: 'Pigeon',          slug: 'pigeon',          certificate: null, brand_logo: '/brands/brand7.jpg' },
-  { _id: '9',  brand_name: 'Morphy Richards', slug: 'morphy-richards', certificate: null, brand_logo: '/brands/brand8.jpg' },
-  { _id: '10', brand_name: 'Usha',            slug: 'usha',            certificate: null, brand_logo: '/brands/brand9.jpg' },
+  {
+    _id: '1',
+    brand_name: 'Philips',
+    slug: 'philips',
+    certificate: null,
+    brand_logo: '/brands/brand.jpg',
+  },
+  {
+    _id: '2',
+    brand_name: 'Prestige',
+    slug: 'prestige',
+    certificate: null,
+    brand_logo: '/brands/brand1.jpg',
+  },
+  {
+    _id: '3',
+    brand_name: 'Bajaj',
+    slug: 'bajaj',
+    certificate: null,
+    brand_logo: '/brands/brand2.jpg',
+  },
+  {
+    _id: '4',
+    brand_name: 'Bosch',
+    slug: 'bosch',
+    certificate: null,
+    brand_logo: '/brands/brand3.jpg',
+  },
+  {
+    _id: '5',
+    brand_name: 'Butterfly',
+    slug: 'butterfly',
+    certificate: null,
+    brand_logo: '/brands/brand5.jpg',
+  },
+  {
+    _id: '6',
+    brand_name: 'Havells',
+    slug: 'havells',
+    certificate: null,
+    brand_logo: '/brands/brand4.jpg',
+  },
+  {
+    _id: '7',
+    brand_name: 'Tefal',
+    slug: 'tefal',
+    certificate: null,
+    brand_logo: '/brands/brand6.jpg',
+  },
+  {
+    _id: '8',
+    brand_name: 'Pigeon',
+    slug: 'pigeon',
+    certificate: null,
+    brand_logo: '/brands/brand7.jpg',
+  },
+  {
+    _id: '9',
+    brand_name: 'Morphy Richards',
+    slug: 'morphy-richards',
+    certificate: null,
+    brand_logo: '/brands/brand8.jpg',
+  },
+  {
+    _id: '10',
+    brand_name: 'Usha',
+    slug: 'usha',
+    certificate: null,
+    brand_logo: '/brands/brand9.jpg',
+  },
 ];
 
 // ── Injected styles ──
@@ -135,13 +195,15 @@ const BrandCard = ({ brand, navigate }) => (
     </div>
 
     {/* Brand name */}
-    <h3 className="
+    <h3
+      className="
       font-dm-sans font-medium
       text-text-muted group-hover:text-text
       text-xs sm:text-sm md:text-[15px]
       tracking-tight text-center leading-snug
       transition-colors duration-300
-    ">
+    "
+    >
       {brand.brand_name}
     </h3>
 
@@ -181,7 +243,6 @@ const BrandSlider = () => {
       */}
       <section className="w-full bg-off-white py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
           {/* ── Heading ── */}
           <div className="flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
             <span className="tag mb-3 sm:mb-4 text-xs sm:text-sm">✦ Our Brand Partners</span>
@@ -189,7 +250,8 @@ const BrandSlider = () => {
               Shop by <span className="text-amber">Brand</span>
             </h2>
             <p className="text-text-muted text-sm sm:text-[15px] max-w-xs sm:max-w-md leading-relaxed font-dm-sans px-2">
-              Discover premium kitchen brands — authenticated, trusted, and curated for the modern Indian kitchen.
+              Discover premium kitchen brands — authenticated, trusted, and curated for the modern
+              Indian kitchen.
             </p>
             <div className="w-14 h-px bg-amber/30 mt-4 sm:mt-6" />
           </div>
@@ -197,7 +259,9 @@ const BrandSlider = () => {
           {/* ── Slider ── */}
           {isLoading ? (
             <div className="flex gap-3 sm:gap-4 md:gap-5 overflow-hidden pb-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => <SkeletonCard key={i} />)}
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <SkeletonCard key={i} />
+              ))}
             </div>
           ) : (
             <div className="brand-slider-wrap relative w-full overflow-hidden">
@@ -210,11 +274,7 @@ const BrandSlider = () => {
                 style={{ width: 'max-content' }}
               >
                 {[...(brands ?? []), ...(brands ?? [])].map((brand, index) => (
-                  <BrandCard
-                    key={`${brand._id}-${index}`}
-                    brand={brand}
-                    navigate={navigate}
-                  />
+                  <BrandCard key={`${brand._id}-${index}`} brand={brand} navigate={navigate} />
                 ))}
               </div>
             </div>
@@ -222,17 +282,19 @@ const BrandSlider = () => {
 
           {/* ── Stats Strip ── */}
           {!isLoading && brands && brands.length > 0 && (
-            <div className="
+            <div
+              className="
               flex flex-row items-center justify-center
               gap-6 sm:gap-12 md:gap-16 lg:gap-24
               border-t border-border
               mt-10 sm:mt-12 md:mt-14
               pt-8 sm:pt-10
-            ">
+            "
+            >
               {[
                 { value: `${brands.length}+`, label: 'Premium Brands' },
-                { value: '100%',              label: 'Authenticated'  },
-                { value: 'Free',              label: 'Returns'        },
+                { value: '100%', label: 'Authenticated' },
+                { value: 'Free', label: 'Returns' },
               ].map(({ value, label }) => (
                 <div key={label} className="flex flex-col items-center gap-1 sm:gap-1.5">
                   <span className="font-playfair text-xl sm:text-2xl md:text-3xl font-bold text-amber tracking-tight">
@@ -245,7 +307,6 @@ const BrandSlider = () => {
               ))}
             </div>
           )}
-
         </div>
       </section>
     </>

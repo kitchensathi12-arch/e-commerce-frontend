@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+import { useState } from 'react';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
 
 const banners = [
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=1600&q=80",
+      'https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=1600&q=80',
   },
   {
     id: 2,
     image:
-      "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=1600&q=80",
+      'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=1600&q=80',
   },
   {
     id: 3,
     image:
-      "https://images.unsplash.com/photo-1586208958839-06c17cacdf08?auto=format&fit=crop&w=1600&q=80",
+      'https://images.unsplash.com/photo-1586208958839-06c17cacdf08?auto=format&fit=crop&w=1600&q=80',
   },
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1600&q=80",
+      'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1600&q=80',
   },
 ];
 
@@ -86,9 +86,7 @@ export default function EcommerceBannerSlider() {
             key={idx}
             onClick={() => instanceRef.current?.moveToIdx(idx)}
             className={`h-2 rounded-full transition-all duration-300 ${
-              current === idx
-                ? "w-8 bg-white"
-                : "w-2 bg-white/50"
+              current === idx ? 'w-8 bg-white' : 'w-2 bg-white/50'
             }`}
           />
         ))}

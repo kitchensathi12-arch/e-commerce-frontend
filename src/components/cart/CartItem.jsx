@@ -1,5 +1,5 @@
-import { Clock9, Heart, Plus, X } from "lucide-react";
-import { useState } from "react";
+import { Clock9, Heart, Plus, X } from 'lucide-react';
+import { useState } from 'react';
 
 function QtyStepper({ qty, onInc, onDec }) {
   return (
@@ -33,10 +33,9 @@ export function CartItem({ item, onQtyChange, onRemove, onMoveToWishlist }) {
   return (
     <div
       className={`bg-white rounded-2xl border border-[#F0E8D4] p-4 sm:p-5 transition-all duration-300 card-hover animate-fade-slide-up
-        ${removing ? "opacity-0 scale-95 -translate-x-4" : "opacity-100"}`}
+        ${removing ? 'opacity-0 scale-95 -translate-x-4' : 'opacity-100'}`}
     >
       <div className="flex gap-4 items-start">
-
         {/* Product Image */}
         <div className="relative shrink-0">
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-[#F5ECD7] to-[#E8D5B0] flex items-center justify-center text-4xl sm:text-5xl">
@@ -44,7 +43,9 @@ export function CartItem({ item, onQtyChange, onRemove, onMoveToWishlist }) {
           </div>
           {!item.inStock && (
             <div className="absolute inset-0 bg-white/75 rounded-2xl flex items-center justify-center">
-              <span className="text-[9px] font-bold text-red-500 text-center leading-tight px-1">Out of Stock</span>
+              <span className="text-[9px] font-bold text-red-500 text-center leading-tight px-1">
+                Out of Stock
+              </span>
             </div>
           )}
         </div>
@@ -53,9 +54,15 @@ export function CartItem({ item, onQtyChange, onRemove, onMoveToWishlist }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
-              <p className="text-[10px] text-[#6B5B45] font-semibold uppercase tracking-wider mb-0.5">{item.category}</p>
-              <h3 className="font-semibold text-[#5C3A1E] text-sm sm:text-[15px] leading-snug mb-1 truncate pr-2">{item.name}</h3>
-              <p className="text-xs text-[#8A9299]">Color: <span className="text-[#5C3A1E] font-medium">{item.color}</span></p>
+              <p className="text-[10px] text-[#6B5B45] font-semibold uppercase tracking-wider mb-0.5">
+                {item.category}
+              </p>
+              <h3 className="font-semibold text-[#5C3A1E] text-sm sm:text-[15px] leading-snug mb-1 truncate pr-2">
+                {item.name}
+              </h3>
+              <p className="text-xs text-[#8A9299]">
+                Color: <span className="text-[#5C3A1E] font-medium">{item.color}</span>
+              </p>
             </div>
             <button
               onClick={handleRemove}
@@ -67,9 +74,15 @@ export function CartItem({ item, onQtyChange, onRemove, onMoveToWishlist }) {
 
           {/* Price row */}
           <div className="flex items-center gap-2 mt-2 mb-3">
-            <span className="font-playfair font-bold text-lg text-[#5C3A1E]">₹{item.price.toLocaleString()}</span>
-            <span className="text-xs text-[#8A9299] line-through">₹{item.mrp.toLocaleString()}</span>
-            <span className="text-[10px] font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-full">{disc}% off</span>
+            <span className="font-playfair font-bold text-lg text-[#5C3A1E]">
+              ₹{item.price.toLocaleString()}
+            </span>
+            <span className="text-xs text-[#8A9299] line-through">
+              ₹{item.mrp.toLocaleString()}
+            </span>
+            <span className="text-[10px] font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-full">
+              {disc}% off
+            </span>
           </div>
 
           {/* Controls */}
@@ -81,7 +94,10 @@ export function CartItem({ item, onQtyChange, onRemove, onMoveToWishlist }) {
                 onInc={() => onQtyChange(item.id, item.qty + 1)}
               />
               <span className="text-xs text-[#6B5B45]">
-                Subtotal: <span className="font-bold text-[#5C3A1E]">₹{(item.price * item.qty).toLocaleString()}</span>
+                Subtotal:{' '}
+                <span className="font-bold text-[#5C3A1E]">
+                  ₹{(item.price * item.qty).toLocaleString()}
+                </span>
               </span>
             </div>
             <button

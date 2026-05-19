@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Buttons';
@@ -10,47 +10,43 @@ import { loginUser } from '@/service/auth.service';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '@/store/auth';
 
-
-
 const LoginPage = () => {
-
-  
-  
   // ------------ all hooks start here ---------------
+  const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
 
-
   // ---------- here i use zustand store --------
-const addUser = useAuthStore(state => state.addUser)
+  const addUser = useAuthStore((state) => state.addUser);
 
-  
   // -------------- tanstack query start here ----------------
 
-  const {mutate:handleLoginUser,isPending:isLoginUserPending} = useMutation({
-    mutationFn:(data) => loginUser(data),
-    onSuccess:(data)=>{
+  const { mutate: handleLoginUser, isPending: isLoginUserPending } = useMutation({
+    mutationFn: (data) => loginUser(data),
+    onSuccess: (data) => {
       console.log(data.user);
-      toast.success(data.message || "User Login Successfully")
-      addUser(data?.user || null)
-      
+      toast.success(data.message || 'User Login Successfully');
+      addUser(data?.user || null);
+      navigate('/');
     },
-    onError:(error)=>{
-      toast.error(error.response?.data?.message || "login Failed")
-    }
-  })
-
+    onError: (error) => {
+      toast.error(error.response?.data?.message || 'login Failed');
+    },
+  });
 
   // ------------ handle login form with formik here ---------------
-  const { values, handleBlur,errors,touched, handleChange, handleSubmit } = useFormik({
-    initialValues: { username: "", password: "" },
-    validationSchema:LoginValidation,
+  const { values, handleBlur, errors, touched, handleChange, handleSubmit } = useFormik({
+    initialValues: { username: '', password: '' },
+    validationSchema: LoginValidation,
     onSubmit: async (value) => {
       await handleLoginUser(value);
-    }
-  })
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit} className="bg-off-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-off-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12"
+    >
       <span className="tag mb-4 hidden lg:inline-block w-fit">👋 Welcome Back</span>
       <h2 className="font-playfair text-[26px] sm:text-[32px] font-bold text-text mb-1">
         Login Account
@@ -98,10 +94,7 @@ const addUser = useAuthStore(state => state.addUser)
 
       <div className="flex items-center justify-between mb-6">
         <label className="flex items-center gap-2 text-[13px] text-text-muted cursor-pointer select-none">
-          <input
-            type="checkbox"
-            className="w-3.75 h-3.75 accent-amber cursor-pointer"
-          />
+          <input type="checkbox" className="w-3.75 h-3.75 accent-amber cursor-pointer" />
           Remember me
         </label>
         <a
@@ -121,7 +114,10 @@ const addUser = useAuthStore(state => state.addUser)
         <span className="flex-1 h-px bg-border" />
       </div>
 
-      <button type='button' className="w-full h-11.5 rounded-2xl border border-border bg-white flex items-center justify-center gap-2 text-[13.5px] font-medium text-text cursor-pointer transition-all duration-300 hover:border-amber hover:shadow-[0_4px_14px_rgba(212,134,11,0.12)] hover:-translate-y-px">
+      <button
+        type="button"
+        className="w-full h-11.5 rounded-2xl border border-border bg-white flex items-center justify-center gap-2 text-[13.5px] font-medium text-text cursor-pointer transition-all duration-300 hover:border-amber hover:shadow-[0_4px_14px_rgba(212,134,11,0.12)] hover:-translate-y-px"
+      >
         {/* <FcGoogle size={20} /> */}
         <img src="/google.png" alt="google" className="w-5 h-5" />
         Continue with Google
@@ -129,7 +125,8 @@ const addUser = useAuthStore(state => state.addUser)
 
       <p className="text-[12px] text-steel-dark text-center mt-5 mb-2">
         Don't have an account?{' '}
-        <Link to="/register"
+        <Link
+          to="/register"
           className="text-amber font-semibold hover:text-brown transition-colors cursor-pointer"
         >
           Create one

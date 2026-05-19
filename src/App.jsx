@@ -5,11 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 const App = () => {
-  
   // ---------------- all hooks start here ----------------
   const queryClient = new QueryClient();
   const { pathname } = useLocation();
-
 
   useEffect(() => {
     // Scrolls to top whenever 'someData' changes

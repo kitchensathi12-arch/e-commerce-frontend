@@ -8,8 +8,7 @@ const HomePage = () => {
   return (
     <div>
       {/* ----------------- banner section -----------------  */}
-      <EcommerceBannerSlider/>
-    
+      <EcommerceBannerSlider />
 
       {/* ----------------- CATEGORIES ---------------- */}
       <CategoriesCard />

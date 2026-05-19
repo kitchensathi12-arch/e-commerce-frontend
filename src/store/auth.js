@@ -9,7 +9,7 @@ export const useAuthStore = create(
       removeUser: () => set({ user: null }),
     }),
     {
-      name: 'auth-storage',       // key in localStorage
+      name: 'auth-storage', // key in localStorage
       partialize: (state) => ({ user: state.user }), // only persist user, not actions
     }
   )

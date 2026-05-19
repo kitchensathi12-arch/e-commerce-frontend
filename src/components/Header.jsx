@@ -11,7 +11,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const user = useAuthStore(state => state.user)
+  const user = useAuthStore((state) => state.user);
 
   const navLinks = [
     { label: 'Home', key: 'home', path: '/' },
@@ -41,14 +41,14 @@ export function Header() {
       {/* Top bar */}
       <div className="bg-brown text-amber-pale text-xs font-medium text-center py-1.5 px-4 leading-relaxed">
         <span className="hidden sm:inline">
-          🚚 Free delivery on orders above ₹999 &nbsp;|&nbsp; 📞 Customer care: 1800-XXX-XXXX &nbsp;|&nbsp; ⭐ 4.7★ Rated on Google
+          🚚 Free delivery on orders above ₹999 &nbsp;|&nbsp; 📞 Customer care: 1800-XXX-XXXX
+          &nbsp;|&nbsp; ⭐ 4.7★ Rated on Google
         </span>
         <span className="sm:hidden">🚚 Free delivery above ₹999</span>
       </div>
 
       <header className="sticky top-0 z-50 bg-white border-b border-border">
         <div className="flex items-center justify-between w-full px-4 sm:px-6 h-16">
-
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <img src="/Logo.jpg" alt="KitchenSaathi Logo" className="h-12 w-12 sm:h-16 sm:w-16" />
@@ -78,7 +78,6 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-2">
-
             {/* Search — hidden on mobile (search is in mobile menu) */}
             <Button
               variant="outline"
@@ -124,7 +123,10 @@ export function Header() {
                 <div className="absolute right-0 top-12 w-48 bg-white border border-border rounded-xl shadow-md z-50 overflow-hidden">
                   {!user ? (
                     <button
-                      onClick={() => { navigate('/login'); setMenuOpen(false); }}
+                      onClick={() => {
+                        navigate('/login');
+                        setMenuOpen(false);
+                      }}
                       className="w-full flex items-center gap-3 px-4 py-3 text-sm text-brown hover:bg-amber-pale border-b border-border"
                     >
                       🔑 Log in
@@ -132,27 +134,38 @@ export function Header() {
                   ) : (
                     <>
                       <button
-                        onClick={() => { navigate('/profile'); setMenuOpen(false); }}
+                        onClick={() => {
+                          navigate('/profile');
+                          setMenuOpen(false);
+                        }}
                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-brown hover:bg-amber-pale border-b border-border"
                       >
                         👤 My profile
                       </button>
                       <button
-                        onClick={() => { navigate('/addresses'); setMenuOpen(false); }}
+                        onClick={() => {
+                          navigate('/addresses');
+                          setMenuOpen(false);
+                        }}
                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-brown hover:bg-amber-pale border-b border-border"
                       >
                         📍 My addresses
                       </button>
                       {user.isAdmin && (
                         <button
-                          onClick={() => { navigate('/admin'); setMenuOpen(false); }}
+                          onClick={() => {
+                            navigate('/admin');
+                            setMenuOpen(false);
+                          }}
                           className="w-full flex items-center gap-3 px-4 py-3 text-sm text-brown hover:bg-amber-pale border-b border-border"
                         >
                           ⚙️ Admin panel
                         </button>
                       )}
                       <button
-                        onClick={() => { /* your logout fn */ setMenuOpen(false); }}
+                        onClick={() => {
+                          /* your logout fn */ setMenuOpen(false);
+                        }}
                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-700 hover:bg-red-50"
                       >
                         🚪 Log out
@@ -193,7 +206,6 @@ export function Header() {
         {/* Mobile Menu — full dropdown */}
         {mobileOpen && (
           <div className="md:hidden border-t border-amber-pale bg-white">
-
             {/* Mobile search */}
             <div className="px-4 py-3 border-b border-amber-pale">
               <div className="flex items-center gap-2">
@@ -221,7 +233,10 @@ export function Header() {
 
             {/* Wishlist */}
             <div
-              onClick={() => { navigate(user ? '/wishlist' : '/login'); setMobileOpen(false); }}
+              onClick={() => {
+                navigate(user ? '/wishlist' : '/login');
+                setMobileOpen(false);
+              }}
               className="px-4 py-3 border-b border-amber-pale cursor-pointer font-medium text-brown flex items-center gap-3"
             >
               <Heart className="w-4 h-4" /> Wishlist
@@ -229,12 +244,17 @@ export function Header() {
 
             {/* Account section */}
             <div className="px-4 pt-3 pb-1">
-              <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold mb-1">Account</p>
+              <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold mb-1">
+                Account
+              </p>
             </div>
 
             {!user ? (
               <div
-                onClick={() => { navigate('/login'); setMobileOpen(false); }}
+                onClick={() => {
+                  navigate('/login');
+                  setMobileOpen(false);
+                }}
                 className="px-4 py-3 border-b border-amber-pale cursor-pointer font-medium text-brown flex items-center gap-3"
               >
                 🔑 Log in
@@ -242,27 +262,38 @@ export function Header() {
             ) : (
               <>
                 <div
-                  onClick={() => { navigate('/profile'); setMobileOpen(false); }}
+                  onClick={() => {
+                    navigate('/profile');
+                    setMobileOpen(false);
+                  }}
                   className="px-4 py-3 border-b border-amber-pale cursor-pointer font-medium text-brown flex items-center gap-3"
                 >
                   👤 My profile
                 </div>
                 <div
-                  onClick={() => { navigate('/addresses'); setMobileOpen(false); }}
+                  onClick={() => {
+                    navigate('/addresses');
+                    setMobileOpen(false);
+                  }}
                   className="px-4 py-3 border-b border-amber-pale cursor-pointer font-medium text-brown flex items-center gap-3"
                 >
                   📍 My addresses
                 </div>
                 {user.isAdmin && (
                   <div
-                    onClick={() => { navigate('/admin'); setMobileOpen(false); }}
+                    onClick={() => {
+                      navigate('/admin');
+                      setMobileOpen(false);
+                    }}
                     className="px-4 py-3 border-b border-amber-pale cursor-pointer font-medium text-brown flex items-center gap-3"
                   >
                     ⚙️ Admin panel
                   </div>
                 )}
                 <div
-                  onClick={() => { /* your logout fn */ setMobileOpen(false); }}
+                  onClick={() => {
+                    /* your logout fn */ setMobileOpen(false);
+                  }}
                   className="px-4 py-3 cursor-pointer font-medium text-red-700 flex items-center gap-3"
                 >
                   🚪 Log out

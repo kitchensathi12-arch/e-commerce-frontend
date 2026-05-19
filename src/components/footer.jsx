@@ -3,19 +3,19 @@ import Button from './ui/Buttons';
 import Input from './ui/Input';
 
 const QUICK_LINKS = [
-  { label: 'Home',             path: '/' },
-  { label: 'Products',         path: '/shop' },
-  { label: 'My Account',       path: '/account' },
+  { label: 'Home', path: '/' },
+  { label: 'Products', path: '/shop' },
+  { label: 'My Account', path: '/account' },
   { label: 'Login / Register', path: '/login' },
-  { label: 'Cart',             path: '/cart' },
-  { label: 'Wishlist',         path: '/wishlist' },
-  { label: 'About Us',         path: '/about' },
-  { label: 'Contact Us',       path: '/contact' },
+  { label: 'Cart', path: '/cart' },
+  { label: 'Wishlist', path: '/wishlist' },
+  { label: 'About Us', path: '/about' },
+  { label: 'Contact Us', path: '/contact' },
 ];
 
 const POLICIES = [
   { label: 'Privacy Policy', path: '/privacy-policy' },
-  { label: 'Terms Of Use',   path: '/terms' },
+  { label: 'Terms Of Use', path: '/terms' },
 ];
 
 const SOCIALS = [
@@ -38,7 +38,16 @@ const SOCIALS = [
   {
     label: 'Instagram',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="2" y="2" width="20" height="20" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
@@ -57,8 +66,8 @@ const SOCIALS = [
 ];
 
 const CONTACT = [
-  { icon: <Phone className="w-4 h-4" />,  text: '+91 7892664953' },
-  { icon: <Mail className="w-4 h-4" />,   text: 'Chouhanbanna410@gmail.com' },
+  { icon: <Phone className="w-4 h-4" />, text: '+91 7892664953' },
+  { icon: <Mail className="w-4 h-4" />, text: 'Chouhanbanna410@gmail.com' },
   {
     icon: <MapPin className="w-4 h-4" />,
     text: 'No.11-8-664/5, Zahir Towers, Near Rao & Rao Circle, Maidan 4th Cross Road, Maidan Road, Mangalore-575001, Karnataka',
@@ -68,7 +77,6 @@ const CONTACT = [
 export function Footer() {
   return (
     <footer className="bg-brown-dark font-dm-sans">
-
       {/* ── Newsletter Banner ── */}
       {/* <div className="bg-gradient-to-br from-brown to-amber py-12 px-6 text-center">
         <div className="max-w-[560px] mx-auto">
@@ -92,7 +100,6 @@ export function Footer() {
       {/* ── Main Footer Grid ── */}
       <div className="max-w-screen-xl mx-auto px-6 pt-14 pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1.5fr] gap-10 mb-12">
-
           {/* Col 1 — Brand */}
           <div>
             <p className="font-playfair text-[22px] font-bold text-white mb-1">
@@ -162,7 +169,6 @@ export function Footer() {
               </div>
             ))}
           </div>
-
         </div>
 
         {/* ── Bottom Bar ── */}
@@ -183,7 +189,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-
     </footer>
   );
 }
